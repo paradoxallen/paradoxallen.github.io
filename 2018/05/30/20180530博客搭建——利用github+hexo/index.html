@@ -80,14 +80,8 @@
 <p><img src="http://i4.bvimg.com/647637/c8ab66c94a5b8923.png" alt=""></p>
 <p>下载后安装，基本按默认安装就行，安装成功后，鼠标右键打开Git Bash</p>
 <p><img src="http://i2.bvimg.com/647637/1a613567dfe1c628.png" alt=""></p>
-<p>然后设置user.name和user.email配置信息</p>
-<blockquote>
-<p><code>git config --global user.name &quot;你的GitHub用户名&quot;</code><br><code>git config --global user.email &quot;你的GitHub注册邮箱&quot;</code></p>
-</blockquote>
-<p>生成ssh密钥文件：</p>
-<blockquote>
-<p><code>ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;</code></p>
-</blockquote>
+<p>然后设置user.name和user.email配置信息<br><code>git config --global user.name &quot;你的GitHub用户名&quot;</code><br><code>git config --global user.email &quot;你的GitHub注册邮箱&quot;</code></p>
+<p>生成ssh密钥文件：<br><code>ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;</code></p>
 <p><img src="http://i2.bvimg.com/647637/d7a3ae0382cff29c.png" alt=""></p>
 <p>然后直接三个回车，无需设置密码</p>
 <p>在找到生成的.ssh的文件夹中的id-rsa.pub密钥，将内容全部复制</p>
@@ -104,99 +98,49 @@
 <p>（有些教程是打开命令行，但好像是win10才有的powershell)</p>
 <p><img src="http://i2.bvimg.com/647637/035c259ae9e63ed0.png" alt=""></p>
 <p>然后依次输入：</p>
-<blockquote>
 <p><code>npm install -g hexo-cli</code>安装Hexo</p>
-</blockquote>
-<blockquote>
 <p><code>hexo init blog</code>初始化Hexo</p>
-</blockquote>
-<blockquote>
 <p>成功提示<code>INFO  Start blogging with Hexo!</code></p>
-</blockquote>
 <p>（因为我已经设置好就不重新初始化啦）</p>
-<p>因为你初始化hexo 之后source目录下自带一篇hello world文章, 所以直接执行下方命令</p>
-<blockquote>
-<p><code>hexo g</code> </p>
-</blockquote>
-<blockquote>
+<p>因为你初始化hexo 之后source目录下自带一篇hello world文章, 所以直接执行下方命令<br><code>hexo g</code> </p>
 <p><code>hexo s</code>启动本地服务器</p>
-</blockquote>
-<p>成功提示</p>
-<blockquote>
-<p><code>INFO  Start processing</code><br><code>INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code></p>
-</blockquote>
+<p>成功提示<br><code>INFO  Start processing</code><br><code>INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code></p>
 <p><img src="http://i4.bvimg.com/647637/e262c409d50dc6b2.png" alt=""></p>
 <p>在浏览器输入<code>http://localhost:4000/</code>就可以看见网页和模板了（因为我修改过主题可能有点出入）</p>
 <p><img src="http://i4.bvimg.com/647637/1a5c5f97074e6f7d.png" alt=""></p>
 <h2 id="网站推送"><a href="#网站推送" class="headerlink" title="网站推送"></a>网站推送</h2><p>打开blog根目录_config.yml文件，将Hexo与GitHub关联起来</p>
 <p><img src="http://i4.bvimg.com/647637/f4980b87d2c9f2ff.png" alt=""></p>
-<blockquote>
 <p><code>deploy:</code></p>
-</blockquote>
-<blockquote>
 <p><code>type: git</code></p>
-</blockquote>
-<blockquote>
 <p><code>repo: GitHub上创建仓库的完整路径，加上 .git</code></p>
-</blockquote>
-<blockquote>
 <p><code>branch: master</code></p>
-</blockquote>
 <p>参考如下：</p>
 <p><img src="http://i4.bvimg.com/647637/c150e9cde0adb7b3.png" alt=""></p>
 <p>然后保存并执行命令：<br><code>npm install hexo-deployer-git --save</code></p>
 <p>再依次输入三条命令:</p>
-<blockquote>
 <p><code>hexo clean</code> </p>
-</blockquote>
-<blockquote>
 <p><code>hexo g</code></p>
-</blockquote>
-<blockquote>
 <p><code>hexo d</code></p>
-</blockquote>
 <p>打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="http://xxxx.github.io，如[https://paradoxallen.github.io/](https://paradoxallen.github.io/)即可访问" target="_blank" rel="noopener">http://xxxx.github.io，如[https://paradoxallen.github.io/](https://paradoxallen.github.io/)即可访问</a></p>
 <p>此外，也可以打开_config.yml文件修改参数信息，如排版格式等等</p>
 <h2 id="文章发布"><a href="#文章发布" class="headerlink" title="文章发布"></a>文章发布</h2><p>输入：<code>hexo new &quot;testing&quot;</code>打开文件使用markdown语法输入文字</p>
 <p>保存，执行：</p>
-<blockquote>
 <p><code>hexo clean</code></p>
-</blockquote>
-<blockquote>
 <p><code>hexo g</code></p>
-</blockquote>
-<blockquote>
 <p><code>hexo server</code></p>
-</blockquote>
-<blockquote>
 <p><code>hexo deploy</code></p>
-</blockquote>
 <p><img src="http://i2.bvimg.com/647637/408049f3884510e4.png" alt=""></p>
 <p>就可以看到文章发布了~</p>
 <p><img src="http://i2.bvimg.com/647637/bdb5ddb3bea1f960.png" alt=""></p>
 <h2 id="总结陈词"><a href="#总结陈词" class="headerlink" title="总结陈词"></a>总结陈词</h2><p>搭建博客的步骤：</p>
-<blockquote>
 <p>1、GitHub配置</p>
-</blockquote>
-<blockquote>
 <p>2、环境安装</p>
-</blockquote>
-<blockquote>
 <p>3、网站推送</p>
-</blockquote>
-<blockquote>
 <p>4、文章发布</p>
-</blockquote>
 <p>发布文章的步骤：</p>
-<blockquote>
 <p>1、hexo new 创建文章</p>
-</blockquote>
-<blockquote>
 <p>2、Markdown语法编辑文章</p>
-</blockquote>
-<blockquote>
 <p>3、部署（所有打开CMD都是在blog目录下）</p>
-</blockquote>
 <p>到这里已经完成了博客的搭建以及文章的发布，但是还有很多需要设置和调整的。</p>
 <p>我也是刚刚搭建好博客，还有待博客界面的优化以及内容的丰富!!!</p>
 <p>今天先到这里啦~</p>
