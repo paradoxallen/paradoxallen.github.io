@@ -28,7 +28,7 @@
 <body>
   <header id="header" class="inner"><div class="alignleft">
   <h1><a href="/">paradoxallen的博客</a></h1>
-  <h2><a href="/">记录自己的学习~</a></h2>
+  <h2><a href="/"></a></h2>
 </div>
 <nav id="main-nav" class="alignright">
   <ul>
@@ -60,10 +60,10 @@
     </header>
     <div class="entry">
       
-        <p>#前言<br>一直想有一个可以记录的属于自己的博客，最近在知乎上看到了利用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>+<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>搭建博客的教程，于是乎搭建了自己的博客<a href="https://paradoxallen.github.io/">paradoxallen</a>。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一直想有一个可以记录的属于自己的博客，最近在知乎上看到了利用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>+<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>搭建博客的教程，于是乎搭建了自己的博客<a href="https://paradoxallen.github.io/">paradoxallen</a>。</p>
 <p>然而在此过程也遇到了一些bug，希望以下图文并茂的教程（虽然已经有挺多类似的教程…但主要是想自己写一篇文章!!!而且保证超级详细!!!）可以帮助大家少走弯路，搭建属于自己的博客。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="#正文"></a>#正文</h2><p>##GitHub配置</p>
-<p><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/ </a>登录GitHub账号,如无GitHub帐号需要注册一个</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><hr>
+<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/ </a>登录GitHub账号,如无GitHub帐号需要注册一个</p>
 <p><img src="http://i1.bvimg.com/647637/c2c87e3a66d3f41c.png" alt=""></p>
 <p>点击GitHub中的New repository创建新仓库</p>
 <p><img src="http://i2.bvimg.com/647637/8cd2118322eeebb8.png" alt=""></p>
@@ -74,9 +74,7 @@
 <p><img src="http://i2.bvimg.com/647637/7dee21bf61c6a269.png" alt=""></p>
 <p>成功之后出现以下画面</p>
 <p><img src="http://i4.bvimg.com/647637/9c9e7a4a292f769b.png" alt=""></p>
-<p>##环境安装</p>
-<p>###安装Git</p>
-<p><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git-Downloading Package</a>选择下载Windows版本的64位或32位的安装包（也有MacOSX版本和Linux/Unix版本的，按需求下载）</p>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git-Downloading Package</a>选择下载Windows版本的64位或32位的安装包（也有MacOSX版本和Linux/Unix版本的，按需求下载）</p>
 <p><img src="http://i4.bvimg.com/647637/c8ab66c94a5b8923.png" alt=""></p>
 <p>下载后安装，基本按默认安装就行，安装成功后，鼠标右键打开Git Bash</p>
 <p><img src="http://i2.bvimg.com/647637/1a613567dfe1c628.png" alt=""></p>
@@ -97,10 +95,9 @@
 <p>Title随意，Key粘贴id-rsa.pub内容，最后点击Add SHH key</p>
 <p>在Git Bash中检测GitHub公钥是否设置成功，输入<code>ssh git@github.com</code>如下则说明成功</p>
 <p><img src="http://i4.bvimg.com/647637/2e82b66bd44b0528.png" alt=""></p>
-<p>###安装Node.js</p>
-<p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Download|Node.js</a>选择下载安装包，也是默认设置安装就好</p>
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Download|Node.js</a>选择下载安装包，也是默认设置安装就好</p>
 <p><img src="http://i4.bvimg.com/647637/c7552174b3bafe3b.png" alt=""></p>
-<p>###安装Hexo<br>这里需要在自己电脑中新建文件夹，如命名为blog</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>这里需要在自己电脑中新建文件夹，如命名为blog</p>
 <p>进入文件夹，按住shift键，右击鼠标点击在此处打开Powershell窗口</p>
 <p>（有些教程是打开命令行，但好像是win10才有的powershell)</p>
 <p><img src="http://i2.bvimg.com/647637/035c259ae9e63ed0.png" alt=""></p>
@@ -129,7 +126,7 @@
 <p><img src="http://i4.bvimg.com/647637/e262c409d50dc6b2.png" alt=""></p>
 <p>在浏览器输入<code>http://localhost:4000/</code>就可以看见网页和模板了（因为我修改过主题可能有点出入）</p>
 <p><img src="http://i4.bvimg.com/647637/1a5c5f97074e6f7d.png" alt=""></p>
-<p>##网站推送<br>打开blog根目录_config.yml文件，将Hexo与GitHub关联起来</p>
+<h2 id="网站推送"><a href="#网站推送" class="headerlink" title="网站推送"></a>网站推送</h2><p>打开blog根目录_config.yml文件，将Hexo与GitHub关联起来</p>
 <p><img src="http://i4.bvimg.com/647637/f4980b87d2c9f2ff.png" alt=""></p>
 <blockquote>
 <p><code>deploy:</code></p>
@@ -158,8 +155,7 @@
 </blockquote>
 <p>打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="http://xxxx.github.io，如[https://paradoxallen.github.io/](https://paradoxallen.github.io/)即可访问" target="_blank" rel="noopener">http://xxxx.github.io，如[https://paradoxallen.github.io/](https://paradoxallen.github.io/)即可访问</a></p>
 <p>此外，也可以打开_config.yml文件修改参数信息，如排版格式等等</p>
-<p>##文章发布</p>
-<p>输入：<code>hexo new &quot;testing&quot;</code>打开文件使用markdown语法输入文字</p>
+<h2 id="文章发布"><a href="#文章发布" class="headerlink" title="文章发布"></a>文章发布</h2><p>输入：<code>hexo new &quot;testing&quot;</code>打开文件使用markdown语法输入文字</p>
 <p>保存，执行：</p>
 <blockquote>
 <p><code>hexo clean</code></p>
@@ -176,8 +172,7 @@
 <p><img src="http://i2.bvimg.com/647637/408049f3884510e4.png" alt=""></p>
 <p>就可以看到文章发布了~</p>
 <p><img src="http://i2.bvimg.com/647637/bdb5ddb3bea1f960.png" alt=""></p>
-<p>##总结陈词</p>
-<p>搭建博客的步骤：</p>
+<h2 id="总结陈词"><a href="#总结陈词" class="headerlink" title="总结陈词"></a>总结陈词</h2><p>搭建博客的步骤：</p>
 <blockquote>
 <p>1、GitHub配置</p>
 </blockquote>
