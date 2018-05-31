@@ -80,154 +80,213 @@
 <p>如此的机缘巧合，我自己也想在这一方向进行深入了解，从基本的概述理论方法开始。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><hr>
 <p>算法很多，如何做好分组有助于我们更好记住它们，主要有2条算法分组的方式：</p>
-<blockquote>
-<p>The first is a grouping of algorithms by the learning style.（通过算法的学习方式）</p>
-</blockquote>
-<blockquote>
-<p>The second is a grouping of algorithms by similarity in form or function (like grouping similar animals together).（通过算法的功能）</p>
-</blockquote>
+<ul>
+<li><p>The first is a grouping of algorithms by the learning style.（通过算法的学习方式）</p>
+</li>
+<li><p>The second is a grouping of algorithms by similarity in form or function (like grouping similar animals together).（通过算法的功能）</p>
+</li>
+</ul>
 <p>下面就会从这2个角度来阐述一下机器学习的算法。</p>
 <p><img src="http://i4.bvimg.com/647637/c8333c245bbeada6.png" alt=""></p>
 <h2 id="Algorithms-Grouped-by-Learning-Style（通过算法的学习方式）"><a href="#Algorithms-Grouped-by-Learning-Style（通过算法的学习方式）" class="headerlink" title="Algorithms Grouped by Learning Style（通过算法的学习方式）"></a>Algorithms Grouped by Learning Style（通过算法的学习方式）</h2><p>关于机器学习算法，有三种不同的学习方式：</p>
-<h5 id="1-Supervised-Learning（监督学习）"><a href="#1-Supervised-Learning（监督学习）" class="headerlink" title="1. Supervised Learning（监督学习）"></a>1. Supervised Learning（监督学习）</h5><p>当输入的数据集（我们称之为训练集）的数据有标签，如好坏标签，分类标签等，那么通过这些数据来建立的预测或者分类模型，属于监督学习模型。</p>
-<blockquote>
-<p>经典问题：classification and regression.（分类与回归）</p>
-</blockquote>
-<blockquote>
-<p>经典算法：Logistic Regression and the Back Propagation Neural Network.（逻辑回归算法与BP神经网络算法）</p>
-</blockquote>
+<h3 id="1-Supervised-Learning（监督学习）"><a href="#1-Supervised-Learning（监督学习）" class="headerlink" title="1. Supervised Learning（监督学习）"></a>1. Supervised Learning（监督学习）</h3><p>当输入的数据集（我们称之为训练集）的数据有标签，如好坏标签，分类标签等，那么通过这些数据来建立的预测或者分类模型，属于监督学习模型。</p>
+<ul>
+<li><p>经典问题：classification and regression.（分类与回归）</p>
+</li>
+<li><p>经典算法：Logistic Regression and the Back Propagation Neural Network.（逻辑回归算法与BP神经网络算法）</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/98402ff904a2e723.png" alt=""></p>
-<h5 id="2-Unsupervised-Learning（无监督学习）"><a href="#2-Unsupervised-Learning（无监督学习）" class="headerlink" title="2. Unsupervised Learning（无监督学习）"></a>2. Unsupervised Learning（无监督学习）</h5><p>与监督学习相反，训练集中的数据并没有标签，这意味着你需要从这堆没有标签的数据中去提炼它们的特点规则等等，可能是通过数学推理过程来系统地减少冗余，又或者是通过数据相似度来组织数据。</p>
-<blockquote>
-<p>经典问题：clustering, dimensionality reduction and association rule learning.（聚类、降维、规则学习）</p>
-</blockquote>
-<blockquote>
-<p>经典算法：the Apriori algorithm and k-Means.（这个专用名词就不翻译了）</p>
-</blockquote>
+<h3 id="2-Unsupervised-Learning（无监督学习）"><a href="#2-Unsupervised-Learning（无监督学习）" class="headerlink" title="2. Unsupervised Learning（无监督学习）"></a>2. Unsupervised Learning（无监督学习）</h3><p>与监督学习相反，训练集中的数据并没有标签，这意味着你需要从这堆没有标签的数据中去提炼它们的特点规则等等，可能是通过数学推理过程来系统地减少冗余，又或者是通过数据相似度来组织数据。</p>
+<ul>
+<li><p>经典问题：clustering, dimensionality reduction and association rule learning.（聚类、降维、规则学习）</p>
+</li>
+<li><p>经典算法：the Apriori algorithm and k-Means.（这个专用名词就不翻译了）</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/1559c4d4bbbd73c2.png" alt=""></p>
-<h5 id="3-Semi-Supervised-Learning（半监督学习）"><a href="#3-Semi-Supervised-Learning（半监督学习）" class="headerlink" title="3. Semi-Supervised Learning（半监督学习）"></a>3. Semi-Supervised Learning（半监督学习）</h5><p>顾名思义，半监督学习意味着训练数据有一部分有标签，而一些没有，一般而言，当训练数据量过少时，监督学习得到的模型效果不能满足需求，因此用半监督学习来增强效果。</p>
-<blockquote>
-<p>经典问题：classification and regression.</p>
-</blockquote>
-<blockquote>
-<p>经典算法：半监督SVM，高斯模型，KNN模型</p>
-</blockquote>
+<h3 id="3-Semi-Supervised-Learning（半监督学习）"><a href="#3-Semi-Supervised-Learning（半监督学习）" class="headerlink" title="3. Semi-Supervised Learning（半监督学习）"></a>3. Semi-Supervised Learning（半监督学习）</h3><p>顾名思义，半监督学习意味着训练数据有一部分有标签，而一些没有，一般而言，当训练数据量过少时，监督学习得到的模型效果不能满足需求，因此用半监督学习来增强效果。</p>
+<ul>
+<li><p>经典问题：classification and regression.</p>
+</li>
+<li><p>经典算法：半监督SVM，高斯模型，KNN模型</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/fc0034f6bf008c55.png" alt=""></p>
 <h2 id="Algorithms-Grouped-By-Similarity（通过算法的功能）"><a href="#Algorithms-Grouped-By-Similarity（通过算法的功能）" class="headerlink" title="Algorithms Grouped By Similarity（通过算法的功能）"></a>Algorithms Grouped By Similarity（通过算法的功能）</h2><p>根据算法的功能相似性来区分算法也是一种很好的办法，如基于树结构的算法或者基于神经网络的算法。所以我觉得从这个角度来了解这些算法会更加好。<br>即便这是一个很好的方式，但也绝非完美，仍会有一些算法不能简单地被归类，比如Learning Vector Quantization（LVQ，学习矢量量化算法），它既是神经网络，也是基于距离的算法，所以下面的归类也只是适用于大多数算法，但是常用的算法。</p>
-<h5 id="1-Regression-Algorithms（回归算法）"><a href="#1-Regression-Algorithms（回归算法）" class="headerlink" title="1. Regression Algorithms（回归算法）"></a>1. Regression Algorithms（回归算法）</h5><p>回归更多地关注自变量与因变量之间的关系，并通过对误差的测算来建模，回归算法是对于数学统计的一个很好应用，也被纳入统计机器学习中。</p>
+<h3 id="1-Regression-Algorithms（回归算法）"><a href="#1-Regression-Algorithms（回归算法）" class="headerlink" title="1. Regression Algorithms（回归算法）"></a>1. Regression Algorithms（回归算法）</h3><p>回归更多地关注自变量与因变量之间的关系，并通过对误差的测算来建模，回归算法是对于数学统计的一个很好应用，也被纳入统计机器学习中。</p>
 <p>常见的回归算法包括：</p>
-<blockquote>
-<p>Ordinary Least Squares Regression (OLSR，普通最小二乘回归)</p>
-<p>Linear Regression（线性回归）</p>
-<p>Logistic Regression（逻辑回归）</p>
-<p>Stepwise Regression（逐步回归）</p>
-<p>Adaptive Regression Splines (MARS，多元自适应回归)</p>
-<p>Locally Estimated Scatterplot Smoothing (LOESS，本地散点平滑估计)</p>
-</blockquote>
+<ul>
+<li><p>Ordinary Least Squares Regression (OLSR，普通最小二乘回归)</p>
+</li>
+<li><p>Linear Regression（线性回归）</p>
+</li>
+<li><p>Logistic Regression（逻辑回归）</p>
+</li>
+<li><p>Stepwise Regression（逐步回归）</p>
+</li>
+<li><p>Adaptive Regression Splines (MARS，多元自适应回归)</p>
+</li>
+<li><p>Locally Estimated Scatterplot Smoothing (LOESS，本地散点平滑估计)</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/7d5edfbfdacf0ce5.png" alt=""></p>
-<h5 id="2-Instance-based-Algorithms（基于距离的算法）"><a href="#2-Instance-based-Algorithms（基于距离的算法）" class="headerlink" title="2. Instance-based Algorithms（基于距离的算法）"></a>2. Instance-based Algorithms（基于距离的算法）</h5><p>基于距离学习的模型非常常见，这类的模型是对训练集数据进行建模并比较新数据与之的距离，而距离的衡量有很多，常见的是欧氏距离、曼哈顿距离等。</p>
+<h3 id="2-Instance-based-Algorithms（基于距离的算法）"><a href="#2-Instance-based-Algorithms（基于距离的算法）" class="headerlink" title="2. Instance-based Algorithms（基于距离的算法）"></a>2. Instance-based Algorithms（基于距离的算法）</h3><p>基于距离学习的模型非常常见，这类的模型是对训练集数据进行建模并比较新数据与之的距离，而距离的衡量有很多，常见的是欧氏距离、曼哈顿距离等。</p>
 <p>常见的算法包括：</p>
-<blockquote>
-<p>k-Nearest Neighbor (kNN)</p>
-<p>Learning Vector Quantization (LVQ，学习矢量量化)</p>
-<p>Self-Organizing Map (SOM，自组织映射)</p>
-<p>Locally Weighted Learning (LWL，局部加权学习)</p>
-</blockquote>
+<ul>
+<li><p>k-Nearest Neighbor (kNN)</p>
+</li>
+<li><p>Learning Vector Quantization (LVQ，学习矢量量化)</p>
+</li>
+<li><p>Self-Organizing Map (SOM，自组织映射)</p>
+</li>
+<li><p>Locally Weighted Learning (LWL，局部加权学习)</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/7bde9d592d1937db.png" alt=""></p>
-<h5 id="3-Regularization-Algorithms（正则化算法）"><a href="#3-Regularization-Algorithms（正则化算法）" class="headerlink" title="3. Regularization Algorithms（正则化算法）"></a>3. Regularization Algorithms（正则化算法）</h5><p>正则化是对另一种方法(通常是回归方法)的扩展，使基于其复杂性的模型受到惩罚，支持更简单的模型，这些模型在泛化能力方面也比较好。</p>
+<h3 id="3-Regularization-Algorithms（正则化算法）"><a href="#3-Regularization-Algorithms（正则化算法）" class="headerlink" title="3. Regularization Algorithms（正则化算法）"></a>3. Regularization Algorithms（正则化算法）</h3><p>正则化是对另一种方法(通常是回归方法)的扩展，使基于其复杂性的模型受到惩罚，支持更简单的模型，这些模型在泛化能力方面也比较好。</p>
 <p>常见的正则化算法包括：<br>Ridge Regression（岭回归算法）<br>Least Absolute Shrinkage and Selection Operator (LASSO算法，稀疏约束)<br>Elastic Net（弹性网络）<br>Least-Angle Regression (LARS，最小角回归算法)</p>
 <p><img src="http://i4.bvimg.com/647637/c6951c24ab35ec34.png" alt=""></p>
-<h5 id="4-Decision-Tree-Algorithms（决策树算法）"><a href="#4-Decision-Tree-Algorithms（决策树算法）" class="headerlink" title="4. Decision Tree Algorithms（决策树算法）"></a>4. Decision Tree Algorithms（决策树算法）</h5><p>决策树方法构建基于数据中属性的实际值来建模的，决策树经常被训练用于分类和回归问题，决策树通常是快速和准确的，并且是机器学习中最受欢迎的。</p>
+<h3 id="4-Decision-Tree-Algorithms（决策树算法）"><a href="#4-Decision-Tree-Algorithms（决策树算法）" class="headerlink" title="4. Decision Tree Algorithms（决策树算法）"></a>4. Decision Tree Algorithms（决策树算法）</h3><p>决策树方法构建基于数据中属性的实际值来建模的，决策树经常被训练用于分类和回归问题，决策树通常是快速和准确的，并且是机器学习中最受欢迎的。</p>
 <p>常见的决策树算法包括：</p>
-<blockquote>
-<p>Classification and Regression Tree (CART，分类回归树算法)</p>
-<p>Iterative Dichotomiser 3 (ID3)</p>
-<p>C4.5 and C5.0 (不同版本的区别)</p>
-<p>Chi-squared Automatic Interaction Detection (CHAID)</p>
-<p>Decision Stump（决策树桩）</p>
-<p>MD5（Message-Digest Algorithm，讯息摘要算法）</p>
-<p>Decision Trees（条件决策树）</p>
-</blockquote>
+<ul>
+<li><p>Classification and Regression Tree (CART，分类回归树算法)</p>
+</li>
+<li><p>Iterative Dichotomiser 3 (ID3)</p>
+</li>
+<li><p>C4.5 and C5.0 (不同版本的区别)</p>
+</li>
+<li><p>Chi-squared Automatic Interaction Detection (CHAID)</p>
+</li>
+<li><p>Decision Stump（决策树桩）</p>
+</li>
+<li><p>MD5（Message-Digest Algorithm，讯息摘要算法）</p>
+</li>
+<li><p>Decision Trees（条件决策树）</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/822d6578c331ab38.png" alt=""></p>
-<h5 id="5-Bayesian-Algorithms（贝叶斯算法）"><a href="#5-Bayesian-Algorithms（贝叶斯算法）" class="headerlink" title="5. Bayesian Algorithms（贝叶斯算法）"></a>5. Bayesian Algorithms（贝叶斯算法）</h5><p>基于贝叶斯定理的方式来构建的算法，常用语分类与回归问题。</p>
+<h3 id="5-Bayesian-Algorithms（贝叶斯算法）"><a href="#5-Bayesian-Algorithms（贝叶斯算法）" class="headerlink" title="5. Bayesian Algorithms（贝叶斯算法）"></a>5. Bayesian Algorithms（贝叶斯算法）</h3><p>基于贝叶斯定理的方式来构建的算法，常用语分类与回归问题。</p>
 <p>常见的贝叶斯算法包括：</p>
-<blockquote>
-<p>Naive Bayes（朴素贝叶斯）</p>
-<p>Gaussian Naive Bayes（高斯朴素贝叶斯）</p>
-<p>Multinomial Naive Bayes（多项式朴素贝叶斯）</p>
-<p>Averaged One-Dependence Estimators (AODE)</p>
-<p>Belief Network (BBN，贝叶斯定理网络)</p>
-<p>Bayesian Network (BN，贝叶斯网络)</p>
-</blockquote>
+<ul>
+<li><p>Naive Bayes（朴素贝叶斯）</p>
+</li>
+<li><p>Gaussian Naive Bayes（高斯朴素贝叶斯）</p>
+</li>
+<li><p>Multinomial Naive Bayes（多项式朴素贝叶斯）</p>
+</li>
+<li><p>Averaged One-Dependence Estimators (AODE)</p>
+</li>
+<li><p>Belief Network (BBN，贝叶斯定理网络)</p>
+</li>
+<li><p>Bayesian Network (BN，贝叶斯网络)</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/1c88f6233fffff9c.png" alt=""></p>
-<h5 id="6-Clustering-Algorithms（聚类算法）"><a href="#6-Clustering-Algorithms（聚类算法）" class="headerlink" title="6. Clustering Algorithms（聚类算法）"></a>6. Clustering Algorithms（聚类算法）</h5><p>聚类分析又称群分析，它是研究（样品或指标）分类问题的一种统计分析方法，同时也是数据挖掘的一个重要算法。<br>聚类（Cluster）分析是由若干模式（Pattern）组成的，通常，模式是一个度量（Measurement）的向量，或者是多维空间中的一个点。<br>聚类分析以相似性为基础，在一个聚类中的模式之间比不在同一聚类中的模式之间具有更多的相似性。</p>
+<h3 id="6-Clustering-Algorithms（聚类算法）"><a href="#6-Clustering-Algorithms（聚类算法）" class="headerlink" title="6. Clustering Algorithms（聚类算法）"></a>6. Clustering Algorithms（聚类算法）</h3><p>聚类分析又称群分析，它是研究（样品或指标）分类问题的一种统计分析方法，同时也是数据挖掘的一个重要算法。<br>聚类（Cluster）分析是由若干模式（Pattern）组成的，通常，模式是一个度量（Measurement）的向量，或者是多维空间中的一个点。<br>聚类分析以相似性为基础，在一个聚类中的模式之间比不在同一聚类中的模式之间具有更多的相似性。</p>
 <p>常见的聚类算法包括：<br>k-Means<br>k-Medians<br>Expectation Maximisation (EM，Expectation Maximization Algorithm，是一种迭代算法)<br>Hierarchical Clustering（层次聚类）</p>
 <p><img src="http://i4.bvimg.com/647637/ffcd3a96458da550.png" alt=""></p>
-<h5 id="7-Association-Rule-Learning-Algorithms（关联规则学习算法）"><a href="#7-Association-Rule-Learning-Algorithms（关联规则学习算法）" class="headerlink" title="7. Association Rule Learning Algorithms（关联规则学习算法）"></a>7. Association Rule Learning Algorithms（关联规则学习算法）</h5><p>关联规则学习方法提取的规则最能解释数据中变量之间的关系，这些规则可以在大型多维数据集中发现重要和商业有用的关联，而被组织利用。</p>
+<h3 id="7-Association-Rule-Learning-Algorithms（关联规则学习算法）"><a href="#7-Association-Rule-Learning-Algorithms（关联规则学习算法）" class="headerlink" title="7. Association Rule Learning Algorithms（关联规则学习算法）"></a>7. Association Rule Learning Algorithms（关联规则学习算法）</h3><p>关联规则学习方法提取的规则最能解释数据中变量之间的关系，这些规则可以在大型多维数据集中发现重要和商业有用的关联，而被组织利用。</p>
 <p>最常见的算法包括：</p>
-<blockquote>
-<p>Apriori algorithm</p>
-<p>Eclat algorithm</p>
-</blockquote>
+<ul>
+<li><p>Apriori algorithm</p>
+</li>
+<li><p>Eclat algorithm</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/862e1ef2bd8cb2b6.png" alt=""></p>
-<h5 id="8-Artificial-Neural-Network-Algorithms（人工神经网络算法）"><a href="#8-Artificial-Neural-Network-Algorithms（人工神经网络算法）" class="headerlink" title="8. Artificial Neural Network Algorithms（人工神经网络算法）"></a>8. Artificial Neural Network Algorithms（人工神经网络算法）</h5><p>人工神经网络是受生物神经网络结构和/或功能启发的模型，它们是一类模式匹配，通常用于回归和分类问题，但实际上是一个巨大的子字段，包含数百种算法和各种类型的问题类型。</p>
+<h3 id="8-Artificial-Neural-Network-Algorithms（人工神经网络算法）"><a href="#8-Artificial-Neural-Network-Algorithms（人工神经网络算法）" class="headerlink" title="8. Artificial Neural Network Algorithms（人工神经网络算法）"></a>8. Artificial Neural Network Algorithms（人工神经网络算法）</h3><p>人工神经网络是受生物神经网络结构和/或功能启发的模型，它们是一类模式匹配，通常用于回归和分类问题，但实际上是一个巨大的子字段，包含数百种算法和各种类型的问题类型。</p>
 <p>最常见的算法包括：</p>
-<blockquote>
-<p>Perceptron（感知器）</p>
-<p>Back-Propagation（反向传播法）</p>
-<p>Hopfield Network（霍普菲尔网络）</p>
-<p>Radial Basis Function Network (RBFN，径向基函数网络)</p>
-</blockquote>
+<ul>
+<li><p>Perceptron（感知器）</p>
+</li>
+<li><p>Back-Propagation（反向传播法）</p>
+</li>
+<li><p>Hopfield Network（霍普菲尔网络）</p>
+</li>
+<li><p>Radial Basis Function Network (RBFN，径向基函数网络)</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/f1c3d36096b5b753.png" alt=""></p>
-<h5 id="9-Deep-Learning-Algorithms（深度学习算法）"><a href="#9-Deep-Learning-Algorithms（深度学习算法）" class="headerlink" title="9. Deep Learning Algorithms（深度学习算法）"></a>9. Deep Learning Algorithms（深度学习算法）</h5><p>深度学习方法是利用大量廉价计算的人工神经网络的更新，它关心的是构建更大更复杂的神经网络，正如上面所提到的，许多方法都与半监督学习问题有关，在这些问题中，大型数据集包含的标签数据非常少。</p>
+<h3 id="9-Deep-Learning-Algorithms（深度学习算法）"><a href="#9-Deep-Learning-Algorithms（深度学习算法）" class="headerlink" title="9. Deep Learning Algorithms（深度学习算法）"></a>9. Deep Learning Algorithms（深度学习算法）</h3><p>深度学习方法是利用大量廉价计算的人工神经网络的更新，它关心的是构建更大更复杂的神经网络，正如上面所提到的，许多方法都与半监督学习问题有关，在这些问题中，大型数据集包含的标签数据非常少。</p>
 <p>最常见的算法包括：</p>
-<blockquote>
-<p>Deep Boltzmann Machine (DBM)</p>
-<p>Deep Belief Networks (DBN)</p>
-<p>Convolutional Neural Network (CNN)</p>
-<p>Stacked Auto-Encoders</p>
-</blockquote>
+<ul>
+<li><p>Deep Boltzmann Machine (DBM)</p>
+</li>
+<li><p>Deep Belief Networks (DBN)</p>
+</li>
+<li><p>Convolutional Neural Network (CNN)</p>
+</li>
+<li><p>Stacked Auto-Encoders</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/42c64e10881d9023.png" alt=""></p>
-<h5 id="10-Dimensionality-Reduction-Algorithms（降维算法）"><a href="#10-Dimensionality-Reduction-Algorithms（降维算法）" class="headerlink" title="10. Dimensionality Reduction Algorithms（降维算法）"></a>10. Dimensionality Reduction Algorithms（降维算法）</h5><p>像聚类方法一样，维数的减少有利于寻找到数据的关联关系，但在这种情况下，是不受监督的方式，或者用较少的信息来概括或描述数据。<br>这些方法中的许多可以用于分类和回归。</p>
+<h3 id="10-Dimensionality-Reduction-Algorithms（降维算法）"><a href="#10-Dimensionality-Reduction-Algorithms（降维算法）" class="headerlink" title="10. Dimensionality Reduction Algorithms（降维算法）"></a>10. Dimensionality Reduction Algorithms（降维算法）</h3><p>像聚类方法一样，维数的减少有利于寻找到数据的关联关系，但在这种情况下，是不受监督的方式，或者用较少的信息来概括或描述数据。<br>这些方法中的许多可以用于分类和回归。</p>
 <p>常见的算法包括：</p>
-<blockquote>
-<p>Principal Component Analysis (PCA)</p>
-<p>Principal Component Regression (PCR)</p>
-<p>Partial Least Squares Regression (PLSR)</p>
-<p>Sammon Mapping</p>
-<p>Multidimensional Scaling (MDS)</p>
-<p>Projection Pursuit</p>
-<p>Linear Discriminant Analysis (LDA)</p>
-<p>Mixture Discriminant Analysis (MDA)</p>
-<p>Quadratic Discriminant Analysis (QDA)</p>
-<p>Flexible Discriminant Analysis (FDA)</p>
-</blockquote>
+<ul>
+<li><p>Principal Component Analysis (PCA)</p>
+</li>
+<li><p>Principal Component Regression (PCR)</p>
+</li>
+<li><p>Partial Least Squares Regression (PLSR)</p>
+</li>
+<li><p>Sammon Mapping</p>
+</li>
+<li><p>Multidimensional Scaling (MDS)</p>
+</li>
+<li><p>Projection Pursuit</p>
+</li>
+<li><p>Linear Discriminant Analysis (LDA)</p>
+</li>
+<li><p>Mixture Discriminant Analysis (MDA)</p>
+</li>
+<li><p>Quadratic Discriminant Analysis (QDA)</p>
+</li>
+<li><p>Flexible Discriminant Analysis (FDA)</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/aee45bf976e3f058.png" alt=""></p>
-<h5 id="11-Ensemble-Algorithms（集成算法）"><a href="#11-Ensemble-Algorithms（集成算法）" class="headerlink" title="11. Ensemble Algorithms（集成算法）"></a>11. Ensemble Algorithms（集成算法）</h5><p>集成方法是由多个较弱的模型而组成的模型，这些模型是独立训练的，它们的预测在某种程度上是结合在一起来进行总体预测的。<br>这类算法是把更多精力放到了弱学习器身上，以及如何将它们结合起来。这是一门非常强大的技术，因此非常受欢迎。</p>
+<h3 id="11-Ensemble-Algorithms（集成算法）"><a href="#11-Ensemble-Algorithms（集成算法）" class="headerlink" title="11. Ensemble Algorithms（集成算法）"></a>11. Ensemble Algorithms（集成算法）</h3><p>集成方法是由多个较弱的模型而组成的模型，这些模型是独立训练的，它们的预测在某种程度上是结合在一起来进行总体预测的。<br>这类算法是把更多精力放到了弱学习器身上，以及如何将它们结合起来。这是一门非常强大的技术，因此非常受欢迎。</p>
 <p>常见的算法包括：</p>
-<blockquote>
-<p>Boosting</p>
-<p>Bootstrapped Aggregation (Bagging)</p>
-<p>AdaBoost</p>
-<p>Stacked Generalization (blending)</p>
-<p>Gradient Boosting Machines (GBM)</p>
-<p>Gradient Boosted Regression Trees (GBRT)</p>
-<p>Random Forest</p>
-</blockquote>
+<ul>
+<li><p>Boosting</p>
+</li>
+<li><p>Bootstrapped Aggregation (Bagging)</p>
+</li>
+<li><p>AdaBoost</p>
+</li>
+<li><p>Stacked Generalization (blending)</p>
+</li>
+<li><p>Gradient Boosting Machines (GBM)</p>
+</li>
+<li><p>Gradient Boosted Regression Trees (GBRT)</p>
+</li>
+<li><p>Random Forest</p>
+</li>
+</ul>
 <p><img src="http://i4.bvimg.com/647637/762ed312f28aa7be.png" alt=""></p>
-<h5 id="12-Other-Algorithms（其他算法）"><a href="#12-Other-Algorithms（其他算法）" class="headerlink" title="12. Other Algorithms（其他算法）"></a>12. Other Algorithms（其他算法）</h5><p>还有很多算法没有被覆盖到，大概还有下面的算法：</p>
+<h3 id="12-Other-Algorithms（其他算法）"><a href="#12-Other-Algorithms（其他算法）" class="headerlink" title="12. Other Algorithms（其他算法）"></a>12. Other Algorithms（其他算法）</h3><p>还有很多算法没有被覆盖到，大概还有下面的算法：</p>
 <p>Feature selection algorithms（特征选择算法）</p>
-<blockquote>
-<p>Algorithm accuracy evaluation（算法精度估计）</p>
-<p>Performance measures（效果评估）</p>
-<p>Computational intelligence (evolutionary algorithms, etc.)</p>
-<p>Computer Vision (CV)</p>
-<p>Natural Language Processing (NLP)</p>
-<p>Recommender Systems</p>
-<p>Reinforcement Learning</p>
-<p>Graphical Models</p>
-<p>And more…</p>
-</blockquote>
+<ul>
+<li><p>Algorithm accuracy evaluation（算法精度估计）</p>
+</li>
+<li><p>Performance measures（效果评估）</p>
+</li>
+<li><p>Computational intelligence (evolutionary algorithms, etc.)</p>
+</li>
+<li><p>Computer Vision (CV)</p>
+</li>
+<li><p>Natural Language Processing (NLP)</p>
+</li>
+<li><p>Recommender Systems</p>
+</li>
+<li><p>Reinforcement Learning</p>
+</li>
+<li><p>Graphical Models</p>
+</li>
+<li><p>And more…</p>
+</li>
+</ul>
 <p>Further Reading<br>网络上对这些算法有更加详细的讲解，需要大家自己动手去查了，这样子才会更加了解这些算法内容，本文内容来自网络，还有一些我觉得很有用的资料也在下面，大家可以抽时间去细细研究哈。</p>
 <p>##参考资料<br>1）<a href="https://machinelearningmastery.com/a-tour-of-machine-learning-algorithms/" target="_blank" rel="noopener">A Tour of Machine Learning Algorithms</a></p>
 <p>2）<a href="https://www.zhihu.com/question/20691338/answer/53910077" target="_blank" rel="noopener">机器学习该如何入门——张松阳的回答</a></p>
