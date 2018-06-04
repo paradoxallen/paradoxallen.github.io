@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习(五) 常见算法优缺点 | RP&#39;s blog</title>
+  <meta name="author" content="paradox">
+  
+  <meta name="description" content="学习总结 思考感悟">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="机器学习(五) 常见算法优缺点"/>
+  <meta property="og:site_name" content="RP&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-120090544-1', 'auto');
+	ga('send', 'pageview');
+
+</script>
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">RP&#39;s blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="///paradoxallen.github.io/">首页</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-06-03T16:00:00.000Z"><a href="/65434/">2018-06-04</a></time>
+      
+      
+  
+    <h1 class="title">机器学习(五) 常见算法优缺点</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h4 id="前文传送"><a href="#前文传送" class="headerlink" title="前文传送"></a>前文传送</h4><p><a href="https://paradoxallen.github.io/9731/">机器学习(一) 算法介绍</a></p>
+<p><a href="https://paradoxallen.github.io/9731/">机器学习(二) 模型调优</a></p>
+<p><a href="https://paradoxallen.github.io/62602/">机器学习(三) 模型结果应用</a></p>
+<p><a href="https://paradoxallen.github.io/21484/">机器学习(四) 常见算法优缺点</a></p>
+<p>文章结构：</p>
+<ul>
+<li><p><strong>什么是感知器分类算法</strong></p>
+</li>
+<li><p><strong>在Python中实现感知器学习算法</strong></p>
+</li>
+</ul>
+<p><em>在iris（鸢尾花）数据集上训练一个感知器模型</em></p>
+<ul>
+<li><strong>自适应线性神经元和融合学习</strong></li>
+</ul>
+<p><em>使用梯度下降方法来最小化损失函数</em></p>
+<p><em>在Python中实现一个自适应的线性神经元</em></p>
+<a id="more"></a>
+<hr>
+<h3 id="什么是感知器分类算法"><a href="#什么是感知器分类算法" class="headerlink" title="什么是感知器分类算法"></a><strong>什么是感知器分类算法</strong></h3><p>设想我们改变逻辑回归算法，“迫使”它只能输出-1或1抑或其他定值。在这种情况下，之前的逻辑函数‍‍g就会变成阈值函数sign：</p>
+<p><img src="http://i4.bvimg.com/647637/5ceeec4c3896d4f6.png" alt=""></p>
+<p><img src="http://i4.bvimg.com/647637/3a51f1d2122e938a.png" alt=""></p>
+<p>如果我们令假设为hθ(x)=g(θTx)hθ(x)=g(θTx)，将其带入之前的迭代法中：</p>
+<p><img src="http://i4.bvimg.com/647637/1ea8a43feab7ac88.png" alt=""></p>
+<p>至此我们就得出了感知器学习算法。简单地来说，感知器学习算法是神经网络中的一个概念，单层感知器是最简单的神经网络，输入层和输出层直接相连。</p>
+<p><img src="http://i4.bvimg.com/647637/8a3bcfa1b5cd38cd.png" alt=""></p>
+<p>每一个输入端和其上的权值相乘，然后将这些乘积相加得到乘积和，这个结果与阈值相比较（一般为0），若大于阈值输出端就取1，反之，输出端取-1。</p>
+<p>初始权重向量W=[0,0,0]，更新公式W(i)=W(i)+ΔW(i)；ΔW(i)=η<em>(y-y’)</em>X(i)； </p>
+<p>η：学习率，介于[0,1]之间 </p>
+<p>y：输入样本的正确分类 </p>
+<p>y’：感知器计算出来的分类 </p>
+<p>通过上面公式不断更新权值，直到达到分类要求。</p>
+<p><img src="http://i4.bvimg.com/647637/3e5ea78692abac79.jpg" alt=""></p>
+<p>初始化权重向量W，与输入向量做点乘，将结果与阈值作比较，得到分类结果1或-1。</p>
+<hr>
+<h3 id="在Python中实现感知器学习算法"><a href="#在Python中实现感知器学习算法" class="headerlink" title="在Python中实现感知器学习算法"></a><strong>在Python中实现感知器学习算法</strong></h3><p>下面直接贴上实现代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Perceptron(object):</span><br><span class="line">    &quot;&quot;&quot;Perceptron classifier.</span><br><span class="line"></span><br><span class="line">    Parameters</span><br><span class="line">    ------------</span><br><span class="line">    eta : float</span><br><span class="line">        Learning rate (between 0.0 and 1.0)</span><br><span class="line">    n_iter : int</span><br><span class="line">        Passes over the training dataset.</span><br><span class="line"></span><br><span class="line">    Attributes</span><br><span class="line">    -----------</span><br><span class="line">    w_ : 1d-array</span><br><span class="line">        Weights after fitting.</span><br><span class="line">    errors_ : list</span><br><span class="line">        Number of misclassifications (updates) in each epoch.</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __init__(self, eta=0.01, n_iter=10):</span><br><span class="line">        self.eta = eta</span><br><span class="line">        self.n_iter = n_iter</span><br><span class="line"></span><br><span class="line">    def fit(self, X, y):</span><br><span class="line">        &quot;&quot;&quot;Fit training data.</span><br><span class="line"></span><br><span class="line">        Parameters</span><br><span class="line">        ----------</span><br><span class="line">        X : &#123;array-like&#125;, shape = [n_samples, n_features]</span><br><span class="line">            Training vectors, where n_samples is the number of samples and</span><br><span class="line">            n_features is the number of features.</span><br><span class="line">        y : array-like, shape = [n_samples]</span><br><span class="line">            Target values.</span><br><span class="line"></span><br><span class="line">        Returns</span><br><span class="line">        -------</span><br><span class="line">        self : object</span><br><span class="line"></span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.w_ = np.zeros(1 + X.shape[1])</span><br><span class="line">        self.errors_ = []</span><br><span class="line"></span><br><span class="line">        for _ in range(self.n_iter):</span><br><span class="line">            errors = 0</span><br><span class="line">            for xi, target in zip(X, y):</span><br><span class="line">                update = self.eta * (target - self.predict(xi))</span><br><span class="line">                self.w_[1:] += update * xi</span><br><span class="line">                self.w_[0] += update</span><br><span class="line">                errors += int(update != 0.0)</span><br><span class="line">            self.errors_.append(errors)</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">    def net_input(self, X):</span><br><span class="line">        &quot;&quot;&quot;Calculate net input&quot;&quot;&quot;</span><br><span class="line">        return np.dot(X, self.w_[1:]) + self.w_[0]</span><br><span class="line"></span><br><span class="line">    def predict(self, X):</span><br><span class="line">        &quot;&quot;&quot;Return class label after unit step&quot;&quot;&quot;</span><br><span class="line">        return np.where(self.net_input(X) &gt;= 0.0, 1, -1)</span><br></pre></td></tr></table></figure>
+<p><strong>特别说明：</strong></p>
+<p>学习速率η(eta)只有在权重（一般取值0或者很小的数）为非零值的时候，才会对分类结果产生作用。如果所有的权重都初始化为0，学习速率参数eta只影响权重向量的大小，而不影响其方向，为了使学习速率影响分类结果，权重需要初始化为非零值。需要更改的代码中的相应行在下面突出显示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, eta=0.01, n_iter=50, random_seed=1): # add random_seed=1</span><br><span class="line">    ...</span><br><span class="line">    self.random_seed = random_seed # add this line</span><br><span class="line">def fit(self, X, y):</span><br><span class="line">    ...</span><br><span class="line">    # self.w_ = np.zeros(1 + X.shape[1]) ## remove this line</span><br><span class="line">    rgen = np.random.RandomState(self.random_seed) # add this line</span><br><span class="line">    self.w_ = rgen.normal(loc=0.0, scale=0.01, size=1 + X.shape[1]) # add this line</span><br></pre></td></tr></table></figure></p>
+<p><strong>在iris（鸢尾）数据集上训练一个感知器模型</strong></p>
+<p><strong>读取iris数据集</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import collections</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(&apos;https://archive.ics.uci.edu/ml/&apos;</span><br><span class="line">        &apos;machine-learning-databases/iris/iris.data&apos;, header=None)</span><br><span class="line">print (df.head())</span><br><span class="line">print (&quot;\n&quot;)</span><br><span class="line">print (df.describe())</span><br><span class="line">print (&quot;\n&quot;)</span><br><span class="line">print (collections.Counter(df[4]))</span><br></pre></td></tr></table></figure></p>
+<p>output：</p>
+<p><img src="http://i4.bvimg.com/647637/a583bd20347fb68b.jpg" alt=""></p>
+<p><strong>可视化iris数据</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># 为了显示中文(这里是Mac的解决方法，其他的大家可以去百度一下)</span><br><span class="line">from matplotlib.font_manager import FontProperties</span><br><span class="line">font = FontProperties(fname=&apos;/System/Library/Fonts/STHeiti Light.ttc&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 选择 setosa and versicolor类型的花</span><br><span class="line">y = df.iloc[0:100, 4].values</span><br><span class="line">y = np.where(y == &apos;Iris-setosa&apos;, -1, 1)</span><br><span class="line"></span><br><span class="line"># 提取它们的特征 （sepal length and petal length）</span><br><span class="line">X = df.iloc[0:100, [0, 2]].values</span><br><span class="line"></span><br><span class="line"># 可视化数据，因为数据有经过处理，总共150行数据，1-50行是setosa花，51-100是versicolor花，101-150是virginica花</span><br><span class="line">plt.scatter(X[:50, 0], X[:50, 1],</span><br><span class="line">            color=&apos;red&apos;, marker=&apos;o&apos;, label=&apos;setosa&apos;)</span><br><span class="line">plt.scatter(X[50:100, 0], X[50:100, 1],</span><br><span class="line">            color=&apos;blue&apos;, marker=&apos;x&apos;, label=&apos;versicolor&apos;)</span><br><span class="line"></span><br><span class="line">plt.xlabel(&apos;sepal 长度 [cm]&apos;,FontProperties=font,fontsize=14)</span><br><span class="line">plt.ylabel(&apos;petal 长度 [cm]&apos;,FontProperties=font,fontsize=14)</span><br><span class="line">plt.legend(loc=&apos;upper left&apos;)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>output：</p>
+<p><img src="http://i4.bvimg.com/647637/1420ac757d167952.png" alt=""></p>
+<p><strong>训练感知器模型</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Perceptron是我们前面定义的感知器算法函数，这里就直接调用就好</span><br><span class="line">ppn = Perceptron(eta=0.1, n_iter=10)</span><br><span class="line"></span><br><span class="line">ppn.fit(X, y)</span><br><span class="line"></span><br><span class="line">plt.plot(range(1, len(ppn.errors_) + 1), ppn.errors_, marker=&apos;o&apos;)</span><br><span class="line">plt.xlabel(&apos;迭代次数&apos;,FontProperties=font,fontsize=14)</span><br><span class="line">plt.ylabel(&apos;权重更新次数（错误次数）&apos;,FontProperties=font,fontsize=14)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>output：</p>
+<p><img src="http://i4.bvimg.com/647637/0557d85f969d74b5.png" alt=""></p>
+<p><strong>绘制函数决策区域</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">from matplotlib.colors import ListedColormap</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def plot_decision_regions(X, y, classifier, resolution=0.02):</span><br><span class="line"></span><br><span class="line">    # setup marker generator and color map</span><br><span class="line">    markers = (&apos;s&apos;, &apos;x&apos;, &apos;o&apos;, &apos;^&apos;, &apos;v&apos;)</span><br><span class="line">    colors = (&apos;red&apos;, &apos;blue&apos;, &apos;lightgreen&apos;, &apos;gray&apos;, &apos;cyan&apos;)</span><br><span class="line">    cmap = ListedColormap(colors[:len(np.unique(y))])</span><br><span class="line"></span><br><span class="line">    # plot the decision surface</span><br><span class="line">    x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1</span><br><span class="line">    x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1</span><br><span class="line">    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),</span><br><span class="line">                           np.arange(x2_min, x2_max, resolution))</span><br><span class="line">    Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)</span><br><span class="line">    Z = Z.reshape(xx1.shape)</span><br><span class="line">    plt.contourf(xx1, xx2, Z, alpha=0.4, cmap=cmap)</span><br><span class="line">    plt.xlim(xx1.min(), xx1.max())</span><br><span class="line">    plt.ylim(xx2.min(), xx2.max())</span><br><span class="line"></span><br><span class="line">    # plot class samples</span><br><span class="line">    for idx, cl in enumerate(np.unique(y)):</span><br><span class="line">        plt.scatter(x=X[y == cl, 0], y=X[y == cl, 1],</span><br><span class="line">                    alpha=0.8, c=cmap(idx),</span><br><span class="line">                    edgecolor=&apos;black&apos;,</span><br><span class="line">                    marker=markers[idx], </span><br><span class="line">                    label=cl)</span><br><span class="line">plot_decision_regions(X, y, classifier=ppn)</span><br><span class="line">plt.xlabel(&apos;sepal 长度 [cm]&apos;,FontProperties=font,fontsize=14)</span><br><span class="line">plt.ylabel(&apos;petal 长度 [cm]&apos;,FontProperties=font,fontsize=14)</span><br><span class="line">plt.legend(loc=&apos;upper left&apos;)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>output：</p>
+<p><img src="http://i4.bvimg.com/647637/d0436f465dbb6d06.png" alt=""></p>
+<hr>
+<h3 id="自适应线性神经元和融合学习"><a href="#自适应线性神经元和融合学习" class="headerlink" title="自适应线性神经元和融合学习"></a><strong>自适应线性神经元和融合学习</strong></h3><p><strong>使用梯度下降方法来最小化损失函数</strong></p>
+<p>梯度下降的方法十分常见，具体的了解可以参考附录的文章[2]，如今，梯度下降主要用于在神经网络模型中进行权重更新，即在一个方向上更新和调整模型的参数，来最小化损失函数。</p>
+<p><img src="http://i4.bvimg.com/647637/09c54e58b0ce88f3.jpg" alt=""><br>图：梯度下降原理过程演示</p>
+<p><strong>在Python中实现一个自适应的线性神经元</strong></p>
+<p>先贴上定义的python函数，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"># 定义神经元函数</span><br><span class="line">class AdalineGD(object):</span><br><span class="line">    &quot;&quot;&quot;ADAptive LInear NEuron classifier.</span><br><span class="line"></span><br><span class="line">    Parameters</span><br><span class="line">    ------------</span><br><span class="line">    eta : float</span><br><span class="line">        Learning rate (between 0.0 and 1.0)</span><br><span class="line">    n_iter : int</span><br><span class="line">        Passes over the training dataset.</span><br><span class="line"></span><br><span class="line">    Attributes</span><br><span class="line">    -----------</span><br><span class="line">    w_ : 1d-array</span><br><span class="line">        Weights after fitting.</span><br><span class="line">    cost_ : list</span><br><span class="line">        Sum-of-squares cost function value in each epoch.</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __init__(self, eta=0.01, n_iter=50):</span><br><span class="line">        self.eta = eta</span><br><span class="line">        self.n_iter = n_iter</span><br><span class="line"></span><br><span class="line">    def fit(self, X, y):</span><br><span class="line">        &quot;&quot;&quot; Fit training data.</span><br><span class="line"></span><br><span class="line">        Parameters</span><br><span class="line">        ----------</span><br><span class="line">        X : &#123;array-like&#125;, shape = [n_samples, n_features]</span><br><span class="line">            Training vectors, where n_samples is the number of samples and</span><br><span class="line">            n_features is the number of features.</span><br><span class="line">        y : array-like, shape = [n_samples]</span><br><span class="line">            Target values.</span><br><span class="line"></span><br><span class="line">        Returns</span><br><span class="line">        -------</span><br><span class="line">        self : object</span><br><span class="line"></span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        self.w_ = np.zeros(1 + X.shape[1])</span><br><span class="line">        self.cost_ = []</span><br><span class="line"></span><br><span class="line">        for i in range(self.n_iter):</span><br><span class="line">            net_input = self.net_input(X)</span><br><span class="line">            # Please note that the &quot;activation&quot; method has no effect</span><br><span class="line">            # in the code since it is simply an identity function. We</span><br><span class="line">            # could write `output = self.net_input(X)` directly instead.</span><br><span class="line">            # The purpose of the activation is more conceptual, i.e.,  </span><br><span class="line">            # in the case of logistic regression, we could change it to</span><br><span class="line">            # a sigmoid function to implement a logistic regression classifier.</span><br><span class="line">            output = self.activation(X)</span><br><span class="line">            errors = (y - output)</span><br><span class="line">            self.w_[1:] += self.eta * X.T.dot(errors)</span><br><span class="line">            self.w_[0] += self.eta * errors.sum()</span><br><span class="line">            cost = (errors**2).sum() / 2.0</span><br><span class="line">            self.cost_.append(cost)</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">    def net_input(self, X):</span><br><span class="line">        &quot;&quot;&quot;Calculate net input&quot;&quot;&quot;</span><br><span class="line">        return np.dot(X, self.w_[1:]) + self.w_[0]</span><br><span class="line"></span><br><span class="line">    def activation(self, X):</span><br><span class="line">        &quot;&quot;&quot;Compute linear activation&quot;&quot;&quot;</span><br><span class="line">        return self.net_input(X)</span><br><span class="line"></span><br><span class="line">    def predict(self, X):</span><br><span class="line">        &quot;&quot;&quot;Return class label after unit step&quot;&quot;&quot;</span><br><span class="line">        return np.where(self.activation(X) &gt;= 0.0, 1, -1)</span><br></pre></td></tr></table></figure></p>
+<p><strong>查看不同学习率下的错误率随迭代次数的变化情况：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))</span><br><span class="line"></span><br><span class="line"># 可视化W调整的过程中，错误率随迭代次数的变化</span><br><span class="line">ada1 = AdalineGD(n_iter=10, eta=0.01).fit(X, y)</span><br><span class="line">ax[0].plot(range(1, len(ada1.cost_) + 1), np.log10(ada1.cost_), marker=&apos;o&apos;)</span><br><span class="line">ax[0].set_xlabel(&apos;Epochs&apos;)</span><br><span class="line">ax[0].set_ylabel(&apos;log(Sum-squared-error)&apos;)</span><br><span class="line">ax[0].set_title(&apos;Adaline - Learning rate 0.01&apos;)</span><br><span class="line"></span><br><span class="line">ada2 = AdalineGD(n_iter=10, eta=0.0001).fit(X, y)</span><br><span class="line">ax[1].plot(range(1, len(ada2.cost_) + 1), ada2.cost_, marker=&apos;o&apos;)</span><br><span class="line">ax[1].set_xlabel(&apos;Epochs&apos;)</span><br><span class="line">ax[1].set_ylabel(&apos;Sum-squared-error&apos;)</span><br><span class="line">ax[1].set_title(&apos;Adaline - Learning rate 0.0001&apos;)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>output：</p>
+<p><img src="http://i4.bvimg.com/647637/71c5d16340efe1bc.png" alt=""></p>
+<p><strong>iris数据的应用情况：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 标准化特征</span><br><span class="line">X_std = np.copy(X)</span><br><span class="line">X_std[:, 0] = (X[:, 0] - X[:, 0].mean()) / X[:, 0].std()</span><br><span class="line">X_std[:, 1] = (X[:, 1] - X[:, 1].mean()) / X[:, 1].std()</span><br><span class="line"># 调用函数开始训练</span><br><span class="line">ada = AdalineGD(n_iter=15, eta=0.01)</span><br><span class="line">ada.fit(X_std, y)</span><br><span class="line"># 绘制效果</span><br><span class="line">plot_decision_regions(X_std, y, classifier=ada)</span><br><span class="line">plt.title(&apos;Adaline - Gradient Descent&apos;)</span><br><span class="line">plt.xlabel(&apos;sepal length [standardized]&apos;)</span><br><span class="line">plt.ylabel(&apos;petal length [standardized]&apos;)</span><br><span class="line">plt.legend(loc=&apos;upper left&apos;)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"># 可视化W调整的过程中，错误率随迭代次数的变化</span><br><span class="line">plt.plot(range(1, len(ada.cost_) + 1), ada.cost_, marker=&apos;o&apos;)</span><br><span class="line">plt.xlabel(&apos;Epochs&apos;)</span><br><span class="line">plt.ylabel(&apos;Sum-squared-error&apos;)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>output：</p>
+<p><img src="http://i4.bvimg.com/647637/505a411eac1ca35a.png" alt=""></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>1）<a href="https://blog.csdn.net/u013719780/article/details/51755409" target="_blank" rel="noopener">机器学习系列：感知器</a><br>2）<a href="https://blog.csdn.net/zyq522376829/article/details/66632699" target="_blank" rel="noopener">机器学习入门系列04，Gradient Descent（梯度下降法）</a><br>3）<a href="https://zhuanlan.zhihu.com/p/27449596?utm_source=weibo&amp;utm_medium=social" target="_blank" rel="noopener">一文看懂各种神经网络优化算法：从梯度下降到Adam方法</a><br>4）<a href="https://blog.csdn.net/huakai16/article/details/77701020" target="_blank" rel="noopener">机器学习与神经网络（三）：自适应线性神经元的介绍和Python代码实现</a><br>5）<a href="http://nbviewer.jupyter.org/github/rasbt/python-machine-learning-book/blob/master/code/ch02/ch02.ipynb" target="_blank" rel="noopener">《Training Machine Learning Algorithms for Classification》</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据分析/">数据分析</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/机器学习/">机器学习</a>, <a href="/tags/算法/">算法</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://paradoxallen.github.io/65434/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:paradoxallen.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/博客开发/">博客开发</a><small>1</small></li>
+  
+    <li><a href="/categories/应用统计/">应用统计</a><small>1</small></li>
+  
+    <li><a href="/categories/数据分析/">数据分析</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 paradox
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
+
+
+<a href="https://github.com/paradoxallen" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>

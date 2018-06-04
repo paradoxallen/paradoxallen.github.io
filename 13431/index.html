@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>博客搭建——利用GitHub+Hexo | RP&#39;s blog</title>
+  <meta name="author" content="paradox">
+  
+  <meta name="description" content="学习总结 思考感悟">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="博客搭建——利用GitHub+Hexo"/>
+  <meta property="og:site_name" content="RP&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-120090544-1', 'auto');
+	ga('send', 'pageview');
+
+</script>
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">RP&#39;s blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="///paradoxallen.github.io/">首页</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-03-29T16:00:00.000Z"><a href="/13431/">2018-03-30</a></time>
+      
+      
+  
+    <h1 class="title">博客搭建——利用GitHub+Hexo</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一直想有一个可以记录的属于自己的博客，最近在知乎上看到了利用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>+<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>搭建博客的教程，于是乎搭建了自己的博客<a href="https://paradoxallen.github.io/">paradoxallen</a>。</p>
+<p>然而在此过程也遇到了一些bug，希望以下图文并茂的教程（虽然已经有挺多类似的教程…但主要是想自己写一篇文章!!!而且保证超级详细!!!）可以帮助大家少走弯路，搭建属于自己的博客。</p>
+<a id="more"></a>
+<hr>
+<h2 id="GitHub配置"><a href="#GitHub配置" class="headerlink" title="GitHub配置"></a>GitHub配置</h2><p><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/ </a>登录GitHub账号,如无GitHub帐号需要注册一个</p>
+<p><img src="http://i1.bvimg.com/647637/c2c87e3a66d3f41c.png" alt=""></p>
+<p>点击GitHub中的New repository创建新仓库</p>
+<p><img src="http://i2.bvimg.com/647637/8cd2118322eeebb8.png" alt=""></p>
+<p>仓库名应该为：用户名.<a href="http://github.io" target="_blank" rel="noopener">http://github.io</a> </p>
+<p>这个用户名使用你的GitHub帐号名称代替，这是固定写法</p>
+<p>如我的域名是<a href="http://github.com/paradoxallen" target="_blank" rel="noopener">github.com/paradoxallen</a>，就填入<a href="http://paradoxallen.github.io">paradoxallen.github.io</a></p>
+<p>然后点击create repository创建仓库</p>
+<p><img src="http://i2.bvimg.com/647637/7dee21bf61c6a269.png" alt=""></p>
+<p>成功之后出现以下画面</p>
+<p><img src="http://i4.bvimg.com/647637/9c9e7a4a292f769b.png" alt=""></p>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git-Downloading Package</a>选择下载Windows版本的64位或32位的安装包（也有MacOSX版本和Linux/Unix版本的，按需求下载）</p>
+<p><img src="http://i4.bvimg.com/647637/c8ab66c94a5b8923.png" alt=""></p>
+<p>下载后安装，基本按默认安装就行，安装成功后，鼠标右键打开Git Bash</p>
+<p><img src="http://i2.bvimg.com/647637/1a613567dfe1c628.png" alt=""></p>
+<p>然后设置user.name和user.email配置信息<br><code>git config --global user.name &quot;你的GitHub用户名&quot;</code><br><code>git config --global user.email &quot;你的GitHub注册邮箱&quot;</code></p>
+<p>生成ssh密钥文件：<br><code>ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;</code></p>
+<p><img src="http://i2.bvimg.com/647637/d7a3ae0382cff29c.png" alt=""></p>
+<p>然后直接三个回车，无需设置密码</p>
+<p>在找到生成的.ssh的文件夹中的id-rsa.pub密钥，将内容全部复制</p>
+<p><img src="http://i2.bvimg.com/647637/71af645c415b05d6.png" alt=""></p>
+<p>打开<a href="https://github.com/settings/keys/new" target="_blank" rel="noopener">GitHub-Settings-SSHandGPGkeys-newSHHkeys</a>新建</p>
+<p><img src="http://i4.bvimg.com/647637/410f443eedb161d1.png" alt=""></p>
+<p>Title随意，Key粘贴id-rsa.pub内容，最后点击Add SHH key</p>
+<p>在Git Bash中检测GitHub公钥是否设置成功，输入<code>ssh git@github.com</code>如下则说明成功</p>
+<p><img src="http://i4.bvimg.com/647637/2e82b66bd44b0528.png" alt=""></p>
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Download|Node.js</a>选择下载安装包，也是默认设置安装就好</p>
+<p><img src="http://i4.bvimg.com/647637/c7552174b3bafe3b.png" alt=""></p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>这里需要在自己电脑中新建文件夹，如命名为blog</p>
+<p>进入文件夹，按住shift键，右击鼠标点击在此处打开Powershell窗口</p>
+<p>（有些教程是打开命令行，但好像是win10才有的powershell)</p>
+<p><img src="http://i2.bvimg.com/647637/035c259ae9e63ed0.png" alt=""></p>
+<p>然后依次输入：</p>
+<p><code>npm install -g hexo-cli</code>安装Hexo</p>
+<p><code>hexo init blog</code>初始化Hexo</p>
+<p>成功提示<code>INFO  Start blogging with Hexo!</code></p>
+<p>（因为我已经设置好就不重新初始化啦）</p>
+<p>因为你初始化hexo 之后source目录下自带一篇hello world文章, 所以直接执行下方命令<br><code>hexo g</code> </p>
+<p><code>hexo s</code>启动本地服务器</p>
+<p>成功提示<br><code>INFO  Start processing</code><br><code>INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code></p>
+<p><img src="http://i4.bvimg.com/647637/e262c409d50dc6b2.png" alt=""></p>
+<p>在浏览器输入<code>http://localhost:4000/</code>就可以看见网页和模板了（因为我修改过主题可能有点出入）</p>
+<p><img src="http://i4.bvimg.com/647637/1a5c5f97074e6f7d.png" alt=""></p>
+<h2 id="网站推送"><a href="#网站推送" class="headerlink" title="网站推送"></a>网站推送</h2><p>打开blog根目录_config.yml文件，将Hexo与GitHub关联起来</p>
+<p><img src="http://i4.bvimg.com/647637/f4980b87d2c9f2ff.png" alt=""></p>
+<p><code>deploy:</code></p>
+<p><code>type: git</code></p>
+<p><code>repo: GitHub上创建仓库的完整路径，加上 .git</code></p>
+<p><code>branch: master</code></p>
+<p>参考如下：</p>
+<p><img src="http://i4.bvimg.com/647637/c150e9cde0adb7b3.png" alt=""></p>
+<p>然后保存并执行命令：<br><code>npm install hexo-deployer-git --save</code></p>
+<p>再依次输入三条命令:</p>
+<p><code>hexo clean</code> </p>
+<p><code>hexo g</code></p>
+<p><code>hexo d</code></p>
+<p>打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="http://xxxx.github.io，如[paradoxallen.github.io](https://paradoxallen.github.io/)即可访问" target="_blank" rel="noopener">http://xxxx.github.io，如[paradoxallen.github.io](https://paradoxallen.github.io/)即可访问</a></p>
+<p>此外，也可以打开_config.yml文件修改参数信息，如排版格式等等</p>
+<h2 id="文章发布"><a href="#文章发布" class="headerlink" title="文章发布"></a>文章发布</h2><p>输入：<code>hexo new &quot;testing&quot;</code>打开文件使用markdown语法输入文字</p>
+<p>保存，执行：</p>
+<p><code>hexo clean</code></p>
+<p><code>hexo g</code></p>
+<p><code>hexo server</code></p>
+<p><code>hexo deploy</code></p>
+<p><img src="http://i2.bvimg.com/647637/408049f3884510e4.png" alt=""></p>
+<p>就可以看到文章发布了~</p>
+<p><img src="http://i2.bvimg.com/647637/bdb5ddb3bea1f960.png" alt=""></p>
+<h2 id="总结陈词"><a href="#总结陈词" class="headerlink" title="总结陈词"></a>总结陈词</h2><p>搭建博客的步骤：</p>
+<p>1、GitHub配置</p>
+<p>2、环境安装</p>
+<p>3、网站推送</p>
+<p>4、文章发布</p>
+<p>发布文章的步骤：</p>
+<p>1、hexo new 创建文章</p>
+<p>2、Markdown语法编辑文章</p>
+<p>3、部署（所有打开CMD都是在blog目录下）</p>
+<p>到这里已经完成了博客的搭建以及文章的发布，但是还有很多需要设置和调整的。</p>
+<p>我也是刚刚搭建好博客，还有待博客界面的优化以及内容的丰富!!!</p>
+<p>今天先到这里啦~</p>
+<p>##参考资料<br>1.<a href="https://zhangslob.github.io/2017/02/28/%E6%95%99%E4%BD%A0%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo-Github/" target="_blank" rel="noopener">教你免费搭建个人博客，Hexo&amp;Github</a></p>
+<p>2.<a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">GitHub+Hexo 搭建个人网站详细教程</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/博客开发/">博客开发</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/hexo/">hexo</a>, <a href="/tags/博客/">博客</a>, <a href="/tags/GitHub/">GitHub</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="https://paradoxallen.github.io/13431/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:paradoxallen.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/博客开发/">博客开发</a><small>1</small></li>
+  
+    <li><a href="/categories/应用统计/">应用统计</a><small>1</small></li>
+  
+    <li><a href="/categories/数据分析/">数据分析</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 paradox
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
+
+
+<a href="https://github.com/paradoxallen" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
