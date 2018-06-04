@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>RP&#39;s blog</title>
+  <title>RP&#39;s Blog</title>
   
-  
+  <subtitle>学习总结  思考感悟</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://paradoxallen.github.io/"/>
@@ -10,7 +10,7 @@
   <id>https://paradoxallen.github.io/</id>
   
   <author>
-    <name>paradox</name>
+    <name>LRP</name>
     
   </author>
   
