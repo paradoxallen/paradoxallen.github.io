@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Excel学习(一) 函数篇 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="写在前面此文针对数据分析EXCEL部分的入门。
+重点是了解各种函数，包括但不限于sum，count，sumif，countif，find，if，left/right，时间转换等。Excel函数不需要学全，重要的是学会搜索。即如何将遇到的问题在搜索引擎上描述清楚。掌握vlookup和数据透视表足够，是最具性价比的两个技巧。
+学会vlookup，SQL中的join，Python中的merge很容易理解。
+学会数据透视表，SQL中的group，Python中的pivot_table也是同理。
+这两个搞定，基本10万条以内的数据统计没啥难度。Excel是熟能生巧，多找练习题。还有需要养成好习惯，不要合并单元格，不要过于花哨。表格按照原始数据（sheet1）、加工数据（sheet2），图表（sheet3）的类型管理。
+第一篇数据分析—函数篇。主要简单讲解常用的函数，以及与之对应的SQL/Python函数。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Excel学习(一) 函数篇"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2018-01-23T16:00:00.000Z"><a href="/19174/">2018-01-24</a></time>
+        
+  
+    <h1 class="title">Excel学习(一) 函数篇</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清洗处理类"><span class="toc-text">清洗处理类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联匹配类"><span class="toc-text">关联匹配类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算类"><span class="toc-text">逻辑运算类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算统计类"><span class="toc-text">计算统计类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间序列类"><span class="toc-text">时间序列类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a>
+    </div>
+
+        <h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><p>此文针对数据分析EXCEL部分的入门。</p>
+<p>重点是了解各种函数，包括但不限于sum，count，sumif，countif，find，if，left/right，时间转换等。Excel函数不需要学全，重要的是学会搜索。即如何将遇到的问题在搜索引擎上描述清楚。掌握vlookup和数据透视表足够，是最具性价比的两个技巧。</p>
+<p>学会vlookup，SQL中的join，Python中的merge很容易理解。</p>
+<p>学会数据透视表，SQL中的group，Python中的pivot_table也是同理。</p>
+<p>这两个搞定，基本10万条以内的数据统计没啥难度。Excel是熟能生巧，多找练习题。还有需要养成好习惯，不要合并单元格，不要过于花哨。表格按照原始数据（sheet1）、加工数据（sheet2），图表（sheet3）的类型管理。</p>
+<p>第一篇数据分析—函数篇。主要简单讲解常用的函数，以及与之对应的SQL/Python函数。</p>
+<a id="more"></a>
+<hr>
+<p>世界上的数据分析师分为两类，使用Excel的分析师，和其他分析师。</p>
+<p>每一个数据新人的入门工具都离不开Excel。因为Excel涵盖的功能足够多。</p>
+<p>很多传统行业的数据分析师只要求掌握Excel即可，会SPSS/SAS是加分项。即使在挖掘满街走，Python不如狗的互联网数据分析界，Excel也是不可替代的。</p>
+<p>Excel有很多强大的函数，这篇文章主要介绍各种函数的用途。实战会后续文章讲解。</p>
+<p>函数可以被我们想象成一个盒子，专门负责将输入转换成输出，不同的函数对应不同的输出。</p>
+<pre><code>=Vlookup( lookup_value ,table_array,col_index_num,[range_lookup] )
+</code></pre><p>上文的Vlookup就是一个经典函数。函数中包含参数，括号里的部分都是参数。我们可以把参数想象成盒子上的开关。vlookup就有四个开关，不同开关组合决定了函数的输入和输出。</p>
+<pre><code>=Vlookup( 参数1，参数2，参数3，参数4)
+</code></pre><p>复杂的原理不需要了解。这篇文章是常用函数汇总。甚至你不需要特别记忆怎么使用函数，<strong>应用Excel函数最重要的能力是学会搜索</strong>。因为绝大部分函数网上已经有相应的解释，图文结合，非常详尽。</p>
+<p>学会将遇到的问题转换成搜索语句，如不会vlookup，不会关联多张表的数据，在网上搜索：excel怎么匹配多张表的数据。于是就学会了。这里推荐使用百度，因为前三行的结果基本是百度经验，对新人学习很友好。（后续图片均引用自百度经验）</p>
+<p>在理解函数的基础上，会适当引入高层次的内容，SQL和Python（内建函数）。将其和Excel结合学习，如果大家吃透了Excel的函数，那么后续学习会轻松不少。</p>
+<hr>
+<h3 id="清洗处理类"><a href="#清洗处理类" class="headerlink" title="清洗处理类"></a>清洗处理类</h3><p>主要是文本、格式以及脏数据的清洗和转换。很多数据并不是直接拿来就能用的，需要经过数据分析人员的清理。数据越多，这个步骤花费的时间越长。</p>
+<p><strong>Trim</strong></p>
+<p>清除掉字符串两边的空格。</p>
+<p><em>MySQL有同名函数，Python有近似函数strip。</em></p>
+<p><strong>Concatenate</strong></p>
+<pre><code>=Concatenate(单元格1，单元格2……)
+</code></pre><p>合并单元格中的内容，还有另一种合并方式是&amp; 。”我”&amp;”很”&amp;”帅” ＝ 我很帅。当需要合并的内容过多时，concatenate的效率快也优雅。</p>
+<p><em>MySQL有近似函数concat。</em></p>
+<p><strong>Replace</strong></p>
+<pre><code>=Replace（指定字符串，哪个位置开始替换，替换几个字符，替换成什么）
+</code></pre><p>替换掉单元格的字符串，清洗使用较多。</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Substitute</strong></p>
+<p>和replace接近，区别是替换为全局替换，没有起始位置的概念</p>
+<p><strong>Left／Right／Mid</strong></p>
+<pre><code>=Mid(指定字符串，开始位置，截取长度)
+</code></pre><p>截取字符串中的字符。Left/Right（指定字符串，截取长度）。left为从左，right为从右，mid如上文示意。</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Len／Lenb</strong></p>
+<p>返回字符串的长度，在len中，中文计算为一个，在lenb中，中文计算为两个。<br><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Find</strong></p>
+<pre><code>=Find（要查找字符，指定字符串，第几个字符）
+</code></pre><p>查找某字符串出现的位置，可以指定为第几次出现，与Left／Right／Mid结合能完成简单的文本提取<br><em>MySQL中有近似函数 find_in_set，Python中有同名函数。</em></p>
+<p><strong>Search</strong></p>
+<p>和Find类似，区别是Search大小写不敏感，但支持＊通配符</p>
+<p><strong>Text</strong></p>
+<p>将数值转化为指定的文本格式，可以和时间序列函数一起看</p>
+<hr>
+<h3 id="关联匹配类"><a href="#关联匹配类" class="headerlink" title="关联匹配类"></a>关联匹配类</h3><p>在进行多表关联或者行列比对时用到的函数，越复杂的表用得越多。多说一句，良好的表习惯可以减少这类函数的使用。</p>
+<p><strong>Lookup</strong></p>
+<pre><code>=Lookup（查找的值，值所在的位置，返回相应位置的值）
+</code></pre><p>最被忽略的函数，功能性和Vlookup一样，但是引申有数组匹配和二分法。</p>
+<p><strong>Vlookup</strong></p>
+<pre><code>=Vlookup(查找的值，哪里找，找哪个位置的值，是否精准匹配)
+</code></pre><p>Excel第一大难关，因为涉及的逻辑对新手较复杂，通俗的理解是查找到某个值然后黏贴过来。</p>
+<p><strong>Index</strong></p>
+<pre><code>＝Index（查找的区域，区域内第几行，区域内第几列）
+</code></pre><p>和Match组合，媲美Vlookup，但是功能更强大。</p>
+<p><strong>Match</strong></p>
+<pre><code>＝Match（查找指定的值，查找所在区域，查找方式的参数）
+</code></pre><p>和Lookup类似，但是可以按照指定方式查找，比如大于、小于或等于。返回值所在的位置。</p>
+<p><strong>Row</strong></p>
+<p>返回单元格所在的行</p>
+<p><strong>Column</strong></p>
+<p>返回单元格所在的列</p>
+<p><strong>Offset</strong></p>
+<pre><code>＝Offset（指定点，偏移多少行，偏移多少列，返回多少行，返回多少列）
+</code></pre><p>建立坐标系，以坐标系为原点，返回距离原点的值或者区域。正数代表向下或向右，负数则相反。</p>
+<hr>
+<h3 id="逻辑运算类"><a href="#逻辑运算类" class="headerlink" title="逻辑运算类"></a>逻辑运算类</h3><p>数据分析中不得不用到逻辑运算，逻辑运算返回的均是布尔类型，True和False。很多复杂的数据分析会牵扯到较多的逻辑运算</p>
+<p><strong>IF</strong></p>
+<p>经典的如果但是，在后期的Python中，也会经常用到，当然会有许多更优雅的写法。也有ifs用法，取代if(and())的写法。</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>And</strong></p>
+<p>全部参数为True，则返回True，经常用于多条件判断。</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Or</strong></p>
+<p>只要参数有一个True，则返回Ture，经常用于多条件判断。</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>IS系列</strong></p>
+<p>常用判断检验，返回的都是布尔数值True和False。常用ISERR，ISERROR，ISNA，ISTEXT，可以和IF嵌套使用。</p>
+<hr>
+<h3 id="计算统计类"><a href="#计算统计类" class="headerlink" title="计算统计类"></a>计算统计类</h3><p>常用的基础计算、分析、统计函数，以描述性统计为准。具体含义在后续的统计章节再展开。<br><strong>Sum／Sumif／Sumifs</strong></p>
+<p>统计满足条件的单元格总和，SQL有中同名函数。</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Sumproduct</strong></p>
+<p>统计总和相关，如果有两列数据销量和单价，现在要求卖出增加，用sumproduct是最方便的。</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Count／Countif／Countifs</strong></p>
+<p>统计满足条件的字符串个数</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Max</strong></p>
+<p>返回数组或引用区域的最大值</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Min</strong></p>
+<p>返回数组或引用区域的最小值</p>
+<p><em>MySQL中有同名函数，Python中有同名函数。</em></p>
+<p><strong>Rank</strong></p>
+<p>排序，返回指定值在引用区域的排名，重复值同一排名。</p>
+<p><em>SQL中有近似函数row_number() </em>。</p>
+<p><strong>Rand／Randbetween</strong></p>
+<p>常用随机抽样，前者返回0~1之间的随机值，后者可以指定范围。</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Averagea</strong></p>
+<p>求平均值，也有Averageaif，Averageaifs</p>
+<p><em>MySQL中有同名函数，python有近似函数mean。</em></p>
+<p><strong>Quartile</strong></p>
+<pre><code>=Quartile（指定区域，分位参数）
+</code></pre><p>计算四分位数，比如1~100的数字中，25分位就是按从小到大排列，在25%位置的数字，即25。参数0代表最小值，参数4代表最大值，1~3对应25、50（中位数）、75分位</p>
+<p><strong>Stdev</strong></p>
+<p>求标准差，统计型函数，后续数据分析再讲到</p>
+<p><strong>Substotal</strong></p>
+<pre><code>=Substotal（引用区域，参数）
+</code></pre><p>汇总型函数，将平均值、计数、最大最小、相乘、标准差、求和、方差等参数化，换言之，只要会了这个函数，上面的都可以抛弃掉了。</p>
+<p><strong>Int／Round</strong></p>
+<p>取整函数，int向下取整，round按小数位取数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">round(3.1415,2) =3.14 ;</span><br><span class="line">round(3.1415,1)=3.1</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="时间序列类"><a href="#时间序列类" class="headerlink" title="时间序列类"></a>时间序列类</h3><p>专门用于处理时间格式以及转换，时间序列在金融、财务等数据分析中占有较大比重。时机序列的处理函数比我列举了还要复杂，比如时区、分片、复杂计算等。这里只做一个简单概述。</p>
+<p><strong>Year</strong></p>
+<p>返回日期中的年</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Month</strong></p>
+<p>返回日期中的月</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Weekday</strong></p>
+<pre><code>=Weekday(指定时间，参数)
+</code></pre><p>返回指定时间为一周中的第几天，参数为1代表从星期日开始算作第一天，参数为2代表从星期一开始算作第一天（中西方差异）。我们中国用2为参数即可。</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Weeknum</strong></p>
+<pre><code>=Weeknum(指定时间，参数)
+</code></pre><p>返回一年中的第几个星期，后面的参数类同weekday，意思是从周日算还是周一。</p>
+<p><em>MySQL中有近似函数 week。</em></p>
+<p><strong>Day</strong></p>
+<p>返回日期中的日（第几号）</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Date</strong></p>
+<pre><code>=Date（年，月，日）
+</code></pre><p>时间转换函数，等于将year()，month()，day()合并</p>
+<p><em>MySQL中有近似函数 date_format。</em></p>
+<p><strong>Now</strong></p>
+<p>返回当前时间戳，动态函数</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Today</strong></p>
+<p>返回今天的日期，动态函数</p>
+<p><em>MySQL中有同名函数。</em></p>
+<p><strong>Datedif</strong></p>
+<pre><code>=Datedif（开始日期，结束日期，参数）
+</code></pre><p>日期计算函数，计算两日期的差。参数决定返回的是年还是月等。</p>
+<p><em>MySQL中有近似函数 DateDiff。</em></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>1）<a href="https://www.zhihu.com/question/29265587/answer/125091104" target="_blank" rel="noopener">秦路-数据分析</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据分析/">数据分析</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Excel/">Excel</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">6</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 10px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
