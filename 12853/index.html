@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Excel学习(二) 技巧篇 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="前文传送Excel学习(一) 函数篇
+写在前面此文针对数据分析EXCEL部分的入门。
+重点是了解各种函数，包括但不限于sum，count，sumif，countif，find，if，left/right，时间转换等。Excel函数不需要学全，重要的是学会搜索。即如何将遇到的问题在搜索引擎上描述清楚。掌握vlookup和数据透视表足够，是最具性价比的两个技巧。
+学会vlookup，SQL中的join，Python中的merge很容易理解。
+学会数据透视表，SQL中的group，Python中的pivot_table也是同理。
+这两个搞定，基本10万条以内的数据统计没啥难度。Excel是熟能生巧，多找练习题。还有需要养成好习惯，不要合并单元格，不要过于花哨。表格按照原始数据（sheet1）、加工数据（sheet2），图表（sheet3）的类型管理。
+第二篇数据分析—技巧篇。主要简单讲解很有性价比的功能，提高工作效率。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Excel学习(二) 技巧篇"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2018-01-25T16:00:00.000Z"><a href="/12853/">2018-01-26</a></time>
+        
+  
+    <h1 class="title">Excel学习(二) 技巧篇</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前文传送"><span class="toc-text">前文传送</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快捷键"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式转换"><span class="toc-text">格式转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分列"><span class="toc-text">分列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并单元个格"><span class="toc-text">合并单元个格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据透视表"><span class="toc-text">数据透视表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除重复项"><span class="toc-text">删除重复项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件格式"><span class="toc-text">条件格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冻结首行首列"><span class="toc-text">冻结首行首列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义下拉菜单（数据有效性）"><span class="toc-text">自定义下拉菜单（数据有效性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义名称"><span class="toc-text">自定义名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找公式错误"><span class="toc-text">查找公式错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组和分级显示"><span class="toc-text">分组和分级显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析工具库"><span class="toc-text">分析工具库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三方应用"><span class="toc-text">第三方应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a>
+    </div>
+
+        <h4 id="前文传送"><a href="#前文传送" class="headerlink" title="前文传送"></a>前文传送</h4><p><a href="https://paradoxallen.github.io/19174/">Excel学习(一) 函数篇</a></p>
+<h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><p>此文针对数据分析EXCEL部分的入门。</p>
+<p>重点是了解各种函数，包括但不限于sum，count，sumif，countif，find，if，left/right，时间转换等。Excel函数不需要学全，<strong>重要的是学会搜索</strong>。即如何将遇到的问题在搜索引擎上描述清楚。掌握vlookup和数据透视表足够，是最具性价比的两个技巧。</p>
+<p>学会vlookup，SQL中的join，Python中的merge很容易理解。</p>
+<p>学会数据透视表，SQL中的group，Python中的pivot_table也是同理。</p>
+<p>这两个搞定，基本10万条以内的数据统计没啥难度。Excel是熟能生巧，多找练习题。还有需要养成好习惯，不要合并单元格，不要过于花哨。表格按照原始数据（sheet1）、加工数据（sheet2），图表（sheet3）的类型管理。</p>
+<p>第二篇数据分析—技巧篇。主要简单讲解很有性价比的功能，提高工作效率。</p>
+<a id="more"></a>
+<hr>
+<p>本次讲解依然是提纲，图文部分引用自百度经验。内容方面照旧会补充SQL和Python。</p>
+<hr>
+<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><p>Excel的快捷键很多，以下主要是能提高效率。</p>
+<p><code>Ctrl+方向键</code>，对单元格光标快速移动，移动到数据边缘（空格位置）。</p>
+<p><code>Ctrl+Shift+方向键</code>，对单元格快读框选，选择到数据边缘（空格位置）。</p>
+<p><code>Ctrl+空格键</code>，选定整列。</p>
+<p><code>Shift+空格键</code>，选定整行。</p>
+<p><code>Ctrl+A</code>，选择整张表。</p>
+<p><code>Alt+Enter</code>，换行。</p>
+<p><code>Ctrl+Enter</code>，以当前单元格为始，往下填充数据和函数。</p>
+<p><code>Ctrl+S</code>，快读保存。</p>
+<p><code>Ctrl+Z</code>，撤回当前操作。</p>
+<p>如果是效率达人，可以学习更多快捷键。Mac用户的Ctrl一般需要用command替换。</p>
+<h3 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h3><p>Excel的格式及转换很容易忽略，但格式会如影随形伴随数据分析者的一切场景，是后续SQL和Python数据类型的基础。</p>
+<p>通常我们将Excel格式分为数值、文本、时间。</p>
+<p>数值常见整数型 Int和小数/浮点型 Float。两者的界限很模糊。在SQL和Python中，则会牵扯的复杂，涉及运算效率，计算精度等。</p>
+<p>文本分为中文和英文，存储字节，字符长度不同。中文很容易遇到编码问题，尤其是Python2。Win和Mac环境也有差异。大家遇到的乱码一般都属于中文编码错误。</p>
+<p>时间格式在Excel中可以和数值直接互换，也能用加减法进行天数换算。</p>
+<p>时间格式有不同表达。例如<code>2016年11月11日，2016/11/11，2016-11-11</code>等。当数据源多就会变得混乱。我们可以用自定义格式规范时间。</p>
+<p>这里了解一下时间格式的概念，列举是一些较通用的范例（<strong>不同编程语言还是有差异的</strong>）。</p>
+<p><code>YYYY</code>代表通配的四位数年格式</p>
+<p><code>MM</code>代表通配的两位数月格式</p>
+<p><code>DD</code>代表通配的两位数日格式</p>
+<p><code>HH</code>代表通配的的两位数小时（24小时）格式</p>
+<p><code>hh</code>代表通配的两位数小（12小时制）格式</p>
+<p><code>mm</code>代表通配的两位数分格式</p>
+<p><code>ss</code>代表通配的两位数秒格式</p>
+<p>例如<code>2016/11/11</code>可以写成：<code>yyyy/MM/dd</code></p>
+<p><code>2016-11-11 23:59:59</code>可以写成：<code>yyyy-MM-dd HH:mm:ss</code></p>
+<p><img src="https://i.imgur.com/nlur0Cl.jpg" alt=""></p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组很多人都不会用到，甚至不知道有这个功能。依旧是数据分析越往后用到越多，它类似R语言的Array和Python的<code>List</code>。</p>
+<p>数组由多个元素组成。普通函数的计算结果是一个值，数组类函数的计算结果返回多个值。</p>
+<p>数组用大括号表示，当函数中使用到数组，应该用<code>Ctrl+Shift+Enter</code>输入，不然会报错。</p>
+<p>先看数组的最基础使用。选择<code>A1:D1</code>区域，输入<code>={1,2,3,4}</code>。记住是大括号。然后<code>Ctrl+Shift+Enter</code>。我们发现数组里的四个值被分别传到四个单元格中，这是数组的独有用法。</p>
+<p><img src="https://i.imgur.com/BPaet6B.jpg" alt=""></p>
+<p>我们再来看一下数组和函数的应用。利用{}，我们能做到1匹配a，2匹配b，3匹配c。也就是一一对应。专业说法是<code>Mapping</code>。</p>
+<pre><code>=lookup(查找值，{1,2,3}，{&quot;a&quot;,&quot;b&quot;,&quot;c&quot;})
+</code></pre><p>Excel的数组具体应用，大家可以搜索学习，可以提高一定的效率。但是Python的数组更为强大，我的重点就不放在这块了。</p>
+<h3 id="分列"><a href="#分列" class="headerlink" title="分列"></a>分列</h3><p>Excel可以将多个单元格的内容合并，但是不擅长拆分。分列功能可以将某一列按照特定规则拆分。常常用来进行数据清洗。</p>
+<p><img src="https://i.imgur.com/vimBLy5.jpg" alt=""></p>
+<p>上文我有一列地区的数据，我想要将市和区分成两列。我们可以用mid和find函数查找市截取字符。但最快的做法就是用“市”分列。</p>
+<p><img src="https://i.imgur.com/5FhN3mL.jpg" alt=""></p>
+<p>出一个思考题，如果市和自治区区都存在应该如何分列？</p>
+<p>SQL和Python中有类似的<code>spilt ( )</code>函数。</p>
+<h3 id="合并单元个格"><a href="#合并单元个格" class="headerlink" title="合并单元个格"></a>合并单元个格</h3><p>单元格作为报表整理使用，除非是最终输出格式，例如打印。否则不要随意合并单元格。</p>
+<p>一旦使用合并单元格，绝大多数函数都不能正常使用，影响批量的数据处理和格式转换。合并单元格也会造成Python和SQL的读取错误。</p>
+<h3 id="数据透视表"><a href="#数据透视表" class="headerlink" title="数据透视表"></a>数据透视表</h3><p>数据透视表是非常强大的功能，当初学会时惊为天人。</p>
+<p>数据透视表的主要功能是将数据聚合，按照各子段进行<code>sum( )，count( )</code>的运算。</p>
+<p>下图我选择我选择想要计算的数据，然后点击创建透视表。</p>
+<p><img src="https://i.imgur.com/n9BMOzA.jpg" alt=""></p>
+<p>此时会新建一个Sheet，这是数据透视表的优点，将原始数据和汇总计算数据分离。</p>
+<p>数据透视表的核心思想是聚合运算，将字段名相同的数据聚合起来，所谓数以类分。</p>
+<p>列和行的设置，则是按不同轴向展现数据。简单说，你想要什么结构的报表，就用什么样的拖拽方式。</p>
+<p><img src="https://i.imgur.com/7TGmIVc.jpg" alt=""></p>
+<p>聚合功能有一点类似SQL中的<code>gorup by</code>，python中则有更为强大的<code>pandas.pivot_table( )</code>。</p>
+<h3 id="删除重复项"><a href="#删除重复项" class="headerlink" title="删除重复项"></a>删除重复项</h3><p>一种数据清洗和检验的快速方式。想要验证某一列有多少个唯一值，或者数据清洗，都可以使用。</p>
+<p>类似SQL中的<code>distinct</code> ,python中的<code>set</code></p>
+<h3 id="条件格式"><a href="#条件格式" class="headerlink" title="条件格式"></a>条件格式</h3><p>条件格式可以当作数据可视化的应用。如果我们要使用函数在大量数据中找出前三的值，可能会用到<code>rank( )</code>函数，排序，然后过滤出<code>1，2，3</code>。</p>
+<p>用条件格式则是另外一种快速方法，直接用颜色标出，非常直观。</p>
+<p><img src="https://i.imgur.com/NlLrhKr.jpg" alt=""><br><img src="https://i.imgur.com/xxoRsIE.jpg" alt=""></p>
+<h3 id="冻结首行首列"><a href="#冻结首行首列" class="headerlink" title="冻结首行首列"></a>冻结首行首列</h3><p>Excel的首行一般是各字段名<code>Header</code>，俗称表头，当行数和列数过多的时候，观察数据比较麻烦。我们可以通过固定住首行，方便浏览和操作。</p>
+<p><code>Header</code>是一个较为重要的概念。在Python和R中，<code>read_csv</code>函数，会有一个专门的参数<code>header=true</code>，来判断是否读取表头作为<code>columns</code>的名字。</p>
+<h3 id="自定义下拉菜单（数据有效性）"><a href="#自定义下拉菜单（数据有效性）" class="headerlink" title="自定义下拉菜单（数据有效性）"></a>自定义下拉菜单（数据有效性）</h3><p>数据有效性是一种约束，针对单元格限制其输入，也就是让其只能固定几个值。下拉菜单是一种高阶应用，通过允许下拉箭头即可。</p>
+<p><img src="https://i.imgur.com/QO0Ru7S.jpg" alt=""><br><img src="https://i.imgur.com/hfJAJVC.jpg" alt=""></p>
+<h3 id="自定义名称"><a href="#自定义名称" class="headerlink" title="自定义名称"></a>自定义名称</h3><p>自定义名称是一个很好用的技巧，我们可以为一个区域，变量、或者数组定义一个名称。后续要经常使用的话，直接引用即可，无需再次定位。这是复用的概念。</p>
+<p><img src="https://i.imgur.com/DROuDqO.jpg" alt=""></p>
+<p>我们将<code>A1:A3</code>区域命名为<code>NUM</code><br>直接使用<code>=sum(NUM)</code> ，等价于<code>sum(A1:A3)</code>。</p>
+<p><img src="https://i.imgur.com/UFyXjOg.jpg" alt=""></p>
+<p>新手们理解数据库，可以将其想象成无数张表sheet。每一张表都有自己唯一的名字，就像上图的<code>NUM</code>一样。数据库操作就是引用表名进行查找、关联等操作。使用<code>sum，count</code>等函数。</p>
+<h3 id="查找公式错误"><a href="#查找公式错误" class="headerlink" title="查找公式错误"></a>查找公式错误</h3><p>公式报错也不知道错在哪里的时候可以使用，尤其是各类<code>IF</code>嵌套或者多表关联，逻辑复杂时。查找公式错误是逐步运算的，方便定位。</p>
+<p><img src="https://i.imgur.com/7RfPtPt.jpg" alt=""><br><img src="https://i.imgur.com/8xm8ffn.jpg" alt=""></p>
+<h3 id="分组和分级显示"><a href="#分组和分级显示" class="headerlink" title="分组和分级显示"></a>分组和分级显示</h3><p>分组和分级显示，常用在报表中，在报表行数多到一定程度时，通过分组达到快速切换和隐藏的目的。越是专业度的报表（咨询、财务等），越可以学习这块。在数据菜单下。</p>
+<p><img src="https://i.imgur.com/ckuyEmM.jpg" alt=""></p>
+<h3 id="分析工具库"><a href="#分析工具库" class="headerlink" title="分析工具库"></a>分析工具库</h3><p>分析工具库是高阶分析的利器，包含很多统计计算，检验功能等工具。Excel是默认不安装的，要安装需要加载项，在工具菜单下（不同版本安装方式会有一点小差异）。</p>
+<p><img src="https://i.imgur.com/769vRzG.jpg" alt=""></p>
+<p>分析工具库是统计包，规划求解是计算最优解，类似决策树。这两者的分析方法以后详细论述。</p>
+<p><img src="https://i.imgur.com/NeSkSr0.jpg" alt=""></p>
+<p>Mac似乎有阉割。</p>
+<h3 id="第三方应用"><a href="#第三方应用" class="headerlink" title="第三方应用"></a>第三方应用</h3><p>Excel是支持第三方插件的，第三方插件拥有非常强大的功能。甚至完成BI的工作。</p>
+<p><img src="https://i.imgur.com/QdlkYp0.jpg" alt=""></p>
+<p>应用商店里微软的<code>Power系列</code>都挺好的。下图就是<code>Power Map</code></p>
+<p><img src="https://i.imgur.com/JLzHZg7.jpg" alt=""></p>
+<p>第三方应用商店Mac没有，非常可惜。Win用户请用最新版本，老版本是没有插件的。</p>
+<p>Excel更多技巧可以在<a href="https://www.zhihu.com/topic/19567930/hot" target="_blank" rel="noopener">知乎Microsoft Excel-热门问答-知乎</a> 下搜索。主要是和数据分析相关的。</p>
+<hr>
+<p>主要的Excel技巧和函数已经都已经讲解完毕。Excel博大精深，有一句说的挺好，我们大部分实际用到的功能只有20%。熟练掌握这20%功能，日常工作足够应付。重要的还是解决问题的能力。</p>
+<p>接下来是Excel实战内容，下一篇文章会直接用到5000行真实的数据分析师的职位数据。没错，用数据分析师的数据进行分析，有点拗口。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>1）<a href="https://www.zhihu.com/question/29265587/answer/125091104" target="_blank" rel="noopener">秦路-数据分析</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据分析/">数据分析</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Excel/">Excel</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">7</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 13.33px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">3</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
