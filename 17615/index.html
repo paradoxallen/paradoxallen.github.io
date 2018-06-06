@@ -1,0 +1,363 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Excel学习(三) 实战篇 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="前文传送Excel学习(一) 函数篇Excel学习(二) 技巧篇
+写在前面此文针对数据分析EXCEL部分的入门。
+重点是了解各种函数，包括但不限于sum，count，sumif，countif，find，if，left/right，时间转换等。Excel函数不需要学全，重要的是学会搜索。即如何将遇到的问题在搜索引擎上描述清楚。掌握vlookup和数据透视表足够，是最具性价比的两个技巧。
+学会vlookup，SQL中的join，Python中的merge很容易理解。
+学会数据透视表，SQL中的group，Python中的pivot_table也是同理。
+这两个搞定，基本10万条以内的数据统计没啥难度。Excel是熟能生巧，多找练习题。还有需要养成好习惯，不要合并单元格，不要过于花哨。表格按照原始数据（sheet1）、加工数据（sheet2），图表（sheet3）的类型管理。
+第三篇数据分析—技巧篇。主要将前两篇的内容以实战方式进行，简单地进行了一次数据分析。数据源采用了真实的爬虫数据，是5000行数据分析师岗位数据。
+温馨提示：如果您已经熟悉Excel，大可不必再看这篇文章，或只挑选部分。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Excel学习(三) 实战篇"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2018-01-27T16:00:00.000Z"><a href="/17615/">2018-01-28</a></time>
+        
+  
+    <h1 class="title">Excel学习(三) 实战篇</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前文传送"><span class="toc-text">前文传送</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#明确目的"><span class="toc-text">明确目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#观察数据"><span class="toc-text">观察数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据清洗"><span class="toc-text">数据清洗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析过程-amp-得出结论"><span class="toc-text">分析过程&amp;得出结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a>
+    </div>
+
+        <h4 id="前文传送"><a href="#前文传送" class="headerlink" title="前文传送"></a>前文传送</h4><p><a href="https://paradoxallen.github.io/19174/">Excel学习(一) 函数篇</a><br><a href="https://paradoxallen.github.io/12853/">Excel学习(二) 技巧篇</a></p>
+<h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><p>此文针对数据分析EXCEL部分的入门。</p>
+<p>重点是了解各种函数，包括但不限于sum，count，sumif，countif，find，if，left/right，时间转换等。Excel函数不需要学全，<strong>重要的是学会搜索</strong>。即如何将遇到的问题在搜索引擎上描述清楚。掌握vlookup和数据透视表足够，是最具性价比的两个技巧。</p>
+<p>学会vlookup，SQL中的join，Python中的merge很容易理解。</p>
+<p>学会数据透视表，SQL中的group，Python中的pivot_table也是同理。</p>
+<p>这两个搞定，基本10万条以内的数据统计没啥难度。Excel是熟能生巧，多找练习题。还有需要养成好习惯，不要合并单元格，不要过于花哨。表格按照原始数据（sheet1）、加工数据（sheet2），图表（sheet3）的类型管理。</p>
+<p>第三篇数据分析—技巧篇。主要将前两篇的内容以实战方式进行，简单地进行了一次数据分析。数据源采用了真实的爬虫数据，是5000行数据分析师岗位数据。</p>
+<p>温馨提示：如果您已经熟悉Excel，大可不必再看这篇文章，或只挑选部分。</p>
+<a id="more"></a>
+<hr>
+<p>这篇文章讲解实战，如何运用上两篇文章的知识进行分析。</p>
+<p>演示过程分为五个步骤：<strong>明确目的，观察数据，清洗数据，分析过程，得出结论。</strong></p>
+<p>这也是通常数据分析的简化流程。</p>
+<hr>
+<h3 id="明确目的"><a href="#明确目的" class="headerlink" title="明确目的"></a>明确目的</h3><p>数据分析的大忌是不知道分析方向和目的，拿着一堆数据不知所措。<strong>一切数据分析都是以业务为核心目的</strong>，而不是以数据为目的。</p>
+<p>数据用来解决什么问题？</p>
+<p>是进行汇总统计制作成报表？</p>
+<p>是进行数据可视化，作为一张信息图？</p>
+<p>是验证某一类业务假设？</p>
+<p>是希望提高某一个指标的KPI？</p>
+<p>永远不要妄图在一堆数据中找出自己的结论，太难。目标在前，数据在后。哪怕给自己设立一个很简单的目标，例如计算业务的平均值，也比没有方向好。因为有了平均值可以想数字比预期是高了还是低了，原因在哪里，数据靠谱吗？为了找出原因还需要哪些数据。</p>
+<p>既然有五千多条数据分析师的岗位数据。不妨在看数据前想一下自己会怎么运用数据。</p>
+<p>数据分析师是一个什么样的岗位？</p>
+<p>它的工资和薪酬是多少？</p>
+<p>它有什么特点，需要掌握哪些能力？</p>
+<p>哪类公司更会招聘数据分析师？</p>
+<p>等等。有了目标和方向后，后续则是将目标拆解为实际过程。</p>
+<hr>
+<h3 id="观察数据"><a href="#观察数据" class="headerlink" title="观察数据"></a>观察数据</h3><p><img src="https://i.imgur.com/OKfRHrB.jpg" alt=""></p>
+<p>拿出数据别急切计算，先观察数据。</p>
+<p>字段名称都是英文，我是通过Json获取的数据，所以整体数据都较为规整。往后绝大部分的数据源的字段名都是英文。因为比起拼音和汉字，它更适合编程环境下。</p>
+<p>先看一下columns的含义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">city：城市</span><br><span class="line"></span><br><span class="line">companyFullName：公司全名</span><br><span class="line"></span><br><span class="line">companyId：公司ID</span><br><span class="line"></span><br><span class="line">companyLabelList：公司介绍标签</span><br><span class="line"></span><br><span class="line">companyShortName：公司简称</span><br><span class="line"></span><br><span class="line">companySize：公司大小</span><br><span class="line"></span><br><span class="line">businessZones：公司所在商区</span><br><span class="line"></span><br><span class="line">firstType：职位所属一级类目</span><br><span class="line"></span><br><span class="line">secondType：职业所属二级类目</span><br><span class="line"></span><br><span class="line">education：教育要求</span><br><span class="line"></span><br><span class="line">industryField：公司所属领域</span><br><span class="line"></span><br><span class="line">positionId：职位ID</span><br><span class="line"></span><br><span class="line">positionAdvantage：职位福利</span><br><span class="line"></span><br><span class="line">positionName：职位名称</span><br><span class="line"></span><br><span class="line">positionLables：职位标签</span><br><span class="line"></span><br><span class="line">salary：薪水</span><br><span class="line"></span><br><span class="line">workYear：工作年限要求</span><br></pre></td></tr></table></figure>
+<p>数据基本涵盖了职位分析的所需。职位中的职位描述没有抓下来，一来纯文本不适合这次初级分析，二来文本需要分词以及文本挖掘，后续有机会再讲。</p>
+<p>首先看一下哪些字段数据可以去除。<code>companyId</code>和<code>positionId</code>是数据的唯一标示，类似该职位的身份证号，这次分析用不到关联vlookup，我们先隐藏。<code>companyFullName</code>和<code>companyShortName</code>则重复了，只需要留一个公司名称，<code>companyFullName</code>依旧隐藏。</p>
+<p>尽量不删除数据，而是隐藏，保证原始数据的完整，谁知道以后会不会用到呢？</p>
+<p><img src="https://i.imgur.com/B3voXgf.jpg" alt=""></p>
+<p>接下来进行数据清洗和转换。因为只是Excel级别的数据分析，不会有哑变量离散化标准化的操作。我简单归纳一下。</p>
+<p><strong>数据有无缺失值</strong></p>
+<p>数据的缺失值很大程度上影响分析结果。引起缺失的原因很多，例如技术原因，爬虫没有完全抓去，例如本身的缺失，该岗位的HR没有填写。</p>
+<p>如果某一字段缺失数据较多（超过50%），分析过程中要考虑是否删除该字段，因为缺失过多就没有业务意义了。</p>
+<p>Excel中可以通过选取该列，在屏幕的右下角查看计数，以此判别有无缺失。</p>
+<p><code>companyLabelList、businessZones、positionLables</code>都有缺失，但不多。不影响实际分析。</p>
+<p><strong>数据是否一致化</strong></p>
+<p>一致化指的是数据是否有统一的标准或命名。例如上海市数据分析有限公司和上海数据分析有限公司，差别就在一个市字，主观上肯定会认为是同一家公司，但是对机器和程序依旧会把它们认成两家。会影响计数、数据透视的结果。</p>
+<p>我们看一下表格中的<code>positionName</code></p>
+<p><img src="https://i.imgur.com/EVbGN3f.jpg" alt=""></p>
+<p>各类职位千奇百怪啊，什么品牌保护分析师实习生、足球分析师、商业数据分析、大数据业务分析师、数据合同管理助理。并不是纯粹的数据分析岗位。</p>
+<p>为什么呢？这是招聘网站的原因，有些职位明确为数据分析师，有些职位要求具备数据分析能力，但是又干其他活。招聘网站为了照顾这种需求，采用关联法，只要和数据分析相关职位，都会在数据分析师的搜索结果中出现。我的爬虫没有过滤其他数据，这就需要手动清洗。</p>
+<p>这会不会影响我们的分析？当然会。像大数据工程师是数据的另外发展方向，但不能归纳到数据分析岗位下，后续我们需要将数据分析强相关的职位挑选出来。</p>
+<p><strong>数据是否有脏数据</strong></p>
+<p>脏数据是分析过程中很讨厌的环节。例如乱码，错位，重复值，未匹配数据，加密数据等。能影响到分析的都算脏数据，没有一致化也可以算。</p>
+<p>我们看表格中有没有重复数据。</p>
+<p>这里有一个快速窍门，使用Excel的删除重复项功能，快速定位是否有重复数据，还记得<code>positionId</code>么？因为它是唯一标示，如果重复了，就说明有重复的职位数据。看来不删除它是正确的。</p>
+<p>对<code>positionId</code>列进行重复项删除操作</p>
+<p><img src="https://i.imgur.com/NKWu2cR.jpg" alt=""></p>
+<p>有1845个重复值。数据重复了。这是我当时爬取完数据时，将北京地区多爬取一次人为制作出的脏数据。接下来全选所有数据，进行删除重复项，保留5032行（含表头字段）数据。</p>
+<p><strong>数据标准结构</strong></p>
+<p>数据标准结构，就是将特殊结构的数据进行转换和规整。</p>
+<p>表格中，<code>companyLableList</code>就是以数组形式保存（JSON中的数组）</p>
+<p><img src="https://i.imgur.com/uU7AVNo.jpg" alt=""></p>
+<p>看来福利倒是不错，哈哈，不过这会影响我们的分析。<code>businessZones、positionAdvantage和positionLables</code>也是同样问题，我们后续得将这类格式拆分开来。</p>
+<p><img src="https://i.imgur.com/pop4oIH.jpg" alt=""></p>
+<p>薪水的话用了几K表示，但这是文本，并不能直接用于计算。而且是一个范围，后续得按照最高薪水和最低薪水拆成两列。</p>
+<p>OK，数据大概都了解了，那么下一步就是将数据洗干净。</p>
+<hr>
+<h3 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h3><p>数据清洗可以新建Sheet，方便和原始数据区分开来。</p>
+<p>先清洗薪水吧，大家肯定对钱感兴趣。将<code>salary</code>拆成最高薪水和最低薪水有三种办法。</p>
+<p><strong>一是直接分列</strong>，以<code>&quot;-&quot;</code>为拆分符，得到两列数据，然后利用替换功能删除 k这个字符串。得到结果。</p>
+<p><strong>二是自动填充功能</strong>，填写已填写的内容自动计算填充所有列。但我这个版本没有，就不演示了。</p>
+<p><strong>三是利用文本查找的思想</strong>，重点讲一下这个。先用<code>=FIND(&quot;k&quot;,O2,1)</code>。查找第一个<code>K</code>（最低薪酬）出现的位置。</p>
+<p><img src="https://i.imgur.com/zUVtDC4.jpg" alt=""></p>
+<p>我们知道第一个k出现的位置，此时<code>=LEFT(O2,FIND(&quot;k&quot;,O2,1))</code>得到的结果就是<code>7K</code>，要去除掉<code>k</code>，<code>FIND(&quot;k&quot;,O2,1)</code>再减去1即可。</p>
+<p><img src="https://i.imgur.com/443spNJ.jpg" alt=""></p>
+<p>最高薪水也是同样的思路，但不能使用<code>k</code>，因为第二个薪水位置不固定。需要利用<code>find</code>查找<code>&quot;-&quot;</code>位置,然后截取 从<code>&quot;-&quot;</code> 到最后第二个位置的字符串。</p>
+<pre><code>=MID(O2,FIND(&quot;-&quot;,O2,1)+1,LEN(O2)-FIND(&quot;-&quot;,O2,1)-1)
+</code></pre><p><img src="https://i.imgur.com/61k6qsj.jpg" alt=""></p>
+<p>因为薪水是一个范围，我们不可能拿范围计算平均工资。那怎么办呢？我们只能取最高薪水和最低薪水的平均数作为该岗位薪资。这是数据来源的缺陷，因为我们并不能知道应聘者实际能拿多少。这是薪水计算的误差。</p>
+<p><img src="https://i.imgur.com/eOw0B0w.jpg" alt=""></p>
+<p>我们检查一下有没有错误，利用筛选功能快速定位。</p>
+<p><img src="https://i.imgur.com/OuAa3zN.jpg" alt=""></p>
+<p>居然有<code>#VALUE！</code>错误，看一下原因。</p>
+<p><img src="https://i.imgur.com/BQvT1z6.jpg" alt=""></p>
+<p>原来是大写<code>K</code>，因为<code>find</code>对大小写敏感，此时用<code>search</code>函数，或者将K替换成k都能解决。</p>
+<p>另外还有一个错误是很多HR将工资写成<code>5K</code>以上，这样就无法计算<code>topSalar</code>。为了计算方便，将<code>topSalary</code>等于<code>bottomSalary</code>，虽然也有误差。</p>
+<p>这就是我强调数据一致性的原因。</p>
+<p><code>companyLabelList</code>是公司标签，诸如技能培训啊、五险一金啊等等。直接用分列即可。大家需要注意，分列会覆盖掉右列单元格，所以记得复制到最后一列再分。</p>
+<p><img src="https://i.imgur.com/UpTMB87.jpg" alt=""></p>
+<p>符号用搜索替换法删除即可。</p>
+<p><code>positionLables、positionAdvantage、businessZones</code>同样也可以用分列法。如果观察过数据会知道，<code>companyLabelList</code>公司标签都是固定的内容，而其他三个不是。这些都是HR自己填写，所以就会有各种乱七八糟不统一的描述。</p>
+<p><img src="https://i.imgur.com/AoHOT6x.jpg" alt=""></p>
+<p>这些内容均是自定义，没有特别大的分析价值。如果要分析，必须花费很长的时间在清洗过程。主要思路是把这些内容统一成几十个固定标签。在这里我将不浪费时间讲解了，主要利用Python分词和词典进行快速清洗。</p>
+<p>因为时间和性价比问题，<code>positionAdvantage</code>和<code>businessZones</code>我就不分列了。只清洗<code>positionLables</code>职位标签。某一个职位最多的标签有13个。</p>
+<p><code>[&#39;实习生&#39;, &#39;主管&#39;, &#39;经理&#39;,
+&#39;顾问&#39;, &#39;销售&#39;, &#39;客户代表&#39;, &#39;分析师&#39;, &#39;职业培训&#39;, &#39;教育&#39;, &#39;培训&#39;, &#39;金融&#39;, &#39;证券&#39;, &#39;讲师&#39;]</code><br>这个职位叫金融证券分析师助理讲师助理，我真不知道为什么实习生、主管、经理这三个标签放在一起，我也是哔了狗了。反正大家数据分析做久了，会遇到很多<code>Magic Data</code>。</p>
+<p>接下来是<code>positionName</code>，上文已经讲过有各种乱七八糟或非数据分析师职位，所以我们需要排除掉明显不是数据分析师的岗位。</p>
+<p>单独针对<code>positionName</code>用数据透视表。统计各名称出现的次数。</p>
+<p><img src="https://i.imgur.com/5U6EQdf.jpg" alt=""></p>
+<p>出现次数为3次以下的职位，有约一千，都是各类特别称谓，HR你们为什么要这样写…要这样写…这样写。更改职位名称似乎不现实，那就用关键词查找的思路，找出包含有数据分析、分析师、数据运营等关键词的岗位。虽然依旧会有金融分析师这类非纯数据的岗位。</p>
+<p>用<code>find</code>和数组函数结合 <code>=IF(COUNT(FIND({&quot;数据分析&quot;,&quot;数据运营&quot;,&quot;分析师&quot;},M33)),&quot;1&quot;,&quot;0&quot;)，shift+ctrl+enter</code>输入。就得到了多条件查找后的结果。</p>
+<p>单纯的<code>find</code>只会查找数据分析这个词，必须嵌套<code>count</code>才会变成真数组。</p>
+<p><img src="https://i.imgur.com/zJFvq0n.jpg" alt=""></p>
+<p><code>1为包含，0不包含</code>。将1过滤出来，这就是需要分析的最终数据。</p>
+<p>当然大家如果感兴趣，也可以看一下大数据工程师，数据产品经理这些岗位。</p>
+<hr>
+<h3 id="分析过程-amp-得出结论"><a href="#分析过程-amp-得出结论" class="headerlink" title="分析过程&amp;得出结论"></a>分析过程&amp;得出结论</h3><p>分析过程有很多玩法。因为主要数据均是文本格式，所以偏向汇总统计的计算。如果数值型的数据比较多，就会涉及到统计、比例等概念。如果有时间类数据，那么还会有趋势、变化的概念。</p>
+<p>整体分析使用数据透视表完成，先利用数据透视表获得汇总型统计。</p>
+<p><img src="https://i.imgur.com/W4w1AsB.jpg" alt=""></p>
+<p>看来北京的数据分析岗位机会远较其他城市多。1-3年和3-5年两个时间段的缺口更大。应届毕业生似乎比1年一下经验的更吃香。爬取时间为11月，这时候校招陆续开始，大公司会有闲暇校招，实际岗位应该更多。小公司则倾向发布。这是招聘网站的限制。</p>
+<p>看一下公司对数据分析师的缺口如何。</p>
+<p><img src="https://i.imgur.com/8xBiZqa.jpg" alt=""></p>
+<p>似乎是公司越大，需要的数据分析师越多。</p>
+<p>但这样的分析并不准确。因为这只是一个汇总数据，而不是比例数据，我们需要计算的是不同类型企业人均招聘数。</p>
+<p>如果北京的互联网公司特别多，那么即使有1000多个岗位发布也不算缺口大，如果南京的互联网公司少，即使只招聘30个，也是充满需求的。</p>
+<p>还有一种情况是企业刚好招聘满数据分析师，就不发布岗位了，数据包含的只是正在招聘数据分析师的企业，这些都是限制分析的因素。我们要明确。</p>
+<p>有兴趣大家可以深入研究。</p>
+<p>看一下各城市招聘Top5公司。</p>
+<p><img src="https://i.imgur.com/j4lsjT3.jpg" alt=""></p>
+<p>北京的美团以78个数据分析职位招聘力压群雄，甚至一定程度上拉高了北京的数据。而个推则在上海和杭州都发布了多个数据分析师职位，不知道是HR的意外，还是要大规模补充业务线（在我写这篇文章的时候，约有一半职位已经下线）。</p>
+<p>比较奇怪的是阿里巴巴并没有在杭州上榜，看来是该阶段招聘需求不大，或者数据分析师有其他招聘渠道。</p>
+<p>没有上榜不代表不要数据分析师，但是上榜的肯定现阶段对数据分析师有需求。</p>
+<p>我们看一下数据分析师的薪水，可能是大家最感兴趣的了。</p>
+<p><img src="https://i.imgur.com/ifz87wL.jpg" alt=""></p>
+<p>我们看到南京、西安在应届生中数据最高，是因为招聘职位不多，因为单独一两个企业的高薪影响了平均数，其余互联网二线城市同理。当工作年限达到3年以上，北上深杭的数据分析师薪资则明显高于其他城市。</p>
+<p>数据会有误差性么？会的，因为存在薪资极值影响。而数据透视表没有中位数选项。我们也可以单独用分位数进行计算，降低误差。</p>
+<p>薪资可以用更细的维度计算，比如学历、比如公司行业领域，是否博士生远高于本科生，是否金融业薪资高于O2O。</p>
+<p>另外数据分析师的薪资，可能包括奖金、年终奖、季度奖等隐形福利。部分企业会在<code>positionAdvantage</code>的内容上说明，大家可以用筛选过滤出16薪这类关键词。作为横向对比。</p>
+<p><img src="https://i.imgur.com/iy0Gy0U.jpg" alt=""></p>
+<p>我们看一下数据分析的职位标签，数据透视后汇总。</p>
+<p><img src="https://i.imgur.com/B63AFJS.jpg" alt=""></p>
+<p><code>分析师、数据、数据分析</code>是最多的标签。除此以外，<code>需求分析，BI，数据挖掘</code>也出现在前列。看来不少数据分析师的要求掌握数据挖掘，将标签和薪水关联，是另外一种分析思路。职位标签并不是最优的解法，了解一个职位最好的必然是职位描述。</p>
+<p>分析过程不多做篇幅了，主要使用数据透视表进行多维度分析，没有其他复杂的技巧。下图很直观的展现了多维度的应用。</p>
+<p><img src="https://i.imgur.com/vRSysg5.jpg" alt=""></p>
+<p>我们的分析也属于多维度，<code>城市、工作年限、企业大小、企业领域</code>等，利用不同维度形成一个直观的二位表格，而维度则是通过早期的数据清洗统一化标准化。这是一种很常见的分析技巧。</p>
+<p>后续的数据报告，涉及到可视化制作，因为字不如表、表不如图，就放在后面讲解了。</p>
+<p>最后多说几下：</p>
+<p><strong>1.最好的分析，是拿数据分析师们的在职数据，而不是企业招聘数据。</strong></p>
+<p><strong>2.承认招聘数据的非客观性，招聘要求与对数据分析师的实际要求是有差异的。</strong></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>1）<a href="https://www.zhihu.com/question/29265587/answer/125091104" target="_blank" rel="noopener">秦路-数据分析</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据分析/">数据分析</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Excel/">Excel</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">8</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 16.67px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
