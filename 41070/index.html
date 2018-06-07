@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据可视化(一) 图表简介 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="写在前面数据分析界有一句经典名言，字不如表，表不如图。数据可视化是数据分析的主要方向之一。除掉数据挖掘这类高级分析，不少数据分析就是监控数据观察数据。
+数据分析的最终都是要兜售自己的观点和结论的。兜售的最好方式就是做出观点清晰数据详实的PPT给老板看。如果没人认同分析结果，那么分析也不会被改进和优化，不落地的数据分析价值又在哪里？
+各类图表的详细介绍可以查看这篇文章。
+温馨提示：如果您已经熟悉数据可视化，大可不必再看这篇文章，或只挑选部分。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="数据可视化(一) 图表简介"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-02-11T16:00:00.000Z"><a href="/41070/">2017-02-12</a></time>
+        
+  
+    <h1 class="title">数据可视化(一) 图表简介</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#维度"><span class="toc-text">维度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#维度类型和转换"><span class="toc-text">维度类型和转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#散点图"><span class="toc-text">散点图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#折线图"><span class="toc-text">折线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#柱形图"><span class="toc-text">柱形图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#地理图"><span class="toc-text">地理图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#饼图"><span class="toc-text">饼图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#雷达图"><span class="toc-text">雷达图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箱线图"><span class="toc-text">箱线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#热力图"><span class="toc-text">热力图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系图"><span class="toc-text">关系图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩形树图"><span class="toc-text">矩形树图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桑基图-Sankey-Diagram"><span class="toc-text">桑基图 Sankey Diagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏斗图"><span class="toc-text">漏斗图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a>
+    </div>
+
+        <h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><p>数据分析界有一句经典名言，字不如表，表不如图。数据可视化是数据分析的主要方向之一。除掉数据挖掘这类高级分析，不少数据分析就是监控数据观察数据。</p>
+<p>数据分析的最终都是要兜售自己的观点和结论的。兜售的最好方式就是做出观点清晰数据详实的PPT给老板看。如果没人认同分析结果，那么分析也不会被改进和优化，不落地的数据分析价值又在哪里？</p>
+<p>各类图表的详细介绍可以查看这篇文章。</p>
+<p>温馨提示：如果您已经熟悉数据可视化，大可不必再看这篇文章，或只挑选部分。</p>
+<a id="more"></a>
+<hr>
+<p>数据可视化是一个热门的概念，是分析师手中的优秀工具。好的可视化是会讲故事的，它向我们揭示了数据背后的规律。</p>
+<p>大家对可视化的使用认知或许来源于下面这张图。虽然结构很清晰，但它更多针对Excel的图表，不够丰富。本文会结合数据分析师的使用场景展示更多的可视化案例。</p>
+<p><img src="https://i.imgur.com/UwcqFXj.jpg" alt=""></p>
+<blockquote>
+<p>为方便演示，文中绝大多数图表为ECharts.js的范例。</p>
+</blockquote>
+<hr>
+<p>了解可视化前，先知悉基础概念。</p>
+<h3 id="维度"><a href="#维度" class="headerlink" title="维度"></a>维度</h3><p>数据分析中经常会提及维度。维度是观察数据的角度和对数据的描述。我们可以说地区是一种维度，这个维度包含上海北京这些城市。也可以认为销售额是一个维度，里面有各类销售数据。</p>
+<p>维度可以用时间、数值表示，也可以用文本，文本常作为类别。数据分析的本质是各种维度的组合，我想了解和分析全国各地的销售额，就需要将地区维度和销售维度结合，如果想知道各个年份的变化，那么再加入时间维度。</p>
+<p>说的再透彻点，Excel首行各字段就可以理解成维度。</p>
+<p><img src="https://i.imgur.com/mOX36Y2.jpg" alt=""></p>
+<p>互联网行业的PV、UV、活跃数也能算作维度。</p>
+<p>图表的绘制依赖多个维度的组合。</p>
+<h3 id="维度类型和转换"><a href="#维度类型和转换" class="headerlink" title="维度类型和转换"></a>维度类型和转换</h3><p>维度主要是三大类的数据结构：文本、时间、数值。地区的上海、北京就是文本维度（也可以称为类别维度），销售额度就是数值维度，时间更好理解了。不同图表有维度使用限制。</p>
+<p>数值维度可以通过其他维度加工计算得出，例如按地区维度，count出有多少是上海的，有多少是北京的。</p>
+<p>维度可以互相转换。比如年龄原本是数值型的维度，但是可以通过对年龄的划分，将其分类为小孩、青年、老年三个年龄段，此时就转换为文本维度。具体按照分析场景使用。</p>
+<p>接下来介绍主要的可视化图表。</p>
+<hr>
+<h3 id="散点图"><a href="#散点图" class="headerlink" title="散点图"></a>散点图</h3><p>散点图在报表中不常用到，但是在数据分析中可以算出镜率最高的。散点图通过坐标轴，表示两个变量之间的关系。绘制它依赖大量数据点的分布。</p>
+<p>散点图的优势是揭示数据间的关系，发觉变量与变量之间的关联。</p>
+<p>散点图需要两个数值维度表示X轴、Y轴，下图范例就是身高和体重两个维度。</p>
+<p><img src="https://i.imgur.com/vBTCNJl.jpg" alt=""></p>
+<p>为了进行分析，该图又引入性别维度，通过颜色来区分。</p>
+<p>当我们想知道两个指标互相之间有没有关系，散点图是最好的工具之一。因为它直观。尤其是大数据量，散点图会有更精准的结果。</p>
+<p>后续的学习中，我们也会多次借用到散点图，比如统计中的回归分析，比如数据挖掘中的聚类。</p>
+<h3 id="折线图"><a href="#折线图" class="headerlink" title="折线图"></a>折线图</h3><p>折线图是观察数据的趋势，它和时间是好基友，当我们想要了解某一维度在时间上的规律或者趋势时，就用折线图吧。</p>
+<p><img src="https://i.imgur.com/AgemBW9.jpg" alt=""></p>
+<p>折线图一般使用时间维度作为X轴，数值维度作为Y轴。</p>
+<h3 id="柱形图"><a href="#柱形图" class="headerlink" title="柱形图"></a>柱形图</h3><p>柱形图是分析师最常用到的图表之一，常用于多个维度的比较和变化。</p>
+<p>文本维度／时间维度通常作为X轴。数值型维度作为Y轴。柱形图至少需要一个数值型维度。</p>
+<p>下图就是柱形图的对比分析，通过颜色区分类别。当需要对比的维度过多，柱形图是力不从心的。</p>
+<p><img src="https://i.imgur.com/q4B7jy9.jpg" alt=""></p>
+<p>柱形图和折线图在时间维度的分析中是可以互换的。但推荐使用折线图，因为它对趋势的变化表达更清晰。</p>
+<p>柱形图还有许多丰富的应用。例如堆积柱形图，瀑布图，横向条形图，横轴正负图等。</p>
+<p><img src="https://i.imgur.com/hHrVs1H.jpg" alt=""></p>
+<p>直方图是柱形图的特殊形式。它的数值坐标轴是连续的，专用于统计，表达的是数据分布情况。在统计学的内容会专门讲解。</p>
+<h3 id="地理图"><a href="#地理图" class="headerlink" title="地理图"></a>地理图</h3><p>一切和空间属性有关的分析都可以用到地理图。比如各地区销量，或者某商业区域店铺密集度等。</p>
+<p>地理图一定需要用到坐标维度。可以是经纬度、也可以是地域名称（上海市、北京市）。坐标粒度即能细到具体某条街道，也能宽到世界各国范围。</p>
+<p><img src="https://i.imgur.com/5HeGS3C.jpg" alt=""></p>
+<p>除了经纬度，地理图的绘制离不开地图数据，POI是很重要的要素。POI是“Point of Information”的缩写，可以翻译成信息点，每个POI包含四方面信息，名称、类别、经度纬度、附近的酒店饭店商铺等信息。借助POI，才能按地理维度展现数据。</p>
+<h3 id="饼图"><a href="#饼图" class="headerlink" title="饼图"></a>饼图</h3><p>饼图经常表示一组数据的占比。可以用扇面、圆环、或者多圆环嵌套。商务类的汇报中应用较多。</p>
+<p>为了表示占比，拼图需要数值维度。</p>
+<p><img src="https://i.imgur.com/MyuuzCb.jpg" alt=""></p>
+<p>饼图是有缺陷的，它擅长表达某一占比较大的类别。但是不擅长对比。30%和35%在饼图上凭肉眼是难以分辨出区别的。当类别过多，也不适宜在饼图上表达。</p>
+<p>对数据分析师来说，除了做报告，饼图没啥用。</p>
+<h3 id="雷达图"><a href="#雷达图" class="headerlink" title="雷达图"></a>雷达图</h3><p>也叫蛛网图。可能男同胞们在游戏中看到它比较多。它在商务、财务领域应用较大，适合用在固定的框架内表达某种已知的结果。常见于经营状况，财务健康程度。</p>
+<p>比如我对企业财务进行分析，划分出六大类：销售、市场、研发、客服、技术、管理。通过雷达图绘制出预算和实际开销的维度对比，会很清晰。如下图：</p>
+<p><img src="https://i.imgur.com/cFy4uqW.jpg" alt=""></p>
+<h3 id="箱线图"><a href="#箱线图" class="headerlink" title="箱线图"></a>箱线图</h3><p>箱线图一般人了解的不多，它能准确地反映数据维度的离散（最大数、最小数、中位数、四分数）情况。凡是离散的数据都适用箱线图。</p>
+<p>下图就是箱线图的典型应用。线的上下两端表示某组数据的最大值和最小值。箱的上下两端表示这组数据中排在前25%位置和75%位置的数值。箱中间的横线表示中位数。</p>
+<p><img src="https://i.imgur.com/RUj6v32.jpg" alt=""></p>
+<p>假如你是一位互联网电商分析师，你想知道某商品每天的卖出情况：该商品被用户最多购买了几个，大部分用户购买了几个，用户最少购买了几个。箱线图就能很清晰的表示出上面的几个指标以及变化。</p>
+<p>绘制箱线图，新人需要了解统计的基础概念：最大值，最小值，中位数，四分位数。这个会在后续讲解。</p>
+<h3 id="热力图"><a href="#热力图" class="headerlink" title="热力图"></a>热力图</h3><p>以高亮形式展现数据。</p>
+<p>最常见的例子就是用热力图表现道路交通状况。老司机一眼就知道怎么开车了。</p>
+<p><img src="https://i.imgur.com/vEHwRch.jpg" alt=""></p>
+<p>互联网产品中，热力图可以用于网站／APP的用户行为分析，将浏览、点击、访问页面的操作以高亮的可视化形式表现。下图就是用户在Google搜索结果的点击行为。</p>
+<p><img src="https://i.imgur.com/Dsfnarm.jpg" alt=""></p>
+<p>热力图需要位置信息，比如经纬度坐标，或者屏幕位置坐标。</p>
+<h3 id="关系图"><a href="#关系图" class="headerlink" title="关系图"></a>关系图</h3><p>展现事物相关性和关联性的图表，比如社交关系链、品牌传播、或者某种信息的流动。</p>
+<p><img src="https://i.imgur.com/HWfnNtE.jpg" alt=""></p>
+<p>有一条微博，现在想研究它的传播链：它是经由哪几个大V分享扩散开来，大V前又有谁分享过等，以此为基础可以绘制出一幅发散的网状图，分析病毒营销的过程。</p>
+<p><img src="https://i.imgur.com/pqCU9kR.jpg" alt=""></p>
+<p>关系图依赖大量的数据，它本身没有维度的概念。</p>
+<h3 id="矩形树图"><a href="#矩形树图" class="headerlink" title="矩形树图"></a>矩形树图</h3><p>上文说过，柱形图不适合表达过多类目（比如上百）的数据，那应该怎么办?矩形树图出现了。它直观地以面积表示数值，以颜色表示类目。</p>
+<p>下图中各颜色系代表各个类目维度，类目维度下又有多个二级类目。如果用柱形图表达，简直是灾难。用矩形树图则轻轻松松。</p>
+<p><img src="https://i.imgur.com/cZ1C97C.jpg" alt=""></p>
+<p>电子商务、产品销售等涉及大量品类的分析，都可以用到矩形树图。</p>
+<h3 id="桑基图-Sankey-Diagram"><a href="#桑基图-Sankey-Diagram" class="headerlink" title="桑基图 Sankey Diagram"></a>桑基图 Sankey Diagram</h3><p>比较冷门的图表，它常表示信息的变化和流动状态。</p>
+<p><img src="https://i.imgur.com/7HPOoTv.jpg" alt=""></p>
+<p>在我曾经写过的教你读懂活跃数据中，用桑基图绘制了用户活跃状态的变化，这是用户分层的可视化应用。<br>其实数据分析师经常接触到桑基图，只是不知道它的正式名字，它就是Google网站分析中的用户行为和流量分析。用户从哪里来，去了哪个页面，在哪个页面离开，最后停留在哪个页面等。下图就是桑基图非常直观的解释。</p>
+<p><img src="https://i.imgur.com/MKn7i1j.jpg" alt=""></p>
+<h3 id="漏斗图"><a href="#漏斗图" class="headerlink" title="漏斗图"></a>漏斗图</h3><p>大名鼎鼎的转化率可视化，它适用在固定流程的转化分析，你也可以认为它是桑基图的简化版。说实话，随着个性化推荐和精准运营越来越多，漏斗转化有它的局限性。</p>
+<p>转化率也可以用几组数字表示，不一定做成漏斗图。</p>
+<p><img src="https://i.imgur.com/0mMFCLZ.jpg" alt=""></p>
+<p>除了上述可视化图表，还有其他很多经典，例如词云图、气泡图、K线图等。我们使用图表，不只是为了好看，虽然好看的报告面向老板和合作方很有优势。更多的是围绕业务进行分析，得到我们想要的结果。</p>
+<p>没有最好的可视化图表，只有更好的分析方法。</p>
+<p>有些数据可视化，Excel就能完成，有些则必须借助第三方工具或者编程。下一篇文章会挑选部分图表教大家如何Excel绘制。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>本文内容来源于网络，版权归原作者</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据分析/">数据分析</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/可视化/">可视化</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机原理/">计算机原理</a><span class="category-list-count">1</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 16.67px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">3</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
