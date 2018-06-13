@@ -80,7 +80,7 @@
         <time datetime="2018-06-03T16:00:00.000Z"><a href="/65434/">2018-06-04</a></time>
         
   
-    <h1 class="title"><a href="/65434/">机器学习(五) 常见算法优缺点</a></h1>
+    <h1 class="title"><a href="/65434/">Tour of Machine Learning Algorithms(5) 常见算法优缺点</a></h1>
   
 
     </header>
@@ -134,7 +134,7 @@
         <time datetime="2018-06-02T16:00:00.000Z"><a href="/21484/">2018-06-03</a></time>
         
   
-    <h1 class="title"><a href="/21484/">机器学习(四) 常见算法优缺点</a></h1>
+    <h1 class="title"><a href="/21484/">Tour of Machine Learning Algorithms(4) 常见算法优缺点</a></h1>
   
 
     </header>
@@ -175,7 +175,7 @@
         <time datetime="2018-06-01T16:00:00.000Z"><a href="/62602/">2018-06-02</a></time>
         
   
-    <h1 class="title"><a href="/62602/">机器学习(三) 模型结果应用</a></h1>
+    <h1 class="title"><a href="/62602/">Tour of Machine Learning Algorithms(3) 模型结果应用</a></h1>
   
 
     </header>
@@ -215,7 +215,7 @@
         <time datetime="2018-05-31T16:00:00.000Z"><a href="/4840/">2018-06-01</a></time>
         
   
-    <h1 class="title"><a href="/4840/">机器学习(二) 模型调优</a></h1>
+    <h1 class="title"><a href="/4840/">Tour of Machine Learning Algorithms(2) 模型调优</a></h1>
   
 
     </header>
@@ -253,26 +253,30 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2018-05-30T16:00:00.000Z"><a href="/9731/">2018-05-31</a></time>
+        <time datetime="2018-05-06T16:00:00.000Z"><a href="/21048/">2018-05-07</a></time>
         
   
-    <h1 class="title"><a href="/9731/">机器学习(一) 算法介绍</a></h1>
+    <h1 class="title"><a href="/21048/">关于机器学习在大气科学的应用</a></h1>
   
 
     </header>
 
     <div class="entry">
       
-        <p>前阵子阅读了院里一位博士研究生师兄的一篇有关基于神经网络算法对北京近五年的常规探空数据进行自组织分类，并揭示出大气污染物在不同边界层结构下的演变规律和相关机制的文章<a href="https://www.atmos-chem-phys.net/18/6771/2018/" target="_blank" rel="noopener">《Self-organized classification of boundary layer meteorology and associated characteristics of air quality in Beijing》</a>，看完顿时心生膜拜之情；然后恰巧也是那个时候吕教授在院群上也转发了一篇关于机器学习预测火势甚至天气的公众号文章<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODE1NDYyMA==&amp;mid=2653384819&amp;idx=2&amp;sn=523f27cb9442ab4af27137edd1280248&amp;chksm=bd1cc8608a6b4176d7cae939f794e082cf86b5bf0ac0deb53790f507f563f588b2148687957c&amp;mpshare=1&amp;scene=1&amp;srcid=0517RYcQWk5dWJCcqoI7jLCe#rd" target="_blank" rel="noopener">《机器学习成功解决“蝴蝶效应”！以后你终于可以相信天气预报了》</a>。</p>
-<p>如此的机缘巧合，我自己也想在这一方向进行深入了解，从基本的概述理论方法开始。</p>
+        
+    <div id="toc">
+        
+    </div>
+
+        <p>前阵子阅读了院里一位博士研究生师兄的一篇有关基于神经网络算法对北京近五年的常规探空数据进行自组织分类，并揭示出大气污染物在不同边界层结构下的演变规律和相关机制的文章<a href="https://www.atmos-chem-phys.net/18/6771/2018/" target="_blank" rel="noopener">《Self-organized classification of boundary layer meteorology and associated characteristics of air quality in Beijing》</a>，看完顿时心生膜拜之情；</p>
+<p>然后恰巧也是那个时候吕教授在院群上也转发了一篇关于机器学习预测火势甚至天气的公众号文章<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODE1NDYyMA==&amp;mid=2653384819&amp;idx=2&amp;sn=523f27cb9442ab4af27137edd1280248&amp;chksm=bd1cc8608a6b4176d7cae939f794e082cf86b5bf0ac0deb53790f507f563f588b2148687957c&amp;mpshare=1&amp;scene=1&amp;srcid=0517RYcQWk5dWJCcqoI7jLCe#rd" target="_blank" rel="noopener">《机器学习成功解决“蝴蝶效应”！以后你终于可以相信天气预报了》</a>。</p>
+<p>加之自己报名了一个<a href="https://mp.weixin.qq.com/s?__biz=MzIzMjQyNzQ5MA==&amp;mid=2247487345&amp;idx=1&amp;sn=4acb8978a2d95f0a1926c0e07021bec3&amp;chksm=e89455fcdfe3dcea645499d9321177a99ea713ffe06fe4af9d18c8506dd285755be2a1640539&amp;mpshare=1&amp;scene=1&amp;srcid=04151pmRgGqnfZDpvBL9EKKk#rd" target="_blank" rel="noopener">“预测北京和伦敦两个城市的空气质量”的KDD Cup 2018</a>但是因为自己报名太晚，组队不成（其实更深层的是之前关于机器学习的内容已经忘得差不多了。。。）</p>
+<p>如此的机缘巧合，感觉将机器学习应用于大气科学将前途无量。我自己也想在这一方向进行深入了解，接下来我会进行相关内容的学习。</p>
+
       
     </div>
     <footer>
       
-        
-          <div class="alignleft">
-            <a href="/9731/#more" class="more-link">阅读全文</a>
-          </div>
         
         
       
@@ -503,7 +507,7 @@
           
 <div class="widget tag">
   <h3 class="title" id="categories">分类</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机原理/">计算机原理</a><span class="category-list-count">1</span></li></ul> 
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机原理/">计算机原理</a><span class="category-list-count">1</span></li></ul> 
 </div>
  
 
@@ -512,7 +516,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签</h3>
   <div class="entry">
-    <a href="/tags/Excel/" style="font-size: 16.67px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 16.67px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 16.67px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
+    <a href="/tags/Excel/" style="font-size: 16.67px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 16.67px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/算法/" style="font-size: 13.33px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
   </div>
 </div>
 
