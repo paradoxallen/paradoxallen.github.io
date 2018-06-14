@@ -47,6 +47,27 @@
     </entry>
     
     <entry>
+      <title>Andrew Ng Machine Learning (4) Neural Network Part1</title>
+      <link href="/21187/"/>
+      <url>/21187/</url>
+      <content type="html"><![CDATA[<p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p><a id="more"></a><hr><h3 id="1-由XOR-Problem想到"><a href="#1-由XOR-Problem想到" class="headerlink" title="1. 由XOR Problem想到"></a>1. 由XOR Problem想到</h3><p>有一种经典的非线性问题：<strong>XOR，也就是异或</strong>。真值表如下： </p><p>0 0 | 0<br>1 0 | 1<br>1 1 | 0<br>0 1 | 1，| 左侧是输入，| 右侧是输出 </p><p>如果在二维坐标系上绘图，可以看出来仅利用一条直线是无法对这个问题分类的，也就是<strong>线性不可分</strong>问题。</p><p>如果利用逻辑回归的方法，可以枚举各种特征的出现可能，即<br>继续想下去，如果基础特征量更多的话？就会出现过拟合的问题，同时带来极大的计算量。</p><p>例如，计算机视觉中处理一张照片，每个像素都需要一个数值表示。对于100*100像素值的图片，仅仅考虑二次项等级，就有特征数量为5000个（与相同，故除以2）。</p><p>于是，这章介绍的非线性分类器，<strong>神经网络（Neural Network，NN）</strong>就发挥了作用。</p><h3 id="2-人工神经网络"><a href="#2-人工神经网络" class="headerlink" title="2. 人工神经网络"></a>2. 人工神经网络</h3><p>神经网络最初提出的初衷，是因为要模拟人类大脑的结构（很初级的模拟，因为人类对于自己大脑究竟是怎样都没有弄清楚）。<strong>通过多个感知机之间的输入输出，从而完成整体的智能行为</strong>。</p><p>在人工神经网络中，“感知机”就是一个有着输入与输出功能的小单元，接收上一层的输入，将输出传给下一层。</p><p>人工神经网络是层级结构，某一层上的单元之间互相不会有输入输出关系，只和上一层或者下一层的单元产生数据传输关系。至少会有两层：<strong>输入层（input layer）与输出层（output layer）</strong>，但是两层的神经网络可以解决的问题很少，一般都是三层或者三层以上，中间的这些层就称为<strong>“隐藏层（hidden layer）”</strong>，我们来看一个最简单的例子：<br><img src="https://i.imgur.com/U02TDKa.jpg" alt=""></p><p>由<strong>输入层，到隐藏层，最终到输出层</strong>。这是一次 <strong>forward propogation</strong> 过程。类似于逻辑回归，但是神经网络的输入是某个样本的所有基础特征，不需要考虑 这一类新加入的特征。</p><h3 id="3-回到XOR-Problem"><a href="#3-回到XOR-Problem" class="headerlink" title="3. 回到XOR Problem"></a>3. 回到XOR Problem</h3><p>先讲几个基础的利用神经网络进行二进制运算分类的问题：</p><ol><li><p>二进制 AND<br><img src="https://i.imgur.com/5pgAvdw.jpg" alt=""><br>即为，只有1,1时返回值才为1，符合 AND 的操作结果。</p></li><li><p>二进制 OR<br><img src="https://i.imgur.com/vNpszeX.jpg" alt=""><br>即为，只有0,0时返回值才为0，符合 OR 的操作结果。</p></li><li><p>二进制 NOT<br><img src="https://i.imgur.com/8ODYZRw.jpg" alt=""></p></li></ol><p>XOR 问题复杂一些，但是如果我们做了如下转换：</p><p><code>XNOR = NOT XOR = AND OR NOT AND NOT</code></p><p>变换的正确性，很容易通过真值表来验证。大家可以分别计算各个括号中的内容，然后通过 OR 连接起来。<br>我们将 AND 的内容视为 ，NOT AND NOT 的内容视为<br><img src="https://i.imgur.com/tcDGEAE.jpg" alt=""></p><h3 id="4-神经网络多类分类"><a href="#4-神经网络多类分类" class="headerlink" title="4. 神经网络多类分类"></a>4. 神经网络多类分类</h3><p>神经网络处理多类的分类问题是很方便的。举个例子，区分手写数字时，有10个类别：0，1，2，……，9。<br>对于某一个训练样本来说，有着特征组合,这个神经网络的输出层有10个单元。当输出层的10个单元全部取 0，意味着输入不是任何一种数字。</p><p>对于手写数字的识别，一直是业界的研究重点之一。视频中举了一篇经典的利用神经网络处理该问题的Paper，有兴趣的同学可以访问作者的个人主页查看Demo与Paper：<a href="http://yann.lecun.com/exdb/lenet/" target="_blank" rel="noopener">Yann LeCun</a></p>]]></content>
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Machine Learning 课程笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Andrew Ng Machine Learning (3) Logistic Regression &amp; Regularization</title>
       <link href="/26112/"/>
       <url>/26112/</url>
