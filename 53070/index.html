@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Andrew Ng Machine Learning (2) Linear Regression | RP&#39;s Blog</title>
+  <title>Andrew Ng Machine Learning (5) Neural Network Part2 | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
   
   <meta name="description" content="此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。课程网址：https://www.coursera.org/learn/machine-learning/home/welcome">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Andrew Ng Machine Learning (2) Linear Regression"/>
+  <meta property="og:title" content="Andrew Ng Machine Learning (5) Neural Network Part2"/>
   <meta property="og:site_name" content="RP&#39;s Blog"/>
 
   
@@ -78,10 +78,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2017-08-09T16:00:00.000Z"><a href="/58080/">2017-08-10</a></time>
+        <time datetime="2017-08-29T16:00:00.000Z"><a href="/53070/">2017-08-30</a></time>
         
   
-    <h1 class="title">Andrew Ng Machine Learning (2) Linear Regression</h1>
+    <h1 class="title">Andrew Ng Machine Learning (5) Neural Network Part2</h1>
   
 
     </header>
@@ -90,34 +90,50 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Multivariate-Linear-Regression"><span class="toc-text">1. Multivariate Linear Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-多变量梯度下降法："><span class="toc-text">2. 多变量梯度下降法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Feature-Scaling（特征缩放）"><span class="toc-text">3. Feature Scaling（特征缩放）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Learning-Rate"><span class="toc-text">4. Learning Rate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Polynomial-Regression（多项式回归，不同于多变量线性回归）"><span class="toc-text">5. Polynomial Regression（多项式回归，不同于多变量线性回归）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Normal-Equation"><span class="toc-text">6. Normal Equation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-Octave-Tutorial"><span class="toc-text">7. Octave Tutorial</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-Submitting-Programming-Assignments"><span class="toc-text">8. Submitting Programming Assignments</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Cost-Function"><span class="toc-text">1. Cost Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Backpropagation"><span class="toc-text">2. Backpropagation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Gradient-Checking"><span class="toc-text">3. Gradient Checking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Backpropagation-in-Practice"><span class="toc-text">4. Backpropagation in Practice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Put-it-together"><span class="toc-text">5. Put it together</span></a></li></ol>
     </div>
 
-        <p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p>
+        <p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p>
 <a id="more"></a>
 <hr>
-<h3 id="1-Multivariate-Linear-Regression"><a href="#1-Multivariate-Linear-Regression" class="headerlink" title="1. Multivariate Linear Regression"></a>1. Multivariate Linear Regression</h3><p>Week 1 讨论仅一个特征，即仅有一个未知量x影响了目标y的取值。如果现在有很多特征？现在我们有x1,x2…xn影响了目标y的取值。</p>
-<p>此时需要区分的是变量标记规则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xi表示的是第i个特征</span><br><span class="line">x(i)表示的是第i个样本，一个样本是由多个特征组成的列向量</span><br></pre></td></tr></table></figure></p>
-<p>例如：<br><img src="https://i.imgur.com/1VQTtI7.png" alt=""><br>综上，我们有<br><img src="https://i.imgur.com/IN8QuHt.png" alt=""><br>可以视为，每个样本都多出一个特征：x0=1，这样表示有利于之后的矩阵表示</p>
-<h3 id="2-多变量梯度下降法："><a href="#2-多变量梯度下降法：" class="headerlink" title="2. 多变量梯度下降法："></a>2. 多变量梯度下降法：</h3><p><img src="https://i.imgur.com/jqtDLIq.png" alt=""></p>
-<h3 id="3-Feature-Scaling（特征缩放）"><a href="#3-Feature-Scaling（特征缩放）" class="headerlink" title="3. Feature Scaling（特征缩放）"></a>3. Feature Scaling（特征缩放）</h3><p>很简单，就是将每种特征的数据范围限定在同一个数量级。例如<br><img src="https://i.imgur.com/cauqMeB.png" alt=""><br>这样会导致迭代次数过多。这时候，如果我们找到一种mapping方式，使得两者属于同一个数量级的范围内，可以有效减少迭代次数</p>
-<p><strong>注意</strong>：无法降低单次的迭代时间，但是却能有效地降低迭代次数</p>
-<p>其实方法很多，这有一种：<br><img src="https://i.imgur.com/egjFhiQ.png" alt=""><br>其中，mean(x)表示向量每个元素的平均值，max(x)表示向量中最大元素，min(x)表示向量中最小元素</p>
-<h3 id="4-Learning-Rate"><a href="#4-Learning-Rate" class="headerlink" title="4. Learning Rate"></a>4. Learning Rate</h3><p>learning rate 是机器学习中的一个不稳定因素，如何判断选取的 learning rate 是合适的？我们可以看看以下这幅图：<br><img src="https://i.imgur.com/81mq8t6.jpg" alt=""></p>
-<p>如果以迭代次数为横坐标，cost function 结果为纵坐标，绘制的图像是递减的，说明 learning rate 选择的是恰当的。如果碰到下图所显示的三种情况，那就只有一条路：<strong>减小 learning rate </strong><br><img src="https://i.imgur.com/DmExZo6.jpg" alt=""></p>
-<p>但是 learning rate 太小同样会导致一个问题：<strong>学习过慢</strong>。所以，只能靠试：0.001，0.003，0.01，0.03，0.1，0.3……</p>
-<h3 id="5-Polynomial-Regression（多项式回归，不同于多变量线性回归）"><a href="#5-Polynomial-Regression（多项式回归，不同于多变量线性回归）" class="headerlink" title="5. Polynomial Regression（多项式回归，不同于多变量线性回归）"></a>5. Polynomial Regression（多项式回归，不同于多变量线性回归）</h3><p>有时候，我们需要自己创造一些“特征”，来拟合一些非线性分布情况<br>例如：<br><img src="https://i.imgur.com/5F2PbWA.png" alt=""><br>看上去只有一个特征x，但我们完全可以理解为x^2和√x都是单独的新特征</p>
-<p>以后的课程会具体讲述如何选择这些特征</p>
-<h3 id="6-Normal-Equation"><a href="#6-Normal-Equation" class="headerlink" title="6. Normal Equation"></a>6. Normal Equation</h3><p>梯度下降法可以用于寻找函数（cost function）的最小值，想一想，初高中的时候我们使用的是什么方法？最小值点的导数为零，然后解方程</p>
-<p>将导数置为零这种方法即<strong> Normal Equation</strong>。<br><img src="https://i.imgur.com/aqLezpl.png" alt=""></p>
-<p>上文提过，增加一个全1分量x0后得到<br><img src="https://i.imgur.com/N6qtlas.png" alt=""></p>
-<p>可以得到：<br><img src="https://i.imgur.com/LU4vw47.png" alt=""></p>
-<p>matlab编程十分简单：<br><img src="https://i.imgur.com/OVUbKD9.png" alt=""></p>
-<p>Normal Equation 有以下<strong>优缺点</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不需要 learning rate，也就不需要选择；</span><br><span class="line">不需要迭代，不需要考虑收敛的问题；</span><br><span class="line">当特征非常多的时候，因为涉及求逆操作，会非常慢（注：方阵才有逆矩阵）</span><br></pre></td></tr></table></figure></p>
-<h3 id="7-Octave-Tutorial"><a href="#7-Octave-Tutorial" class="headerlink" title="7. Octave Tutorial"></a>7. Octave Tutorial</h3><p>这一部分十分简单，其实就是MATLAB的使用方法。建议不论是否初学者都去看看，会有收获。 </p>
-<p>谈到一个问题：<strong>如果现有的样本数，小于每个样本所有的特征数怎么办？去除多余的特征（PCA？）</strong>。特征过多，也可能会导致矩阵不可逆的情况。 </p>
-<p>下面记录一些觉得挺有趣的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~=：不等于号</span><br><span class="line">xor(0, 1)：异或操作</span><br><span class="line">rand(m, n)：0~1之间的大小为m*n的随机数矩阵；randn：产生均值为0，方差为1的符合正态分布的随机数（有负数）</span><br><span class="line">length(A)：返回A中行、列中更大值</span><br><span class="line">A(:)：将矩阵A变为列向量形式，不论A是向量还是矩阵</span><br><span class="line">sum(A,1)：每列求和得到一个行向量；sum(A,2)：每行求和得到一个列向量</span><br><span class="line">pinv：伪求逆；inv：求逆</span><br><span class="line">imagesc(A)：帅爆！根据矩阵中每个值绘制各种颜色的方块</span><br><span class="line">A.^2 ~= A^2，后者是两个矩阵相乘</span><br></pre></td></tr></table></figure></p>
-<h3 id="8-Submitting-Programming-Assignments"><a href="#8-Submitting-Programming-Assignments" class="headerlink" title="8. Submitting Programming Assignments"></a>8. Submitting Programming Assignments</h3><p>其实看看视频就行了，主要要注意，submit() 时输入的Token，不是Coursera 的密码，而是作业的密码：<br><img src="https://i.imgur.com/a8OsCRt.png" alt=""></p>
+<p>上一篇文章，介绍了<strong>前向传播(forward propagation)</strong>的过程，以及神经网络计算非线性问题的例子(XOR问题)</p>
+<p>这一篇文章，开始介绍，如何来计算神经网络中各种参数的方法：<strong>后向传播(backward propagation)</strong></p>
+<h3 id="1-Cost-Function"><a href="#1-Cost-Function" class="headerlink" title="1. Cost Function"></a>1. Cost Function</h3><p>为了拟合神经网络的各个参数，我们首先需要规定一些变量：<br><img src="https://i.imgur.com/GxSynvL.png" alt=""></p>
+<p>不同分类问题：</p>
+<p>若分为2类，其实用一个神经元作为输出层就可以了，用y=0和y=1区分；</p>
+<p>多类问题，利用以前说过的，分为K类则最终的y∈R^K，例如分为三类的问题输出可选择为<img src="https://i.imgur.com/ariPfuP.png" alt=""></p>
+<p>因为同样是分类问题，我们回想一下逻辑回归的cost function，其实神经网络的相同，只不过是对于分为K类问题的版本而已：<br><img src="https://i.imgur.com/9XJbSNE.png" alt=""></p>
+<p>是不是……太复杂了，如果用 cost function 计算梯度之后梯度直接梯度下降法来计算神经网络参数，明显不如接下来介绍的这种方法简单快捷。</p>
+<h3 id="2-Backpropagation"><a href="#2-Backpropagation" class="headerlink" title="2. Backpropagation"></a>2. Backpropagation</h3><p><strong>后向传播</strong>，是神经网络中用于替代直接计算梯度下降法，来设定各层参数的方法。方法的精髓在于，<strong>训练网络时先根据初始化的参数（一般是随机设定），计算得到最后一层（输出层）的输出，计算与实际网络输出之间的差，再根据当前层的差，反推出上一层的差，逐渐反推到第一层。每一层根据自身层的差，来逼近真实参数</strong>。</p>
+<p>首先我们设定某l层的某j个神经元，与真实的神经元的值，两者的差距为<img src="https://i.imgur.com/Nc3lrrH.png" alt="">，the error of node j in layer l.</p>
+<p>对于输出层的每个神经元来说，可以直接计算：<img src="https://i.imgur.com/3Ds9vuD.png" alt="">，向量化表示为<img src="https://i.imgur.com/cgaxaK5.png" alt=""></p>
+<p>对于其他层的每个神经元而言，就需要依靠上一层神经元的计算结果来反推，<strong>反推的过程可以视为原本 Forwardpropagation 过程中分散到各个下一层神经元的水流沿着同样的道路再次汇聚到上一层的神经元中</strong>：<img src="https://i.imgur.com/9XmWAoL.png" alt=""></p>
+<p>对于g′(t)的计算，这里需要一点点小技巧：<br><img src="https://i.imgur.com/CqMnQoj.png" alt=""></p>
+<p>推导过程见下：<br><img src="https://i.imgur.com/Or2ogvB.png" alt=""></p>
+<p>不存在δ(1)，因为<strong>输入层没有误差</strong></p>
+<p>我们首先不考虑正则化项（最小化各个系数<img src="https://i.imgur.com/AbSeYkS.png" alt="">，得到计算各层各个单元的误差项之和</p>
+<p>因此，我们得到求出神经网络各层参数的方法：<br><img src="https://i.imgur.com/SKUhVtK.png" alt=""></p>
+<h3 id="3-Gradient-Checking"><a href="#3-Gradient-Checking" class="headerlink" title="3. Gradient Checking"></a>3. Gradient Checking</h3><p>当我们需要验证求出的神经网络工作的对不对呢？可以使用 gradient checking，通过check梯度判断我们的code有没有问题</p>
+<p>对于下面这个[θ−J(θ)]图，取θ点左右各一点(θ−ϵ)与(θ+ϵ)，则点θ的梯度近似等于<img src="https://i.imgur.com/xliVzIX.png" alt=""></p>
+<p><img src="https://i.imgur.com/XvkBIeh.png" alt=""></p>
+<p>对于神经网络中的情况，则有：<br><img src="https://i.imgur.com/SPV9RtR.png" alt=""></p>
+<p>由于在backpropagation算法中我们一直能得到J(θ)的导数D（derivative），那么就可以将这个近似值与D进行比较</p>
+<p><strong>Summary: </strong><br>(1) 在backpropagation中计算出J(θ)对θ的导数D并组成vector（Dvec） </p>
+<p>(2) 用numerical gradient checking方法计算大概的梯度<img src="https://i.imgur.com/xa4LZR9.png" alt=""></p>
+<p>(3) 看是否得到相同（or相近）的结果 </p>
+<p>(4) <strong>（非常重要）</strong>停止checking，只用 backpropagation 进行神经网络学习，否则会非常非常慢</p>
+<h3 id="4-Backpropagation-in-Practice"><a href="#4-Backpropagation-in-Practice" class="headerlink" title="4. Backpropagation in Practice"></a>4. Backpropagation in Practice</h3><p>这一节我们来看看实际 octave/MATLAB 编程中的一些技巧，例如对于神经网络如下：<br><img src="https://i.imgur.com/e2uWpzX.png" alt=""><br>当s1=10,s2=10时，则有θ(1)∈R10×11,θ(2)∈R10×11，一般来说，为了方便变形与传递参数，我们是将所有θ展开成一个完整的变量：<br>    thetaVec=[Theta1(:);Theta2(:);Theta3(:)] </p>
+<p>再次展开的时候，例如重组为θ(1)时，取出其中前110个重组就好：<br>    Theta1=reshape(thetaVec(1:110),10,11)</p>
+<p>如何初始化各层的参数呢？这同样是一个需要注意的地方：<strong>不能将各层的各个神经元的参数赋值为相同的数</strong>。</p>
+<p>有兴趣的同学可以计算一下，这样神经网络的某一层内的所有神经元计算都变得相同，这样神经网络的非线性程度就降低了。<strong>一般来说，都是在(+ϵ,−ϵ)之间随机赋值</strong></p>
+<p>我的神经网络需要有多少层呢？同样是个有趣的问题，一般来说，<strong>三层结构（仅仅一个隐藏层）</strong>已经足够来处理大部分非线性情况。如果分类效果不好，可以尝试使用更多的隐藏层，但需要保证每个隐藏层的神经元个数相同，层数越多就越慢，当然一般来说分类效果就更好</p>
+<p>每层神经网络需要多少个神经元？能确定的只有输入层与输出层：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">No. of input units: Dimension of features</span><br><span class="line">No. output units: Number of classes</span><br><span class="line">Other units: who knows… usually the more the better</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-Put-it-together"><a href="#5-Put-it-together" class="headerlink" title="5. Put it together"></a>5. Put it together</h3><p>最终我们回顾一下神经网络的主要步骤： </p>
+<p><strong>randomly initialize weights</strong></p>
+<p><strong>(for 1 to m) forward-propagation</strong></p>
+<p><strong>(for 1 to m) cost function</strong></p>
+<p><strong>(for 1 to m) backward-propogation</strong></p>
+<p><strong>gradient checking, then stop</strong></p>
 
       
     </div>
