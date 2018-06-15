@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Andrew Ng Machine Learning (6) Machine Learning Advice | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。课程网址：https://www.coursera.org/learn/machine-learning/home/welcome">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Andrew Ng Machine Learning (6) Machine Learning Advice"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-09-04T16:00:00.000Z"><a href="/9059/">2017-09-05</a></time>
+        
+  
+    <h1 class="title">Andrew Ng Machine Learning (6) Machine Learning Advice</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Evaluating-a-Learning-Algorithm"><span class="toc-text">1. Evaluating a Learning Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Bias-vs-Variance"><span class="toc-text">2. Bias vs. Variance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Learning-Curve"><span class="toc-text">3. Learning Curve</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Deciding-What-to-Do-Next-Revisited"><span class="toc-text">4. Deciding What to Do Next Revisited</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Building-a-Spam-Classifier"><span class="toc-text">5. Building a Spam Classifier</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Handling-Skewed-Data"><span class="toc-text">6. Handling Skewed Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-Using-Large-Data-Sets"><span class="toc-text">7. Using Large Data Sets</span></a></li></ol>
+    </div>
+
+        <p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p>
+<a id="more"></a>
+<hr>
+<h3 id="1-Evaluating-a-Learning-Algorithm"><a href="#1-Evaluating-a-Learning-Algorithm" class="headerlink" title="1. Evaluating a Learning Algorithm"></a>1. Evaluating a Learning Algorithm</h3><p>如果一个机器学习方法的结果不令人满意，可能有各种方法来解决。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">获取更多的训练样本（最为耗时，不作为优先考虑）</span><br><span class="line">尝试更少 / 更多的特征</span><br><span class="line">尝试引入多项式特征</span><br><span class="line">增加 / 减少正则化系数 λ</span><br></pre></td></tr></table></figure></p>
+<p>究竟应该使用哪种方法来解决问题，需要一个诊断过程，称为 <strong>Maching Learning Diagnostic</strong>。为了更好的阐述，我们先引入两个名词：<strong>欠拟合、过拟合 </strong></p>
+<p><strong>欠拟合：</strong>对于训练集，hypothesis 得到的结果，与真实的结果差距较大，并不能对样本集有效拟合；</p>
+<p><strong>过拟合：</strong>对于训练集，hypothesis 得到的结果，与真实的结果差距较小；但是对于测试集，hypothesis 得到的结果，与真实的结果差距较大。这说明 hypothesis 的泛化能力较差，只是在训练集上得到的效果较好</p>
+<p>通常情况下，我们会得到一组数据而不是区分好的训练集与测试集。这时就需要我们做一些<strong>处理</strong>：</p>
+<p>首先打乱数据的次序，然后将其之前大约70%的部分来作为训练集，训练样本总数记为m，训练样本记为<img src="https://i.imgur.com/S04RXiX.png" alt=""></p>
+<p>剩下的30%部分作为测试集，测试样本总数记为mtest，测试样本记为<img src="https://i.imgur.com/rluZ3Dt.png" alt=""></p>
+<p>在测试集上，我们会计算 hypothesis 与真实数据的偏差。对于线性回归与逻辑回归，有一些不同。这些在之前的系列中都有提及： </p>
+<p><strong>线性回归</strong>：<img src="https://i.imgur.com/BmXcDfD.png" alt=""><br><strong>逻辑回归</strong>：<img src="https://i.imgur.com/g2yXaRe.png" alt=""></p>
+<p>我们在训练集、测试集的基础上，再次添加一种数据集：<strong>交叉验证集（cross validation set）</strong>。</p>
+<p>比例大约是训练集60%，测试集20%，交叉验证集20%，交叉验证样本总数记为mcv，交叉验证样本记为<img src="https://i.imgur.com/B6gENOi.png" alt="">。而Jcv(θ)的计算方式与Jtest(θ)相同，只是适用的数据集范围不同。 </p>
+<p>那么问题来了，为什么要区分这三个集合？以及它们的区别是什么呢？</p>
+<p>这三个名词在机器学习领域的文章中极其常见，但很多人对他们的概念并不是特别清楚，尤其是后两个经常被人混用。Ripley, B.D（1996）在他的经典专著《Pattern Recognition and Neural Networks》中给出了这三个词的定义。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Training set: A set of examples used for learning, which is to fit the parameters [i.e., weights] of the classifier.</span><br><span class="line">Validation set: A set of examples used to tune the parameters [i.e., architecture, not weights] of a classifier, for example to choose the number of hidden units in a neural network.</span><br><span class="line">Test set: A set of examples used only to assess the performance [generalization] of a fully specified classifier.</span><br></pre></td></tr></table></figure></p>
+<p>显然，<strong>training set是用来训练模型或确定模型参数的</strong>，如ANN中权值等； <strong>validation set是用来做模型选择（model selection），即做模型的最终优化及确定的</strong>，如ANN的结构；而<strong> test set则纯粹是为了测试已经训练好的模型的推广能力</strong>。</p>
+<p>当然，test set这并不能保证模型的正确性，他只是说相似的数据用此模型会得出相似的结果。但实际应用中，一般只将数据集分成两类，即training set 和test set，大多数文章并不涉及validation set。<br>Ripley还谈到了<strong>Why separate test and validation sets?</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The error rate estimate of the final model on validation data will be biased (smaller than the true error rate) since the validation set is used to select the final model.</span><br><span class="line">After assessing the final model with the test set, YOU MUST NOT tune the model any further.</span><br></pre></td></tr></table></figure></p>
+<p>对于过拟合，如何选择 model？使用多高次方的多项式拟合？答案是<strong>遍历尝试</strong>，如下图所示。分别在训练集上计算得到各个θ的值之后，再在交叉验证集（而不是测试集）上计算Jcv(θ)，选择Jcv(θ)最小的一个model作为hypothesis.<br><img src="https://i.imgur.com/mOk3wc8.png" alt=""></p>
+<p>如此一来，测试集上的Jtest(θ)就可以用于其他评估方向，而依靠交叉验证集来决定多项式拟合的次数。</p>
+<h3 id="2-Bias-vs-Variance"><a href="#2-Bias-vs-Variance" class="headerlink" title="2. Bias vs. Variance"></a>2. Bias vs. Variance</h3><p><strong>Bias 与 Variance </strong>并非是通常意义上的名词偏差、方差。而是用于描述两种机器学习中出现的问题。</p>
+<p><strong>high bias意味着欠拟合，high variance意味着过拟合。</strong>下图可以直观看出来：<br><img src="https://i.imgur.com/CzSF40I.png" alt=""></p>
+<p>接下来，我们从另一些角度来看看 Bias 与 Variance 的表现<br>以 hypothesis 的多项式次数 d 为横轴，error 为纵轴，我们可以得到在训练集与交叉验证集上的误差曲线为：<br><img src="https://i.imgur.com/o40hQlt.png" alt=""></p>
+<p>对于 Bias 与 Variance 也有了各自的概念： </p>
+<p><strong>Bias：</strong>Jtrain(θ)较大，Jcv(θ)较大，Jtrain(θ)≈Jcv(θ)。一般是 d（维度）较小的时候，才会产生 bias，欠拟合阶段；</p>
+<p><strong>Variance：</strong>Jtrain(θ)较小，Jcv(θ)较大，Jtrain(θ)≪Jcv(θ)。一般是 d（维度）较高的时候，才会产生 variance，过拟合阶段</p>
+<p>以 hypothesis 的正则化系数 λ 为横轴，error 为纵轴，我们可以得到在训练集与交叉验证集上的误差曲线与上图左右反转：<br><img src="https://i.imgur.com/tT6dRPD.png" alt=""></p>
+<p><strong>Bias：</strong>Jtrain(θ)较大，Jcv(θ)较大，Jtrain(θ)≈Jcv(θ)。一般是 λ 较大的时候，才会产生 bias，欠拟合阶段；</p>
+<p><strong>Variance：</strong>Jtrain(θ)较小，Jcv(θ)较大，Jtrain(θ)≪Jcv(θ)。一般是 λ 较小的时候，才会产生 variance，过拟合阶段</p>
+<p>那么如何选择 λ 呢？其实类似于选择多项式的维度 d，依次尝试。在确定了多项式维度之后，依次增大 λ 的值后再次计算 Jcv(θ) 的值，找到使得 Jcv(θ) 最小的 λ 值。增大的幅度可以较大，例如 λ=0,0.01,0.02,0.04,0.08,…</p>
+<h3 id="3-Learning-Curve"><a href="#3-Learning-Curve" class="headerlink" title="3. Learning Curve"></a>3. Learning Curve</h3><p><strong>learning curve </strong>同样是以 error 为纵轴，只不过这次的横轴换成了训练集的样本数目，但同样是 Jcv(θ) 与 Jtest(θ) 的曲线。一般形状是这样：<br><img src="https://i.imgur.com/jBnE12f.png" alt=""></p>
+<p>在样本较少的时候，训练集很容易被拟合，因此误差较小，但是因为训练样本少所以很难保证对于交叉验证集也是有效的，因此误差较大。</p>
+<p>在样本较多的时候，训练集较难被拟合，因此误差升高，但是因为训练样本更多所以有更大可能保证对于交叉验证集也是有效的，因此 Jcv(θ) 会下降。</p>
+<p>那么对于 high bias 与 high variance 而言，如果我们使用增加样本个数（最为耗时的方法）m，可否起到什么作用？</p>
+<p><img src="https://i.imgur.com/1GHLkWf.png" alt=""></p>
+<p>由图可以看出，在 high bias 情况下，一般都是由于本身选择的 hypothesis 的模型错误，而与训练集样本个数无关。错的模型训练再多次还是错的。</p>
+<p><img src="https://i.imgur.com/iWW3jJS.png" alt=""></p>
+<p>由图可以看出，在 high variance 情况下，很可能是过拟合问题，而增加训练集样本个数会使得模型的泛化能力进一步增强，从而消除过拟合问题，使得误差降低。</p>
+<h3 id="4-Deciding-What-to-Do-Next-Revisited"><a href="#4-Deciding-What-to-Do-Next-Revisited" class="headerlink" title="4. Deciding What to Do Next Revisited"></a>4. Deciding What to Do Next Revisited</h3><p>回想一下最开始提出的若干种优化方案，各自适用情况有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">获取更多的训练样本 ⇒ high variance</span><br><span class="line">尝试更少的特征 ⇒ high bias</span><br><span class="line">尝试更多的特征 ⇒ high variance</span><br><span class="line">尝试引入多项式特征 ⇒ high bias</span><br><span class="line">增加正则化系数 λ ⇒ high variance</span><br><span class="line">减少正则化系数 λ ⇒ high bias</span><br></pre></td></tr></table></figure></p>
+<p>将以上所有内容，如果引用到神经网络中，同样适用。 </p>
+<p>小规模（层数少、各层神经元数目少）的神经网络容易出现欠拟合问题；大规模的神经网络容易出现过拟合问题。 </p>
+<p>那么使用多少个隐藏层？可以使用依次递增层数，交叉验证集上误差来确定。 </p>
+<p>λ 该如何确定？根据上文，利用交叉验证集，依次递增选择误差最小的确定即可。</p>
+<h3 id="5-Building-a-Spam-Classifier"><a href="#5-Building-a-Spam-Classifier" class="headerlink" title="5. Building a Spam Classifier"></a>5. Building a Spam Classifier</h3><p>让我们以<strong>“垃圾邮件分类（Spam-Classifier）”</strong>问题作为例子：如何判断一封邮件是垃圾邮件，还是正常邮件？</p>
+<p>很容易我们会想到，依据某些单词作为特征，这些单词的出现与否决定这封邮件的性质。</p>
+<p>所以，我们会想到一个0，1组成的特征向量，1代表邮件具备这个特征（出现这个单词），0代表邮件不具备这个特征（没出现这个单词）。</p>
+<p>有了基本大方向之后，就要开始一场头脑风暴了，以求提高机器学习的效果。这种行为，不存在标准答案，任何结果都是有可能的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">增加数据</span><br><span class="line">采用更为复杂的特征（邮件路径）</span><br><span class="line">基于正文寻找更为精确复杂的特征（discount, discounts 视为同一单词；deal, dealer 视为同一单词）</span><br><span class="line">算法改进（故意拼错隐瞒检查的单词？deeler = dealer）</span><br></pre></td></tr></table></figure></p>
+<p>头脑风暴之后，谁说的才更有道理呢？自然需要各种方法对于误差的分析（error analysis）。这里需要注意：<strong>所有的 error analysis 都是在交叉验证集上完成的。</strong></p>
+<p>一般来说，机器学习算法的设计会经历以下几个过程：<br>以最快的速度（一天之内？）用最简单的方法，尝试去解决眼下的问题，并在交叉验证集上验证；</p>
+<p>画出 learning curve，去观察，发现现在的问题是 high bias，还是 high variance，需不需要更多的特征？更多的数据集？</p>
+<p>error analysis：上面已经在cross-validation数据集上测试了系统性能，现在我们人工去看哪些数据造成了大error的产生？是否可以通过改变systematic trend减少error？</p>
+<p>Spam-Classifier 举例，我们看一下进行Error Analysis的步骤：<br>所有 spam 分为四类：pharma，replica/fake，Steal password 和 其他</p>
+<p>如下图，寻找一些可能有助于改善分类效果的features<br><img src="https://i.imgur.com/lZ2lLvZ.png" alt=""></p>
+<p>然后，在是否引入特征的问题上，一定要做实验：例如，可以比较引入此特征前后，预测的准确率<img src="https://i.imgur.com/CJLBwew.png" alt="">是否提高？</p>
+<p>error analysis 的核心在于：一定要找到一种<strong>数值化的</strong>评定方法，以求判断 error 的大小。</p>
+<h3 id="6-Handling-Skewed-Data"><a href="#6-Handling-Skewed-Data" class="headerlink" title="6. Handling Skewed Data"></a>6. Handling Skewed Data</h3><p>首先，我们需要介绍，什么样的数据称为<strong>偏斜数据（skewed data）</strong>。这次，我们举的例子是预测癌症。</p>
+<p>预测癌症例子：实际生活中，癌症的发病率极低，可能在人群中只有0.5%的发病率。假设我们手头有一种预测方法，预测出来有1%的人会发病。这样，按照之前的评价标准，有0.5%的误诊率。但是，如果我不做任何的检查，直接判断病人是没病的，是不是同样有着0.5%的误诊率？这是不应该的，我们化验检查一番力气之后的答案竟然和瞎猜的误诊率相同。</p>
+<p>当分类问题中，某一类所占比例极小<strong>（一般将较小比例的类别置为1）</strong>，就会有偏斜数据的问题。</p>
+<p>这时候，直接用 error 来描述在这种数据集上的问题不合适，我们需要寻求更新的数值化评价标准。</p>
+<p>引入新的标准 precision 和 recall 之前，我们需要介绍几个新名字：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">True positive：预测结果为真，并且实际分类同样为真</span><br><span class="line">True negative：预测结果为假，并且实际分类同样为假</span><br><span class="line">False positive：预测结果为真，但是实际分类为假</span><br><span class="line">False negative：预测结果为假，但是实际分类为真</span><br></pre></td></tr></table></figure></p>
+<p>说起来有点复杂，来看下面这张图一目了然：<br><img src="https://i.imgur.com/bVYkrZU.png" alt=""></p>
+<p>接下来，我们在此基础上，介绍两个评价标准：</p>
+<p><strong>查准率（precision）</strong>：在查出有癌症的患者中，实际患病的概率，公式见上图。<strong>precision 越高算法越好</strong>；</p>
+<p><strong>召回率（recall）：</strong>所有身患癌症的病人中，有多少概率被查出，公式见上图。 <strong>recall越高算法越好</strong>；</p>
+<p>再回到一开始的例子，如果我全部将病人视为健康，准确率是99.5%，但是我的查准率和召回率极低。可以判定不是一个好算法。</p>
+<p>回到预测癌症例子</p>
+<p>如果为了保证确诊率，可以将逻辑回归的分类值由0.5改为0.7，这样一来 precision 必然会升高，但是也会导致 recall 的下降</p>
+<p>如果为了引起大家的更多重视，可以将逻辑回归的分类值由0.5改为0.3，这样一来 precision 必然会下降，但是也会导致 recall 的升高</p>
+<p>貌似 precision（记为P） 和 recall（记为R） 总是背道而驰，偏偏两者还都是重要的偏斜类上的算法评价标准，如何将这两个标准合为一个？平均值显然是不行的，P=1且R=0时平均值为0.5，看不出端倪。</p>
+<p><strong>F值（F-score）</strong>：F=2PR/(P+R)，完美地解决了这个问题。F值的中心思想就是：赋予P、R中更低的值更大的权值，因为P、R总是此消彼长，这样就制约两者必须同时保持在较大值才使得F值较高。可以用于<strong>所有有着此消彼长关系的标准的综合评价</strong>。</p>
+<h3 id="7-Using-Large-Data-Sets"><a href="#7-Using-Large-Data-Sets" class="headerlink" title="7. Using Large Data Sets"></a>7. Using Large Data Sets</h3><p>一般来说，增大数据集，可以提高算法的 accuracy，但也不全是这样。比如房价预测，如果我仅仅给你房子的面积，而没有房子在市中心还是偏远地区？房龄多少？等信息，我们是无法进行良好预测的。所以，我们需要知道的前提条件是： </p>
+<p><strong>如果当前的特征已经足够预测，增大数据集的确可以提高准确性 </strong><br>总结： </p>
+<ol>
+<li><p>想要保证bias小，就要保证有足够多的feature，即linear/logistics regression中有很多parameters，neuron networks中应该有很多hidden layer neurons</p>
+</li>
+<li><p>想要保证variance小，就要保证不产生overfit，那么就需要很多data set（只要样本数远远大于特征数，是无法过拟合每个点）。这里需要Jcv和Jtrain都很小，才能使Jtest相对小</p>
+</li>
+</ol>
+<p>综上所述，对数据及进行理性分析的结果是两条： </p>
+<p><strong>首先，x中有足够多的feature，以得到low bias;</strong><br><strong>其次，有足够大的training set，以得到low variance</strong></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/机器学习/">机器学习</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/Machine-Learning-课程笔记/">Machine Learning 课程笔记</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机原理/">计算机原理</a><span class="category-list-count">1</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 15px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 17.5px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 20px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/模型/" style="font-size: 15px;">模型</a> <a href="/tags/算法/" style="font-size: 12.5px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">3</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
