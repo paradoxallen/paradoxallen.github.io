@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Machine Learning | RP&#39;s Blog</title>
+  <title>第 3 页 | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
   
   
@@ -71,111 +71,127 @@
 </header>
     <div id="content" class="inner">
       <div id="main-col" class="alignleft"><div id="wrapper">
-
-<h2 class="archive-title fa-tag">Machine Learning</h2>
-<div class="archive">
-   
     <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-06-09T16:00:00.000Z"><a href="/65434/">2017-06-10</a></time>
-          
-            <h1 class="title"><a href="/65434/">Tour of Machine Learning Algorithms(5) 常见算法优缺点</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/算法/">算法</a>
-  </div>
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-26T16:00:00.000Z"><a href="/61074/">2017-01-27</a></time>
+        
+  
+    <h1 class="title"><a href="/61074/">ASCII、Unicode和UTF-8编码的区别</a></h1>
+  
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-06-04T16:00:00.000Z"><a href="/21484/">2017-06-05</a></time>
-          
-            <h1 class="title"><a href="/21484/">Tour of Machine Learning Algorithms(4) 常见算法优缺点</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/算法/">算法</a>
-  </div>
+    </header>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-05-31T16:00:00.000Z"><a href="/62602/">2017-06-01</a></time>
-          
-            <h1 class="title"><a href="/62602/">Tour of Machine Learning Algorithms(3) 模型结果应用</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/模型/">模型</a>
-  </div>
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#归纳"><span class="toc-text">归纳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体解释："><span class="toc-text">具体解释：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol></li></ol>
+    </div>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-05-24T16:00:00.000Z"><a href="/4840/">2017-05-25</a></time>
-          
-            <h1 class="title"><a href="/4840/">Tour of Machine Learning Algorithms(2) 模型调优</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/模型/">模型</a>
-  </div>
+        <h3 id="归纳"><a href="#归纳" class="headerlink" title="归纳"></a>归纳</h3><table>
+<thead>
+<tr>
+<th>编码</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:right">支持语言</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCII</td>
+<td style="text-align:center">1个字节</td>
+<td style="text-align:right">英文</td>
+</tr>
+<tr>
+<td>Unicode</td>
+<td style="text-align:center">2个字节（生僻字4个）</td>
+<td style="text-align:right">所有语言</td>
+</tr>
+<tr>
+<td>UTF-8</td>
+<td style="text-align:center">1-6个字节，英文字母1个字节，汉字3个字节，生僻字4-6个字节</td>
+<td style="text-align:right">所有语言</td>
+</tr>
+</tbody>
+</table>
+<h3 id="具体解释："><a href="#具体解释：" class="headerlink" title="具体解释："></a>具体解释：</h3><p>最早只有127个字母被编码到计算机里，也就是大小写英文字母、数字和一些符号，这个编码表被称为ASCII编码，比如大写字母A的编码是65，小写字母z的编码是122。</p>
+<p>但是要处理中文显然一个字节是不够的，至少需要两个字节，而且还不能和ASCII编码冲突，所以，中国制定了GB2312编码，用来把中文编进去。</p>
+<p>你可以想得到的是，全世界有上百种语言，日本把日文编到Shift_JIS里，韩国把韩文编到Euc-kr里，各国有各国的标准，就会不可避免地出现冲突，结果就是，在多语言混合的文本中，显示出来会有乱码。</p>
+<p>因此，Unicode应运而生。Unicode把所有语言都统一到一套编码里，这样就不会再有乱码问题了。</p>
+<p>Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语言都直接支持Unicode。</p>
+<p>新的问题又出现了：如果统一成Unicode编码，乱码问题从此消失了。但是，如果你写的文本基本上全部是英文的话，用Unicode编码比ASCII编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
+<p>所以，本着节约的精神，又出现了把Unicode编码转化为“可变长编码”的UTF-8编码。UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用UTF-8编码就能节省空间。</p>
+<p>UTF-8编码有一个额外的好处，就是ASCII编码实际上可以被看成是UTF-8编码的一部分，所以，大量只支持ASCII编码的历史遗留软件可以在UTF-8编码下继续工作。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BC%96%E7%A0%81/9127611?fr=aladdin" target="_blank" rel="noopener">计算机编码_百度百科</a></p>
 
-        </div>
-      </div>
-    </article>
-   
-    <article class="post">
-      <div class="post-content">
-        <header>
-          <div class="icon"></div>
-          <time datetime="2017-05-21T16:00:00.000Z"><a href="/40392/">2017-05-22</a></time>
-          
-            <h1 class="title"><a href="/40392/">A Tour of Machine Learning Algorithms(1) 算法介绍</a></h1>
-          
-        </header>
-        <div class='archive-tags'>
-          
-  <div class="tags">
-    <a href="/tags/Machine-Learning/">Machine Learning</a>, <a href="/tags/模型/">模型</a>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
   </div>
-
-        </div>
-      </div>
-    </article>
-    
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
 </div>
+
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-01-20T16:00:00.000Z"><a href="/13431/">2017-01-21</a></time>
+        
+  
+    <h1 class="title"><a href="/13431/">博客搭建——利用GitHub+Hexo</a></h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        <p>一直想有一个可以记录的属于自己的博客，最近在知乎上看到了利用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>+<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>搭建博客的教程，于是乎搭建了自己的博客<a href="https://paradoxallen.github.io/">paradoxallen</a>。</p>
+<p>然而在此过程也遇到了一些bug，希望以下图文并茂的教程（虽然已经有挺多类似的教程…但主要是想自己写一篇文章!!!而且保证超级详细!!!）可以帮助大家少走弯路，搭建属于自己的博客。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/13431/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div>
+ 
 <nav id="pagination">
+  
+    <a href="/page/2/" class="alignleft prev">上一页</a>
   
   
   <div class="clearfix"></div>
-</nav></div></div>
+</nav>
+</div></div>
       <aside id="sidebar" class="alignright">
         
            <div class="search">
