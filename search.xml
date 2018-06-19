@@ -91,6 +91,27 @@
     </entry>
     
     <entry>
+      <title>Andrew Ng Machine Learning (8) PCA</title>
+      <link href="/22819/"/>
+      <url>/22819/</url>
+      <content type="html"><![CDATA[<p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p><a id="more"></a><hr><h3 id="1-Motivation-for-Dimensionality-Reduction"><a href="#1-Motivation-for-Dimensionality-Reduction" class="headerlink" title="1. Motivation for Dimensionality Reduction"></a>1. Motivation for Dimensionality Reduction</h3><p>为什么要数据降维？目的性一般来说有三个：</p><p><strong>（1）加速计算，要计算的维度更少；</strong></p><p><strong>（2）节省空间；</strong></p><p><strong>（3）可视化</strong></p><p>因为现在的可视化只能对于2D或者3D有较好的处理。</p><p>那么，数据为什么可以降维呢？举个例子，我用一幅图表示厘米与英尺的关系，这时特征有（厘米，英尺）。但其实我存储的时候，<strong>只需要其中任意一个，另外一个是极强相关度</strong>。此时只有一维特征。</p><h3 id="2-Principal-Component-Analysis-PCA-简介"><a href="#2-Principal-Component-Analysis-PCA-简介" class="headerlink" title="2. Principal Component Analysis (PCA) 简介"></a>2. Principal Component Analysis (PCA) 简介</h3><p><strong>主成分分析（Principal Component Analysis）</strong>是数据降维的一种极为有效的方法。</p><p>通过将高维数据投影到低维空间，以求通过<strong>牺牲极少的数据精度来换取更低维度的数据</strong>。</p><p>先来举个例子，例如下图中的5个点：<br><img src="https://i.imgur.com/bAi9DAY.png" alt=""></p><p>如果精确描述这5个点，那么需要2D的特征(x1,x2)。但是，如果我们以图中的直线作为唯一的1D特征，将每个点投影到直线上，是不是基本可以区分出这5个点？这肯定丧失了一部分精度。</p><p>注意：此时的特征正方向（1D空间的基向量），方向沿着直线的任意两方都正确，我们<strong>关心的只是直线而不是方向</strong>。</p><p>上图的例子中，PCA的任务就是找到这条直线，然后投影到直线上去。而这条直线，必须满足<strong>每个点到直线欧氏距离的平方和最小，即丧失的精度最少</strong>：<img src="https://i.imgur.com/KPVsso6.png" alt=""></p><p>既然都是找直线，那肯定有人自然而然想到了线性回归。但是两者之间有着极大不同。首先就是优化目标，见下图：<br><img src="https://i.imgur.com/lySevWa.png" alt=""></p><p>左图是线性回归所需要最小化的距离（蓝色线段和），右图是2D空间PCA所需要最小化的距离（蓝色线段和）。除此之外，线性回归是为了拟合特殊的变量y，而PCA是一种无监督学习，目的性并不明确，每个变量都会降维。</p><h3 id="3-Principal-Component-Analysis-PCA-流程"><a href="#3-Principal-Component-Analysis-PCA-流程" class="headerlink" title="3. Principal Component Analysis (PCA) 流程"></a>3. Principal Component Analysis (PCA) 流程</h3><p>述说流程之前，希望大家可以看看这篇分析（本课程缺少理论分析）：<a href="http://sebastianraschka.com/Articles/2014_kernel_pca.html" target="_blank" rel="noopener">Kernel tricks and nonlinear dimensionality reduction via RBF kernel PCA</a></p><p>老规矩，首先要 <strong>mean normalization / feature scaling</strong>。方法就跟之前课程提到的一样，对每个特征 j 求均值<img src="https://i.imgur.com/tfWfqOH.png" alt=""></p><p>然后更新特征的值<img src="https://i.imgur.com/nXB3It5.png" alt="">其中Sj是特征值的范围，可以是最大值减去最小值。</p><p>计算协方差矩阵：<img src="https://i.imgur.com/BTVkiWi.png" alt="">，协方差矩阵一般是<strong>对称正定矩阵</strong>，一定会求出特征值与特征向量。</p><p>计算特征值与特征向量，matlab中写作：<code>[U, S, V] = svd(simga)</code>. </p><p>U 是特征向量集合，<img src="https://i.imgur.com/BpkU4CG.png" alt=""></p><p>S是特征值集合<img src="https://i.imgur.com/USdq9tK.png" alt=""></p><p>U∈Rn×n，降维之后取U的前k个特征向量u(1),u(2)…u(k)作为子空间的基向量，构造<img src="https://i.imgur.com/pfb6Kwe.png" alt="">。</p><p>此时x∈Rn→z∈Rk <img src="https://i.imgur.com/auNcI4d.png" alt=""><br>其中z是k×1的列向量，x是n×1的列向量，UTreduce 是k×n的矩阵</p><p>降维之后，进行计算获得结果之后，总是需要升维到原空间中。这个时候的升维精确度已经有所下降，但已经是尽量减少损耗。具体的降维转换公式为<img src="https://i.imgur.com/Wp14DBC.png" alt=""></p><p>也就是下图中的绿色交叉点返回到2D坐标系中表示。<br><img src="https://i.imgur.com/RBzzKVQ.png" alt=""></p><h3 id="4-Principal-Component-Analysis-PCA-其他问题"><a href="#4-Principal-Component-Analysis-PCA-其他问题" class="headerlink" title="4. Principal Component Analysis (PCA) 其他问题"></a>4. Principal Component Analysis (PCA) 其他问题</h3><p>OK，知道怎么使用PCA，那么我们应该选择降维k=？我们应该有评判标准。我们大体目标是<img src="https://i.imgur.com/HuLOWKM.png" alt=""></p><p>因此我们选择标准为：<br><img src="https://i.imgur.com/YjJRuyL.png" alt="">，表示意义为“<strong>保留99%的差异性</strong>”。 </p><p>如果使用特征值来表示就是，<img src="https://i.imgur.com/DTImTvI.png" alt=""></p><p>PCA 中，无监督学习的唯一学习参数是 Ureduce。<strong>Only Training Data！</strong>仅仅是由训练集训练出来的参数。</p><p>可以用<strong>Cross-Validation data 和 test Data进行检验</strong>，但是选择主分量的时候<strong>只应用training data</strong>。</p><p>有时候 PCA 被用于解决 overfitting ，但这样做其实非常不好。PCA 降低了数据维度，但同时损失了数据原有的标记信息。而之前的课程中提到的<strong>regularization 技术</strong>才是解决过拟合的正途。</p><p>使用 PCA 之前，一定要利用原维度的数据进行计算。仅仅当计算过程出现了<strong>（1）计算过慢；（2）占用内存过多</strong>；这两个问题之后，才应该考虑 PCA。盲目的使用，是不可取的。</p>]]></content>
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Machine Learning 课程笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Andrew Ng Machine Learning (7) K-Means</title>
       <link href="/48762/"/>
       <url>/48762/</url>
