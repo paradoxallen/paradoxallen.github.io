@@ -68,6 +68,27 @@
     </entry>
     
     <entry>
+      <title>Andrew Ng Machine Learning (10) Recommender Systems</title>
+      <link href="/62349/"/>
+      <url>/62349/</url>
+      <content type="html"><![CDATA[<p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p><a id="more"></a><hr><h3 id="1-推荐系统"><a href="#1-推荐系统" class="headerlink" title="1. 推荐系统"></a>1. 推荐系统</h3><p><strong>推荐系统</strong>是机器学习的重要应用之一，但是学术界关注较少。但是它的确出现在生活中的方方面面。例如我们上豆瓣、网易云音乐（没错，叫我文青）等，总会有根据你的个人喜好来推荐你可能喜欢的电影、音乐的功能，就是典型的推荐系统。</p><p>我们以外国豆瓣为例，见下图（问号代表尚未评分）：<br><img src="https://i.imgur.com/to4tI0H.png" alt=""></p><p>另外我们需要设计几个变量：</p><p>nu=#users数目；</p><p>nu=#movies数目；</p><p>r(i,j)代表用户j是否已经对电影i评分，取值为0或1；</p><p>y(i,j)代表用户j是否对电影i的具体评分，取值范围0~5</p><p>一般电影评分是<strong>基于内容（content-based）</strong>，取值范围为0~1。例如某部电影的浪漫成分为0.3，动作成分为0.8，这部电影就主要是动作片，掺杂一些浪漫成分。“浪漫”特征可以设定为x1，“动作”特征可以设定为x2，共有n个特征。</p><p>如何寻找相似的电影呢？就是选取“距离”最短的另一部电影，即<img src="https://i.imgur.com/OirBtIk.png" alt=""></p><p>很容易地，我们会想到线性回归的方法。这个方法的前提是<strong>已知每部电影属于每种特征的得分</strong>即x(1),x(2),…,x(m)。</p><p>若每个用户基于特征可以有一个θ(j)，则用户j对电影i的评分为<img src="https://i.imgur.com/6FNr4VE.png" alt="">。</p><p>根据线性回归，我们可以得到优化目标为：<br><img src="https://i.imgur.com/sQY0vHd.png" alt=""></p><p>这里需要注意的是，为了简化系统，我们去除了求和符号之前的1/2m，而是1/2。这样并不影响结果。 </p><p>对上图中的优化目标，利用梯度下降的办法求出 <strong>θ 的最优值</strong>（如果对这一部分不熟悉，建议查看<a href="https://paradoxallen.github.io/58080/">《Linear Regression》</a><br><img src="https://i.imgur.com/NzShBbD.png" alt=""></p><h3 id="2-换个角度思考？"><a href="#2-换个角度思考？" class="headerlink" title="2. 换个角度思考？"></a>2. 换个角度思考？</h3><p>上一部分，我们是假设已知每部电影在每种特征上的得分。如果我们已知有两种特征：<strong>romance和action</strong>，但是不知道每种电影在哪种特征上得分多少。在这里，我们的求解对象变为了x(i).</p><p>但是此时我们已知得知用户对于每种特征的喜欢程度，即已知θ(j)。同时已知y(i,j)，求解x(i)。因此我们的优化目标为：<br><img src="https://i.imgur.com/bczIp7x.png" alt=""></p><p>同理，也可以使用梯度下降法进行最优值求解。</p><p>上一部分的求解过程是<strong>x⇒θ</strong>，这一部分的求解过程是<strong>θ⇒x</strong>。</p><p>如果这两个过程交替进行，是不是就可以达到整体的最优值？答案是肯定的。</p><p>这就是下一部分<strong>“协同过滤”</strong>的基本思想，但是具体实施过程有待改进。</p><h3 id="3-协同过滤（Collaborative-Filtering）"><a href="#3-协同过滤（Collaborative-Filtering）" class="headerlink" title="3. 协同过滤（Collaborative Filtering）"></a>3. 协同过滤（Collaborative Filtering）</h3><p>对于求解过程x⇒θ，与求解过程θ⇒x 交替进行，以求达到整体的最优值。协同过滤基本思想是这样的，但是能不能将一切置于同一个公式下？</p><p>查看下图，红色方框中是两个优化目标的求解部分中相同的部分，即使求和顺序不同。而红框之外的部分分别加到新的优化目标中<br><img src="https://i.imgur.com/MQKWsqs.png" alt=""></p><p>这里，我们去除掉x0,θ0这些恒为1的变量（其实我忍很久了），让学习更加灵活。</p><p>因此，协同过滤的具体算法流程（第一步类似于神经网络，对系统中的参数首先都进行随机化；后两步完全类似于线性回归）。因为我们不再需要k=0的情况，所以不需要单独区分：<br><img src="https://i.imgur.com/c1gFkK7.png" alt=""></p><h3 id="4-均值归一化（Mean-Normalization）"><a href="#4-均值归一化（Mean-Normalization）" class="headerlink" title="4. 均值归一化（Mean Normalization）"></a>4. 均值归一化（Mean Normalization）</h3><p>如果有另一个新用户 Eve，她对于任何电影都尚未评分，我们如何给她推荐呢？很简单，推荐那些大部分都觉得高分的电影呗。</p><p>但是，如果直接利用我们之前的方法求解以下情形：<br><img src="https://i.imgur.com/te6xHCZ.png" alt=""></p><p>为了归一化，肯定最后 Eve 的 θ(5) 一定是全0向量。因此，我们需要对原先的方法采取一些<strong>预操作</strong>，来避免出现全 0 的预测向量，而是让它变成每部电影的平均得分。</p><p>方法也十分简单，就是对每部电影求出一个平均值（只统计那些对该部电影打过分数的样本），然后将每个人对每部电影的得分减去这部电影的平均值，然后进行<strong>协同过滤计算</strong>。但是，最后的预测得分公式也需要小小的改变：<img src="https://i.imgur.com/QfYFAWe.png" alt="">（其中μi表示电影i的平均得分）。</p>]]></content>
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Machine Learning 课程笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Andrew Ng Machine Learning (9) Anomaly Detection</title>
       <link href="/39500/"/>
       <url>/39500/</url>

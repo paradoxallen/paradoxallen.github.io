@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Andrew Ng Machine Learning (4) Neural Network Part1 | RP&#39;s Blog</title>
+  <title>Andrew Ng Machine Learning (10) Recommender Systems | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
   
   <meta name="description" content="此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。课程网址：https://www.coursera.org/learn/machine-learning/home/welcome">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Andrew Ng Machine Learning (4) Neural Network Part1"/>
+  <meta property="og:title" content="Andrew Ng Machine Learning (10) Recommender Systems"/>
   <meta property="og:site_name" content="RP&#39;s Blog"/>
 
   
@@ -78,10 +78,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2017-08-22T16:00:00.000Z"><a href="/21187/">2017-08-23</a></time>
+        <time datetime="2017-09-24T16:00:00.000Z"><a href="/62349/">2017-09-25</a></time>
         
   
-    <h1 class="title">Andrew Ng Machine Learning (4) Neural Network Part1</h1>
+    <h1 class="title">Andrew Ng Machine Learning (10) Recommender Systems</h1>
   
 
     </header>
@@ -90,36 +90,40 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-由XOR-Problem想到"><span class="toc-text">1. 由XOR Problem想到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-人工神经网络"><span class="toc-text">2. 人工神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-回到XOR-Problem"><span class="toc-text">3. 回到XOR Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-神经网络多类分类"><span class="toc-text">4. 神经网络多类分类</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-推荐系统"><span class="toc-text">1. 推荐系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-换个角度思考？"><span class="toc-text">2. 换个角度思考？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-协同过滤（Collaborative-Filtering）"><span class="toc-text">3. 协同过滤（Collaborative Filtering）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-均值归一化（Mean-Normalization）"><span class="toc-text">4. 均值归一化（Mean Normalization）</span></a></li></ol>
     </div>
 
         <p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p>
 <a id="more"></a>
 <hr>
-<h3 id="1-由XOR-Problem想到"><a href="#1-由XOR-Problem想到" class="headerlink" title="1. 由XOR Problem想到"></a>1. 由XOR Problem想到</h3><p>有一种经典的非线性问题：<strong>XOR，也就是异或</strong>。真值表如下： </p>
-<p>0 0 | 0<br>1 0 | 1<br>1 1 | 0<br>0 1 | 1，| 左侧是输入，| 右侧是输出 </p>
-<p>如果在二维坐标系上绘图，可以看出来仅利用一条直线是无法对这个问题分类的，也就是<strong>线性不可分</strong>问题。</p>
-<p>如果利用逻辑回归的方法，可以枚举各种特征的出现可能，即<br>继续想下去，如果基础特征量更多的话？就会出现过拟合的问题，同时带来极大的计算量。</p>
-<p>例如，计算机视觉中处理一张照片，每个像素都需要一个数值表示。对于100*100像素值的图片，仅仅考虑二次项等级，就有特征数量为5000个（与相同，故除以2）。</p>
-<p>于是，这章介绍的非线性分类器，<strong>神经网络（Neural Network，NN）</strong>就发挥了作用。</p>
-<h3 id="2-人工神经网络"><a href="#2-人工神经网络" class="headerlink" title="2. 人工神经网络"></a>2. 人工神经网络</h3><p>神经网络最初提出的初衷，是因为要模拟人类大脑的结构（很初级的模拟，因为人类对于自己大脑究竟是怎样都没有弄清楚）。<strong>通过多个感知机之间的输入输出，从而完成整体的智能行为</strong>。</p>
-<p>在人工神经网络中，“感知机”就是一个有着输入与输出功能的小单元，接收上一层的输入，将输出传给下一层。</p>
-<p>人工神经网络是层级结构，某一层上的单元之间互相不会有输入输出关系，只和上一层或者下一层的单元产生数据传输关系。至少会有两层：<strong>输入层（input layer）与输出层（output layer）</strong>，但是两层的神经网络可以解决的问题很少，一般都是三层或者三层以上，中间的这些层就称为<strong>“隐藏层（hidden layer）”</strong>，我们来看一个最简单的例子：<br><img src="https://i.imgur.com/U02TDKa.jpg" alt=""></p>
-<p>由<strong>输入层，到隐藏层，最终到输出层</strong>。这是一次 <strong>forward propogation</strong> 过程。类似于逻辑回归，但是神经网络的输入是某个样本的所有基础特征，不需要考虑 这一类新加入的特征。</p>
-<h3 id="3-回到XOR-Problem"><a href="#3-回到XOR-Problem" class="headerlink" title="3. 回到XOR Problem"></a>3. 回到XOR Problem</h3><p>先讲几个基础的利用神经网络进行二进制运算分类的问题：</p>
-<ol>
-<li><p>二进制 AND<br><img src="https://i.imgur.com/5pgAvdw.jpg" alt=""><br>即为，只有1,1时返回值才为1，符合 AND 的操作结果。</p>
-</li>
-<li><p>二进制 OR<br><img src="https://i.imgur.com/vNpszeX.jpg" alt=""><br>即为，只有0,0时返回值才为0，符合 OR 的操作结果。</p>
-</li>
-<li><p>二进制 NOT<br><img src="https://i.imgur.com/8ODYZRw.jpg" alt=""></p>
-</li>
-</ol>
-<p>XOR 问题复杂一些，但是如果我们做了如下转换：</p>
-<p><code>XNOR = NOT XOR = AND OR NOT AND NOT</code></p>
-<p>变换的正确性，很容易通过真值表来验证。大家可以分别计算各个括号中的内容，然后通过 OR 连接起来。<br>我们将 AND 的内容视为 ，NOT AND NOT 的内容视为<br><img src="https://i.imgur.com/tcDGEAE.jpg" alt=""></p>
-<h3 id="4-神经网络多类分类"><a href="#4-神经网络多类分类" class="headerlink" title="4. 神经网络多类分类"></a>4. 神经网络多类分类</h3><p>神经网络处理多类的分类问题是很方便的。举个例子，区分手写数字时，有10个类别：0，1，2，……，9。<br>对于某一个训练样本来说，有着特征组合,这个神经网络的输出层有10个单元。当输出层的10个单元全部取 0，意味着输入不是任何一种数字。</p>
-<p>对于手写数字的识别，一直是业界的研究重点之一。视频中举了一篇经典的利用神经网络处理该问题的Paper，有兴趣的同学可以访问作者的个人主页查看Demo与Paper：<a href="http://yann.lecun.com/exdb/lenet/" target="_blank" rel="noopener">Yann LeCun</a></p>
+<h3 id="1-推荐系统"><a href="#1-推荐系统" class="headerlink" title="1. 推荐系统"></a>1. 推荐系统</h3><p><strong>推荐系统</strong>是机器学习的重要应用之一，但是学术界关注较少。但是它的确出现在生活中的方方面面。例如我们上豆瓣、网易云音乐（没错，叫我文青）等，总会有根据你的个人喜好来推荐你可能喜欢的电影、音乐的功能，就是典型的推荐系统。</p>
+<p>我们以外国豆瓣为例，见下图（问号代表尚未评分）：<br><img src="https://i.imgur.com/to4tI0H.png" alt=""></p>
+<p>另外我们需要设计几个变量：</p>
+<p>nu=#users数目；</p>
+<p>nu=#movies数目；</p>
+<p>r(i,j)代表用户j是否已经对电影i评分，取值为0或1；</p>
+<p>y(i,j)代表用户j是否对电影i的具体评分，取值范围0~5</p>
+<p>一般电影评分是<strong>基于内容（content-based）</strong>，取值范围为0~1。例如某部电影的浪漫成分为0.3，动作成分为0.8，这部电影就主要是动作片，掺杂一些浪漫成分。“浪漫”特征可以设定为x1，“动作”特征可以设定为x2，共有n个特征。</p>
+<p>如何寻找相似的电影呢？就是选取“距离”最短的另一部电影，即<img src="https://i.imgur.com/OirBtIk.png" alt=""></p>
+<p>很容易地，我们会想到线性回归的方法。这个方法的前提是<strong>已知每部电影属于每种特征的得分</strong>即x(1),x(2),…,x(m)。</p>
+<p>若每个用户基于特征可以有一个θ(j)，则用户j对电影i的评分为<img src="https://i.imgur.com/6FNr4VE.png" alt="">。</p>
+<p>根据线性回归，我们可以得到优化目标为：<br><img src="https://i.imgur.com/sQY0vHd.png" alt=""></p>
+<p>这里需要注意的是，为了简化系统，我们去除了求和符号之前的1/2m，而是1/2。这样并不影响结果。 </p>
+<p>对上图中的优化目标，利用梯度下降的办法求出 <strong>θ 的最优值</strong>（如果对这一部分不熟悉，建议查看<a href="https://paradoxallen.github.io/58080/">《Linear Regression》</a><br><img src="https://i.imgur.com/NzShBbD.png" alt=""></p>
+<h3 id="2-换个角度思考？"><a href="#2-换个角度思考？" class="headerlink" title="2. 换个角度思考？"></a>2. 换个角度思考？</h3><p>上一部分，我们是假设已知每部电影在每种特征上的得分。如果我们已知有两种特征：<strong>romance和action</strong>，但是不知道每种电影在哪种特征上得分多少。在这里，我们的求解对象变为了x(i).</p>
+<p>但是此时我们已知得知用户对于每种特征的喜欢程度，即已知θ(j)。同时已知y(i,j)，求解x(i)。因此我们的优化目标为：<br><img src="https://i.imgur.com/bczIp7x.png" alt=""></p>
+<p>同理，也可以使用梯度下降法进行最优值求解。</p>
+<p>上一部分的求解过程是<strong>x⇒θ</strong>，这一部分的求解过程是<strong>θ⇒x</strong>。</p>
+<p>如果这两个过程交替进行，是不是就可以达到整体的最优值？答案是肯定的。</p>
+<p>这就是下一部分<strong>“协同过滤”</strong>的基本思想，但是具体实施过程有待改进。</p>
+<h3 id="3-协同过滤（Collaborative-Filtering）"><a href="#3-协同过滤（Collaborative-Filtering）" class="headerlink" title="3. 协同过滤（Collaborative Filtering）"></a>3. 协同过滤（Collaborative Filtering）</h3><p>对于求解过程x⇒θ，与求解过程θ⇒x 交替进行，以求达到整体的最优值。协同过滤基本思想是这样的，但是能不能将一切置于同一个公式下？</p>
+<p>查看下图，红色方框中是两个优化目标的求解部分中相同的部分，即使求和顺序不同。而红框之外的部分分别加到新的优化目标中<br><img src="https://i.imgur.com/MQKWsqs.png" alt=""></p>
+<p>这里，我们去除掉x0,θ0这些恒为1的变量（其实我忍很久了），让学习更加灵活。</p>
+<p>因此，协同过滤的具体算法流程（第一步类似于神经网络，对系统中的参数首先都进行随机化；后两步完全类似于线性回归）。因为我们不再需要k=0的情况，所以不需要单独区分：<br><img src="https://i.imgur.com/c1gFkK7.png" alt=""></p>
+<h3 id="4-均值归一化（Mean-Normalization）"><a href="#4-均值归一化（Mean-Normalization）" class="headerlink" title="4. 均值归一化（Mean Normalization）"></a>4. 均值归一化（Mean Normalization）</h3><p>如果有另一个新用户 Eve，她对于任何电影都尚未评分，我们如何给她推荐呢？很简单，推荐那些大部分都觉得高分的电影呗。</p>
+<p>但是，如果直接利用我们之前的方法求解以下情形：<br><img src="https://i.imgur.com/te6xHCZ.png" alt=""></p>
+<p>为了归一化，肯定最后 Eve 的 θ(5) 一定是全0向量。因此，我们需要对原先的方法采取一些<strong>预操作</strong>，来避免出现全 0 的预测向量，而是让它变成每部电影的平均得分。</p>
+<p>方法也十分简单，就是对每部电影求出一个平均值（只统计那些对该部电影打过分数的样本），然后将每个人对每部电影的得分减去这部电影的平均值，然后进行<strong>协同过滤计算</strong>。但是，最后的预测得分公式也需要小小的改变：<img src="https://i.imgur.com/QfYFAWe.png" alt="">（其中μi表示电影i的平均得分）。</p>
 
       
     </div>
