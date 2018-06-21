@@ -68,6 +68,27 @@
     </entry>
     
     <entry>
+      <title>Andrew Ng Machine Learning (11) Large Scale Machine Learning</title>
+      <link href="/6245/"/>
+      <url>/6245/</url>
+      <content type="html"><![CDATA[<p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p><a id="more"></a><hr><h3 id="1-Big-Data"><a href="#1-Big-Data" class="headerlink" title="1. Big Data"></a>1. Big Data</h3><p>海量的数据作为训练样本，<strong>“low bias algo + big data”</strong>基本都能让算法精确度更高。但是随之而来的就是极大的计算量。</p><p>正如<a href="https://paradoxallen.github.io/9059/">《Machine Learning Advice》</a>中所提到的，如果算法是 high bias，那么1000个样本与100,000,000个样本效果都不会有变化</p><p>那如何避免一开始就陷入了 high bias 或者因为自己的选择的方法、编程的细节错误所浪费大量时间呢？</p><p>我们应该在海量数据中<strong>选取一部分</strong>尝试。例如，随机选择 100,000,000个样本中的1000个，使用各种学习方法选择在这1000个采样学习中表现最好的一个或几个方法，进行海量数据的学习</p><p>尝试之后，我们即将进行真正的海量数据学习。学习过程中，我们经常会用到梯度下降法。我们以线性回归为例（<strong>任何使用到梯度下降法的算法：逻辑回归、神经网络等，都可以举一反三适用</strong>），参数θ的update函数为：<br><img src="https://i.imgur.com/2PwCkzy.png" alt=""></p><p>公式推导内容见<a href="https://paradoxallen.github.io/58080/">《Linear Regression》</a></p><p>上式中有一处求和<img src="https://i.imgur.com/4HlhA0F.png" alt="">，面对海量数据时会消耗大量时间，而且对每一个样本都会计算一次。这种计算模式称为<strong>“批处理”(batch)</strong>，面对海量数据，显然批处理模式并不适合。以下介绍两种海量数据模型中经常使用的方法</p><h3 id="2-随机梯度下降（Stochastic-Gradient-Descent）"><a href="#2-随机梯度下降（Stochastic-Gradient-Descent）" class="headerlink" title="2. 随机梯度下降（Stochastic Gradient Descent）"></a>2. 随机梯度下降（Stochastic Gradient Descent）</h3><p>介绍随机梯度下降方法之前，我们引入一个新的表达式：<img src="https://i.imgur.com/xdwKU3A.png" alt=""> 这代替了原本的 J(θ) 成为新的代价函数</p><p>根据新的代价函数，我们会得到新的参数θ的update函数：<br><img src="https://i.imgur.com/0qISHJa.png" alt=""></p><p>仔细观察这个update函数，是不是发现求和过程没有了？<br>批处理中，参数的改变需要当前所有样本共同作用，达到整体最优。但是随机方法中，<strong>每次仅关注当前单个样本的最优作用。这种做法会导致最优值的反复，但是却极大提高了效率</strong></p><p>随机梯度下降的具体流程为：<br><img src="https://i.imgur.com/ASzT2Zw.png" alt=""></p><p>因为随机梯度下降会导致最优值的反复，所以有时上图中的 Repeat 会进行1~10次。而且随机梯度下降方法的收敛是随机的，只能保证逐渐向最优值徘徊，而不会真正到达最优值。例如下图：<br><img src="https://i.imgur.com/QNkfNRs.png" alt=""></p><p>如果我们希望达到最优值，应该怎么办呢？可以通过逐渐缩小学习步长α，以求最终的收敛范围逐渐减小到最优值。可以使用：<br><img src="https://i.imgur.com/pGRoyMs.png" alt="">来逐渐缩小学习步长</p><h3 id="3-小规模批处理（Mini-batch）"><a href="#3-小规模批处理（Mini-batch）" class="headerlink" title="3. 小规模批处理（Mini-batch）"></a>3. 小规模批处理（Mini-batch）</h3><p>有没有方法兼顾批处理方法，与随机梯度下降方法的优势？就是Mini-batch Gradient Descent。基本思想是：不是批处理的每次处理所有样本，也不是随机方法每次单个样本，而是每次处理b个样本（1&lt;b≪m）</p><p>假设有1000个样本，b=10。算法的具体执行过程为：<br><img src="https://i.imgur.com/sNBITho.png" alt=""></p><p>实际计算中，小规模批处理方法，可能会比随机梯度下降方法更快！因为<strong>不同组的b个样本可以进行并行计算</strong>（一次并行m个样本计算量太大）。但这种方法多引入了一个参数b，需要更多的调试，算是个缺点</p><h3 id="4-Big-Data-判断收敛"><a href="#4-Big-Data-判断收敛" class="headerlink" title="4. Big Data 判断收敛"></a>4. Big Data 判断收敛</h3><p>批处理方法中，如何判断算法是否收敛？绘制 “Jtrain(θ)−#iterations” 的走势图（见<a href="https://paradoxallen.github.io/58080/">《Linear Regression》</a>，Jtrain(θ)是基于所有样本的和。走势逐渐降低即为收敛</p><p>随机梯度下降方法中，再去计算所有样本的Jtrain(θ)显然不合适，我们转而记录<img src="https://i.imgur.com/BgFkQHn.png" alt="">。例如，每1000个样本各自的<img src="https://i.imgur.com/BgFkQHn.png" alt="">求和后平均，记录这个<strong>平均误差</strong>后再更新θ。</p><p>最后，绘制“平均误差”与迭代次数的关系图。因为收敛是随机的，可能出现噪声，只要<strong>保证整体趋势是逐渐下降的即为收敛</strong></p><p>接下来我们看一下以下几种“平均误差”与迭代次数的关系图，看看有什么问题：<br><img src="https://i.imgur.com/CmhZn1V.png" alt=""></p><p>左上角的图是一种收敛的情况，但是红色曲线的α更小，虽然学习速度较慢，但是却收敛到更接近最优值的区域（更小误差）</p><p>右上角的图是一种收敛的情况，其中红色曲线的取“平均误差”的范围更大，是5000个样本取一次，所以噪声更少更平滑</p><p>左下角的图，因为蓝色曲线噪声过大，看不出是否收敛，建议增大取“平均误差”的范围</p><p>右下角的图，抱歉，完全不收敛。建议使用更小的α再尝试，如果还是不收敛就可能需要选择其他的算法或者增加特征？</p><h3 id="5-Online-Learning"><a href="#5-Online-Learning" class="headerlink" title="5. Online Learning"></a>5. Online Learning</h3><p>试想一种场景：一家新闻网站不断根据不断涌入的新用户的喜好以及老用户的兴趣改变，来定义头条新闻的内容，是不是还要保存这种海量数据呢？</p><p>这需要极大的空间，并且每次都基于所有样本进行学习，那么学习的时间还赶不上产生新样本的时间</p><p>如果使用随机梯度下降方法，每次仅仅关注当前样本的梯度下降，并且<strong>同一个样本仅学习一次</strong>（上文“随机梯度下降”流程图中 Repeat 次数为1），是不是就能解决这个问题。这就是online learning</p><p>online learning 思想可以<strong>适用于无限的数据流</strong>，尤其适用于不断更新中的互联网大数据上的机器学习算法。</p><p>并且，这种方法对于新事物有着极强的适应性，因为每次更新都是基于当前样本，历史样本的作用随着迭代的进行会逐渐失去。因此非常适用于<strong>互联网大数据的实时更新</strong></p><h3 id="6-Data-Parallelism"><a href="#6-Data-Parallelism" class="headerlink" title="6. Data Parallelism"></a>6. Data Parallelism</h3><p>最后一部分是对于并行计算的简介。试想一下，如果我要求4亿个样本某个特征的和，仅在一台机器上求是很慢的。但是，如果我将它分散在四台机器上求解，最后使用一台机器汇总这四台机器的求解结果，是不是快了很多？除去数据传输耗费的时间，是不是快了接近4倍？其中，<strong>分散</strong>的过程我们称为<strong>Map</strong>，而<strong>汇总</strong>的过程我们称为<strong>Reduce</strong></p><p>不仅对于多台机器，同一台机器如果有着多个计算核（CPU），同样可以适用。形象化的示意图如下：<br><img src="https://i.imgur.com/vsnpNZi.png" alt=""><br><img src="https://i.imgur.com/TsFW2LW.png" alt=""></p><p>本节仅仅举了加法求和的例子。但实际情况中，只要是无数据相关性的计算，也就是前一部分的计算结果不作为后一部分的计算输入，两个部分的计算是彼此独立的，都可以并行计算</p>]]></content>
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Machine Learning 课程笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Andrew Ng Machine Learning (10) Recommender Systems</title>
       <link href="/62349/"/>
       <url>/62349/</url>
