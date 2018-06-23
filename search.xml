@@ -47,6 +47,27 @@
     </entry>
     
     <entry>
+      <title>Python前言与目录</title>
+      <link href="/45/"/>
+      <url>/45/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Python如今用得越来越多。</p><p>一些大公司如Google（实现web爬虫和搜索引擎中的很多组件），Yahoo（管理讨论组），NASA，YouTube（视频分享服务大部分由Python编写）等等对Python都很青睐。而国内的豆瓣可以说是给Python予千万宠爱了，它的前台后台清一色的都是Python的身影。</p><p>另外，计算机视觉这块用的很频繁的OpenCV也提供了Python的接口，网上还提供了不少Python的机器学习的库（例如milk，scikit-learn，Pylearn2等），Deep learning的一个知名的Python的库theano，自然语言处理的库NLTK。</p><p>此外，Python为数学、科学、工程和绘图等提供了有趣的标准库（例如，NumPy ，SciPy和matplotlib等），这使得一部分Matlab的使用者慢慢的倒戈到Python阵营，没办法，谁叫Matlab贵呢！当然了，Python不仅是免费，它还具有Matlab较弱或者没有的一些其他的功能，例如文件管理、界面设计、网络通信等。这就使得Python占有的用户群更广。</p><p>Python是“蟒蛇”的意思，这个名字是有点故事的。当然了，这个得追溯到它的发明者Guido van Rossum。</p><p>在1989年圣诞节期间，Guido身处阿姆斯特丹。这个都市的美丽和繁华没能填满Guido空虚的内心，周边的喧闹使他内心的寂寞无处安放（夜的黑已不再纯粹，哈哈）。</p><p>为了打发这种无趣，Guido决心为他之前孕育的ABC语言开发一个插件，这个插件就是大名鼎鼎的Python（男人因为孤独而优秀啊！）。</p><p>一个新的脚本解释程序就此诞生。在给这个孩子起名字的时候，Guido取其所爱的一个叫Monty Python的喜剧团体的“Python”。</p><p><img src="https://i.imgur.com/ZsLSOJh.png" alt=""><br><img src="https://i.imgur.com/cgfl6F7.png" alt=""></p><p>官方点说，Python是一种解释型、面向对象、动态数据类型的高级程序设计语言。</p><p>Python语法简洁而清晰，具有丰富和强大的类库。它常被昵称为胶水语言，它能够很轻松的把用其他语言制作的各种模块（尤其是C/C++）轻松地联结在一起。</p><p>自从20世纪90年代初Python语言诞生至今，它逐渐被广泛应用于处理系统管理任务和Web编程。Python已经成为最受欢迎的程序设计语言之一。</p><p>2011年1月，它被TIOBE编程语言排行榜评为2010年度语言。自从2004年以后，python的使用率是呈线性增长。</p><p>这篇博文是我看了“中谷教育-Python视频教程”的一个笔记，记录的是一些Python的学习基础，整理到这里，一是总结，二是备查。网上也有比较好的教程，例如“Python 精要参考”。</p><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><h4 id="一、安装、编译与运行"><a href="#一、安装、编译与运行" class="headerlink" title="一、安装、编译与运行"></a>一、安装、编译与运行</h4><h4 id="二、变量、运算与表达式"><a href="#二、变量、运算与表达式" class="headerlink" title="二、变量、运算与表达式"></a>二、变量、运算与表达式</h4><h4 id="三、数据类型"><a href="#三、数据类型" class="headerlink" title="三、数据类型"></a>三、数据类型</h4><p>   1、数字<br>   2、字符串<br>   3、元组<br>   4、列表<br>   5、字典</p><h4 id="四、流程控制"><a href="#四、流程控制" class="headerlink" title="四、流程控制"></a>四、流程控制</h4><p>   1、if-else<br>   2、for<br>   3、while<br>   4、switch</p><h4 id="五、函数"><a href="#五、函数" class="headerlink" title="五、函数"></a>五、函数</h4><p>   1、自定义函数<br>   2、Lambda函数<br>   3、Python内置函数</p><h4 id="六、包与模块"><a href="#六、包与模块" class="headerlink" title="六、包与模块"></a>六、包与模块</h4><p>   1、模块module<br>   2、包package</p><h4 id="七、正则表达式"><a href="#七、正则表达式" class="headerlink" title="七、正则表达式"></a>七、正则表达式</h4><p>   1、元字符<br>   2、常用函数<br>   3、分组<br>   4、一个小实例-爬虫</p><h4 id="八、深拷贝与浅拷贝"><a href="#八、深拷贝与浅拷贝" class="headerlink" title="八、深拷贝与浅拷贝"></a>八、深拷贝与浅拷贝</h4><h4 id="九、文件与目录"><a href="#九、文件与目录" class="headerlink" title="九、文件与目录"></a>九、文件与目录</h4><p>   1、文件读写<br>   2、OS模块<br>   3、目录遍历</p><h4 id="十、异常处理"><a href="#十、异常处理" class="headerlink" title="十、异常处理"></a>十、异常处理</h4>]]></content>
+      
+      <categories>
+          
+          <category> 编程相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Python中的按位运算</title>
       <link href="/1340/"/>
       <url>/1340/</url>
