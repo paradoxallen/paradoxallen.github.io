@@ -47,6 +47,27 @@
     </entry>
     
     <entry>
+      <title>Python安装编译和运行</title>
+      <link href="/25029/"/>
+      <url>/25029/</url>
+      <content type="html"><![CDATA[<p>Python的安装很容易，直接到官网：<a href="http://www.python.org/" target="_blank" rel="noopener">http://www.python.org/</a> 下载安装就可以了。</p><p>Ubuntu一般都预安装了。没有的话，就可以#apt-get install python。</p><p>Windows的话直接下载msi包安装即可。</p><p>Python 程序是通过解释器执行的，所以安装后，可以看到Python提供了两个解析器，一个是IDLE (Python GUI)，一个是Python (command line)。</p><p>前者是一个带GUI界面的版本，后者实际上和在命令提示符下运行python是一样的。运行解释器后，就会有一个命令提示符<code>&gt;&gt;&gt;</code>，在提示符后键入你的程序语句，键入的语句将会立即执行。就像Matlab一样。</p><p>另外，Matlab有.m的脚步文件，python也有.py后缀的脚本文件，这个文件除了可以解释执行外，还可以编译运行，编译后运行速度要比解释运行要快。</p><p>例如，我要打印一个helloWorld。</p><p>方法1：直接在解释器中，<code>&gt;&gt;&gt; print ‘helloWorld’</code>。</p><p>方法2：将这句代码写到一个文件中，例如hello.py。运行这个文件有三种方式：</p><p>1）在终端中：<code>python hello.py</code></p><p>2）先编译成.pyc文件：</p><pre><code>import py_compilepy_compile.compile(&quot;hello.py&quot;)</code></pre><p>再在终端中：<code>python hello.pyc</code></p><p>3）在终端中：</p><pre><code>python -O -m py_compile hello.pypython hello.pyo</code></pre><p>编译成.pyc和.pyo文件后，执行的速度会更快。所以一般一些重复性并多次调用的代码会被编译成这两种可执行的方式来待调用。</p>]]></content>
+      
+      <categories>
+          
+          <category> 编程相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Python前言与目录</title>
       <link href="/45/"/>
       <url>/45/</url>

@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>关于机器学习在大气科学的应用 | RP&#39;s Blog</title>
+  <title>Python安装编译和运行 | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
   
-  <meta name="description" content="前阵子阅读了院里一位博士研究生师兄的一篇有关基于神经网络算法对北京近五年的常规探空数据进行自组织分类，并揭示出大气污染物在不同边界层结构下的演变规律和相关机制的文章《Self-organized classification of boundary layer meteorology and ass">
+  <meta name="description" content="Python的安装很容易，直接到官网：http://www.python.org/ 下载安装就可以了。
+Ubuntu一般都预安装了。没有的话，就可以#apt-get install python。
+Windows的话直接下载msi包安装即可。
+Python 程序是通过解释器执行的，所以安装后，可以看">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="关于机器学习在大气科学的应用"/>
+  <meta property="og:title" content="Python安装编译和运行"/>
   <meta property="og:site_name" content="RP&#39;s Blog"/>
 
   
@@ -78,10 +81,10 @@
     <header>
         <div class="icon"></div>
         
-        <time datetime="2018-05-06T16:00:00.000Z"><a href="/21048/">2018-05-07</a></time>
+        <time datetime="2017-10-02T16:00:00.000Z"><a href="/25029/">2017-10-03</a></time>
         
   
-    <h1 class="title">关于机器学习在大气科学的应用</h1>
+    <h1 class="title">Python安装编译和运行</h1>
   
 
     </header>
@@ -93,10 +96,26 @@
         
     </div>
 
-        <p>前阵子阅读了院里一位博士研究生师兄的一篇有关基于神经网络算法对北京近五年的常规探空数据进行自组织分类，并揭示出大气污染物在不同边界层结构下的演变规律和相关机制的文章<a href="https://www.atmos-chem-phys.net/18/6771/2018/" target="_blank" rel="noopener">《Self-organized classification of boundary layer meteorology and associated characteristics of air quality in Beijing》</a>，看完顿时心生膜拜之情；</p>
-<p>然后恰巧也是那个时候吕教授在院群上也转发了一篇关于机器学习预测火势甚至天气的公众号文章<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODE1NDYyMA==&amp;mid=2653384819&amp;idx=2&amp;sn=523f27cb9442ab4af27137edd1280248&amp;chksm=bd1cc8608a6b4176d7cae939f794e082cf86b5bf0ac0deb53790f507f563f588b2148687957c&amp;mpshare=1&amp;scene=1&amp;srcid=0517RYcQWk5dWJCcqoI7jLCe#rd" target="_blank" rel="noopener">《机器学习成功解决“蝴蝶效应”！以后你终于可以相信天气预报了》</a>。</p>
-<p>加之自己报名了一个<a href="https://mp.weixin.qq.com/s?__biz=MzIzMjQyNzQ5MA==&amp;mid=2247487345&amp;idx=1&amp;sn=4acb8978a2d95f0a1926c0e07021bec3&amp;chksm=e89455fcdfe3dcea645499d9321177a99ea713ffe06fe4af9d18c8506dd285755be2a1640539&amp;mpshare=1&amp;scene=1&amp;srcid=04151pmRgGqnfZDpvBL9EKKk#rd" target="_blank" rel="noopener">“预测北京和伦敦两个城市的空气质量”的KDD Cup 2018</a>但是因为自己报名太晚，组队不成（其实更深层的是之前关于机器学习的内容已经忘得差不多了。。。）</p>
-<p>如此的机缘巧合，感觉将机器学习应用于大气科学将前途无量。我自己也想在这一方向进行深入了解，接下来我会进行相关内容的学习。</p>
+        <p>Python的安装很容易，直接到官网：<a href="http://www.python.org/" target="_blank" rel="noopener">http://www.python.org/</a> 下载安装就可以了。</p>
+<p>Ubuntu一般都预安装了。没有的话，就可以#apt-get install python。</p>
+<p>Windows的话直接下载msi包安装即可。</p>
+<p>Python 程序是通过解释器执行的，所以安装后，可以看到Python提供了两个解析器，一个是IDLE (Python GUI)，一个是Python (command line)。</p>
+<p>前者是一个带GUI界面的版本，后者实际上和在命令提示符下运行python是一样的。运行解释器后，就会有一个命令提示符<code>&gt;&gt;&gt;</code>，在提示符后键入你的程序语句，键入的语句将会立即执行。就像Matlab一样。</p>
+<p>另外，Matlab有.m的脚步文件，python也有.py后缀的脚本文件，这个文件除了可以解释执行外，还可以编译运行，编译后运行速度要比解释运行要快。</p>
+<p>例如，我要打印一个helloWorld。</p>
+<p>方法1：直接在解释器中，<code>&gt;&gt;&gt; print ‘helloWorld’</code>。</p>
+<p>方法2：将这句代码写到一个文件中，例如hello.py。运行这个文件有三种方式：</p>
+<p>1）在终端中：<code>python hello.py</code></p>
+<p>2）先编译成.pyc文件：</p>
+<pre><code>import py_compile
+
+py_compile.compile(&quot;hello.py&quot;)
+</code></pre><p>再在终端中：<code>python hello.pyc</code></p>
+<p>3）在终端中：</p>
+<pre><code>python -O -m py_compile hello.py
+
+python hello.pyo
+</code></pre><p>编译成.pyc和.pyo文件后，执行的速度会更快。所以一般一些重复性并多次调用的代码会被编译成这两种可执行的方式来待调用。</p>
 
       
     </div>
@@ -105,12 +124,12 @@
         
   
   <div class="categories">
-    <a href="/categories/个人随笔/">个人随笔</a>
+    <a href="/categories/编程相关/">编程相关</a>
   </div>
 
         
   <div class="tags">
-    <a href="/tags/机器学习/">机器学习</a>, <a href="/tags/大气科学/">大气科学</a>
+    <a href="/tags/Python/">Python</a>
   </div>
 
         
