@@ -73,7 +73,7 @@
     <link href="https://paradoxallen.github.io/25029/"/>
     <id>https://paradoxallen.github.io/25029/</id>
     <published>2017-10-02T16:00:00.000Z</published>
-    <updated>2018-06-24T05:38:22.840Z</updated>
+    <updated>2018-06-24T05:39:10.788Z</updated>
     
     <content type="html"><![CDATA[<p>Python的安装很容易，直接到官网：<a href="http://www.python.org/" target="_blank" rel="noopener">http://www.python.org/</a> 下载安装就可以了。</p><p>Ubuntu一般都预安装了。没有的话，就可以#apt-get install python。</p><p>Windows的话直接下载msi包安装即可。</p><p>Python 程序是通过解释器执行的，所以安装后，可以看到Python提供了两个解析器，一个是IDLE (Python GUI)，一个是Python (command line)。</p><p>前者是一个带GUI界面的版本，后者实际上和在命令提示符下运行python是一样的。运行解释器后，就会有一个命令提示符<code>&gt;&gt;&gt;</code>，在提示符后键入你的程序语句，键入的语句将会立即执行。就像Matlab一样。</p><p>另外，Matlab有.m的脚步文件，python也有.py后缀的脚本文件，这个文件除了可以解释执行外，还可以编译运行，编译后运行速度要比解释运行要快。</p><p>例如，我要打印一个helloWorld。</p><p>方法1：直接在解释器中，<code>&gt;&gt;&gt; print ‘helloWorld’</code>。</p><p>方法2：将这句代码写到一个文件中，例如hello.py。运行这个文件有三种方式：</p><p>1）在终端中：<code>python hello.py</code></p><p>2）先编译成.pyc文件：</p><pre><code>import py_compilepy_compile.compile(&quot;hello.py&quot;)</code></pre><p>再在终端中：<code>python hello.pyc</code></p><p>3）在终端中：</p><pre><code>python -O -m py_compile hello.pypython hello.pyo</code></pre><p>编译成.pyc和.pyo文件后，执行的速度会更快。所以一般一些重复性并多次调用的代码会被编译成这两种可执行的方式来待调用。</p>]]></content>
     
@@ -125,7 +125,7 @@
     <link href="https://paradoxallen.github.io/1340/"/>
     <id>https://paradoxallen.github.io/1340/</id>
     <published>2017-09-29T16:00:00.000Z</published>
-    <updated>2018-06-23T15:54:32.373Z</updated>
+    <updated>2018-06-24T06:11:45.547Z</updated>
     
     <content type="html"><![CDATA[<p>位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).</p><p>简单来说，<strong>按位运算就把数字转换为机器语言——二进制的数字来运算的一种运算形式</strong>。在计算机系统中，数值一律用补码来表示(存储)。</p><p>Python中的按位运算符有：<strong>左移运算符（&lt;&lt;），右移运算符（&gt;&gt;）,按位与（&amp;），按位或（|），按位翻转（～）</strong>。这些运算符中只有按位翻转运算符是单目运算符，其他的都是双目运算符。</p><h4 id="按位与-amp"><a href="#按位与-amp" class="headerlink" title="按位与    &amp;"></a>按位与    &amp;</h4><p><strong>举例：</strong><br><strong>3&amp;5</strong><br>解法：3的二进制补码是 11,  5的是101, 3&amp;5也就是011&amp;101,先看百位(其实不是百位,这样做只是便于理解) 一个0一个1,根据(1&amp;1=1，1&amp;0=0，0&amp;0=0，0&amp;1=0)可知百位应该是1,同样十位上的数字1&amp;0=0,个位上的数字1&amp;1=1,因此最后的结果是1.(这之后本来应该还有一步,因为我们现在得到的数值只是所求答案的补码,但是因为正数的补码即是它本身,所以就省略了。不过,下面的例子就不能省略最后这一步了).    </p><p><strong>-1&amp;-2</strong><br>解法:-1的补码是11111111,  -2的补码是11111110, 11111111&amp;11111110得到的结果是:11111110,这个是补码,再转化位原码为100000010 (负数转换位原码的方法是减一取反),最后转换为十进制是 -2.</p><p><strong>-2&amp;6</strong><br>解法:-2的补码是11111110,  6的补码是110,   11111110&amp;110,也就是11111110&amp;00000110(这样写的目的是让初学者能够更好理解按位运算),按照上面的方法得到的结果是:110,转化位十进制就是6.</p><p><strong>小技巧</strong>：利用按位与可以将任意二进制数的最后一位变为0,即就是X&amp;0.</p><h4 id="按位并"><a href="#按位并" class="headerlink" title="按位并    |"></a>按位并    |</h4><p><strong>举例： </strong></p><p><strong>4|7</strong><br>解法：按位并的计算规律和按位与的很相似，只不过换了逻辑运算符，并的规律是： 1|1=1 ,1 |0=1, 0|0=0.   4|7转换位二进制就是:100|111=111.  二进制111即为十进制的7.<br><strong>小技巧</strong>：利用按位并可以将任意二进制数的最后一位变为1,即就是X|1.</p><h4 id="按位异或"><a href="#按位异或" class="headerlink" title="按位异或    ^"></a>按位异或    ^</h4><p><strong>方法</strong>:  对位相加,<strong>特别要注意的是不进位. </strong></p><p><strong>举例：</strong> </p><p><strong>2^5</strong><br>解法:10^101=111,二进制111得到十进制的结果是7.</p><p><strong>1^1</strong><br>解法:1+1=0.(本来二进制1+1=10,但不能进位,所以结果是0) </p><p><strong>-3^4  </strong><br>解法: -3的补码是11111101,4的补码是100 (也即00000100),11111101^00000100=11111101,补码                               11111101转为原码是1000111,即十进制的-7.</p><h4 id="按位翻转"><a href="#按位翻转" class="headerlink" title="按位翻转  ~"></a>按位翻转  ~</h4><p><strong>方法:</strong>   将二进制数+1之后乘以-1,x的按位翻转是-(x+1) . 注意,按位运算符是单目运算符.  -9 ,  1+~4是正确的,5~3就不对了.</p><p><strong>举例:</strong><br><strong>~3</strong><br>解法:3的二进制是11, -(11+1)=-100B=-4D. (注:B和D分别表示二进制和十进制).<br><strong>~-2</strong><br>解法:   -  (-10+1)  =1</p><h4 id="左移运算符-lt-lt"><a href="#左移运算符-lt-lt" class="headerlink" title="左移运算符  &lt;&lt;"></a>左移运算符  &lt;&lt;</h4><p><strong>方法: </strong>   X&lt;&lt;N 将一个数字X所对应的二进制数向左移动N位.</p><p><strong>举例:</strong></p><p><strong>3&lt;&lt;2</strong><br>解法:11向左移动两位变为1100,即12 .</p><h4 id="右移动运算符-gt-gt"><a href="#右移动运算符-gt-gt" class="headerlink" title="右移动运算符  &gt;&gt;"></a>右移动运算符  &gt;&gt;</h4><p><strong>方法:</strong>    X&gt;&gt;N 将一个数字X所对应的二进制数向右移动N位.</p><p><strong>举例: </strong></p><p><strong>3&gt;&gt;2</strong><br>解法:11向右移动两位变为0.</p><p><strong>10&gt;&gt;1</strong><br>解法:10的二进制是1010,向右边移动一位是101,即5.</p>]]></content>
     
@@ -142,7 +142,7 @@
       <category term="编程相关" scheme="https://paradoxallen.github.io/categories/%E7%BC%96%E7%A8%8B%E7%9B%B8%E5%85%B3/"/>
     
     
-      <category term="python" scheme="https://paradoxallen.github.io/tags/python/"/>
+      <category term="Python" scheme="https://paradoxallen.github.io/tags/Python/"/>
     
   </entry>
   
