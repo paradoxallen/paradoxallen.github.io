@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>第一个Python程序 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="命令行模式在Windows开始菜单选择“命令提示符”，就进入到命令行模式，它的提示符类似C:&gt;：
+Python交互模式在命令行模式下敲命令python，就看到类似如下的一堆文本输出，然后就进入到Python交互模式，它的提示符是&amp;gt;&amp;gt;&amp;gt;。
+在Python交互模式下输入exit()并回">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="第一个Python程序"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-10-02T16:00:00.000Z"><a href="/10471/">2017-10-03</a></time>
+        
+  
+    <h1 class="title">第一个Python程序</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行模式"><span class="toc-text">命令行模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python交互模式"><span class="toc-text">Python交互模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行模式和Python交互模式"><span class="toc-text">命令行模式和Python交互模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文本编辑器"><span class="toc-text">文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接运行py文件"><span class="toc-text">直接运行py文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-1"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入和输出"><span class="toc-text">输入和输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-2"><span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+        <h3 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h3><p>在Windows开始菜单选择“命令提示符”，就进入到命令行模式，它的提示符类似C:>：</p>
+<h3 id="Python交互模式"><a href="#Python交互模式" class="headerlink" title="Python交互模式"></a>Python交互模式</h3><p>在命令行模式下敲命令python，就看到类似如下的一堆文本输出，然后就进入到Python交互模式，它的提示符是&gt;&gt;&gt;。</p>
+<p>在Python交互模式下输入exit()并回车，就退出了Python交互模式，并回到命令行模式：</p>
+<p>也可以直接通过开始菜单选择Python (command line)菜单项，直接进入Python交互模式，但是输入exit()后窗口会直接关闭，不会回到命令行模式。</p>
+<p>了解了如何启动和退出Python的交互模式，我们就可以正式开始编写Python代码了。</p>
+<p>在写代码之前，请千万不要用“复制”-“粘贴”把代码从页面粘贴到你自己的电脑上。写程序也讲究一个感觉，你需要一个字母一个字母地把代码自己敲进去，在敲代码的过程中，初学者经常会敲错代码：拼写不对，大小写不对，混用中英文标点，混用空格和Tab键，所以，你需要仔细地检查、对照，才能以最快的速度掌握如何写程序。</p>
+<p>在交互模式的提示符&gt;&gt;&gt;下，直接输入代码，按回车，就可以立刻得到代码执行结果。现在，试试输入100+200，看看计算结果是不是300：</p>
+<p>很简单吧，任何有效的数学计算都可以算出来。</p>
+<p>如果要让Python打印出指定的文字，可以用print()函数，然后把希望打印的文字用单引号或者双引号括起来，但不能混用单引号和双引号：</p>
+<p>这种用单引号或者双引号括起来的文本在程序中叫字符串，今后我们还会经常遇到。</p>
+<p>最后，用exit()退出Python，我们的第一个Python程序完成！唯一的缺憾是没有保存下来，下次运行时还要再输入一遍代码。</p>
+<h3 id="命令行模式和Python交互模式"><a href="#命令行模式和Python交互模式" class="headerlink" title="命令行模式和Python交互模式"></a>命令行模式和Python交互模式</h3><p>请注意区分命令行模式和Python交互模式。</p>
+<p>在命令行模式下，可以执行python进入Python交互式环境，也可以执行python hello.py运行一个.py文件。</p>
+<p>执行一个.py文件只能在命令行模式执行。如果敲一个命令python hello.py，看到如下错误：</p>
+<p>错误提示No such file or directory说明这个hello.py在当前目录找不到，必须先把当前目录切换到hello.py所在的目录下，才能正常执行：</p>
+<p>此外，在命令行模式运行.py文件和在Python交互式环境下直接运行Python代码有所不同。Python交互式环境会把每一行Python代码的结果自动打印出来，但是，直接运行Python代码却不会。</p>
+<p>例如，在Python交互式环境下，输入：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>100 + 200 + 300<br>600<br>直接可以看到结果600。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>但是，写一个calc.py的文件，内容如下：</p>
+<p>100 + 200 + 300<br>然后在命令行模式下执行：</p>
+<p>C:\work&gt;python calc.py<br>发现什么输出都没有。</p>
+<p>这是正常的。想要输出结果，必须自己用print()打印出来。把calc.py改造一下：</p>
+<p>print(100 + 200 + 300)<br>再执行，就可以看到结果：</p>
+<p>C:\work&gt;python calc.py<br>600<br>最后，Python交互模式的代码是输入一行，执行一行，而命令行模式下直接运行.py文件是一次性执行该文件内的所有代码。可见，Python交互模式主要是为了调试Python代码用的，也便于初学者学习，它不是正式运行Python代码的环境！</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>在Python交互式模式下，可以直接输入代码，然后执行，并立刻得到结果。</p>
+<p>在命令行模式下，可以直接运行.py文件。</p>
+<hr>
+<h2 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h2><p>在Python的交互式命令行写程序，好处是一下就能得到结果，坏处是没法保存，下次还想运行的时候，还得再敲一遍。</p>
+<p>所以，实际开发的时候，我们总是使用一个文本编辑器来写代码，写完了，保存为一个文件，这样，程序就可以反复运行了。</p>
+<p>现在，我们就把上次的’hello, world’程序用文本编辑器写出来，保存下来。</p>
+<p>那么问题来了：文本编辑器到底哪家强？</p>
+<p>推荐两款文本编辑器：</p>
+<p>一个是Sublime Text，免费使用，但是不付费会弹出提示框：</p>
+<p><img src="https://i.imgur.com/Hyc7im0.jpg" alt=""></p>
+<p>一个是Notepad++，免费使用，有中文界面：</p>
+<p><img src="https://i.imgur.com/Xhx1QSE.jpg" alt=""></p>
+<p>请注意，用哪个都行，但<strong>是绝对不能用Word和Windows自带的记事本</strong>。Word保存的不是纯文本文件，而记事本会自作聪明地在文件开始的地方加上几个特殊字符（UTF-8 BOM），结果会导致程序运行出现莫名其妙的错误。</p>
+<p>安装好文本编辑器后，输入以下代码：</p>
+<pre><code>print(&apos;hello, world&apos;)
+</code></pre><p>注意print前面不要有任何空格。然后，选择一个目录，例如C:\work，把文件保存为hello.py，就可以打开命令行窗口，把当前目录切换到hello.py所在目录，就可以运行这个程序了：</p>
+<p><code>C:\work&gt;python hello.py
+hello, world</code><br>也可以保存为别的名字，比如first.py，但是必须要以.py结尾，其他的都不行。此外，文件名只能是英文字母、数字和下划线的组合。</p>
+<p>如果当前目录下没有hello.py这个文件，运行python hello.py就会报错：</p>
+<p><code>C:\Users\IEUser&gt;python hello.py
+python: can&#39;t open file &#39;hello.py&#39;: [Errno 2] No such file or directory</code><br>报错的意思就是，无法打开hello.py这个文件，因为文件不存在。这个时候，就要检查一下当前目录下是否有这个文件了。如果hello.py存放在另外一个目录下，要首先用cd命令切换当前目录。</p>
+<h3 id="直接运行py文件"><a href="#直接运行py文件" class="headerlink" title="直接运行py文件"></a>直接运行py文件</h3><p>有同学问，能不能像.exe文件那样直接运行.py文件呢？在Windows上是不行的，但是，在Mac和Linux上是可以的，方法是在.py文件的第一行加上一个特殊的注释：</p>
+<pre><code>#!/usr/bin/env python3
+</code></pre><p>print(‘hello, world’)<br>然后，通过命令给hello.py以执行权限：</p>
+<pre><code>$ chmod a+x hello.py
+</code></pre><p>就可以直接运行hello.py了，比如在Mac下运行：</p>
+<p><img src="https://i.imgur.com/99hTSjo.png" alt=""></p>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>用文本编辑器写Python程序，然后保存为后缀为.py的文件，就可以用Python直接运行这个程序了。</p>
+<p>Python的交互模式和直接运行.py文件有什么区别呢？</p>
+<p>直接输入python进入交互模式，相当于启动了Python解释器，但是等待你一行一行地输入源代码，每输入一行就执行一行。</p>
+<p>直接运行.py文件相当于启动了Python解释器，然后一次性把.py文件的源代码给执行了，你是没有机会以交互的方式输入源代码的。</p>
+<p>用Python开发程序，完全可以一边在文本编辑器里写代码，一边开一个交互式命令窗口，在写代码的过程中，把部分代码粘到命令行去验证，事半功倍！前提是得有个27’的超大显示器！</p>
+<hr>
+<h2 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h2><h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p>用print()在括号中加上字符串，就可以向屏幕上输出指定的文字。比如输出’hello, world’，用代码实现如下：</p>
+<pre><code>&gt;&gt;&gt; print(&apos;hello, world&apos;)
+</code></pre><p>print()函数也可以接受多个字符串，用逗号“,”隔开，就可以连成一串输出：</p>
+<pre><code>&gt;&gt;&gt; print(&apos;The quick brown fox&apos;, &apos;jumps over&apos;, &apos;the lazy dog&apos;)
+The quick brown fox jumps over the lazy dog
+</code></pre><p>print()会依次打印每个字符串，遇到逗号“,”会输出一个空格</p>
+<p>print()也可以打印整数，或者计算结果：</p>
+<pre><code>&gt;&gt;&gt; print(300)
+300
+&gt;&gt;&gt; print(100 + 200)
+300
+</code></pre><p>因此，我们可以把计算100 + 200的结果打印得更漂亮一点：</p>
+<pre><code>&gt;&gt;&gt; print(&apos;100 + 200 =&apos;, 100 + 200)
+100 + 200 = 300
+</code></pre><p>注意，对于100 + 200，Python解释器自动计算出结果300，但是，’100 + 200 =’是字符串而非数学公式，Python把它视为字符串，请自行解释上述打印结果。</p>
+<h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><p>现在，你已经可以用print()输出你想要的结果了。但是，如果要让用户从电脑输入一些字符怎么办？Python提供了一个input()，可以让用户输入字符串，并存放到一个变量里。比如输入用户的名字：</p>
+<pre><code>&gt;&gt;&gt; name = input()
+Michael
+</code></pre><p>当你输入name = input()并按下回车后，Python交互式命令行就在等待你的输入了。这时，你可以输入任意字符，然后按回车后完成输入。</p>
+<p>输入完成后，不会有任何提示，Python交互式命令行又回到&gt;&gt;&gt;状态了。那我们刚才输入的内容到哪去了？答案是存放到name变量里了。可以直接输入name查看变量内容：</p>
+<pre><code>&gt;&gt;&gt; name
+&apos;Michael&apos;
+</code></pre><p><strong>什么是变量？</strong>请回忆初中数学所学的代数基础知识：</p>
+<p>设正方形的边长为a，则正方形的面积为a x a。把边长a看做一个变量，我们就可以根据a的值计算正方形的面积，比如：</p>
+<p>若a=2，则面积为a x a = 2 x 2 = 4；</p>
+<p>若a=3.5，则面积为a x a = 3.5 x 3.5 = 12.25。</p>
+<p>在计算机程序中，变量不仅可以为整数或浮点数，还可以是字符串，因此，name作为一个变量就是一个字符串。</p>
+<p>要打印出name变量的内容，除了直接写name然后按回车外，还可以用print()函数：</p>
+<pre><code>&gt;&gt;&gt; print(name)
+Michael
+</code></pre><p>有了输入和输出，我们就可以把上次打印’hello, world’的程序改成有点意义的程序了：</p>
+<pre><code>name = input()
+print(&apos;hello,&apos;, name)
+</code></pre><p>运行上面的程序，第一行代码会让用户输入任意字符作为自己的名字，然后存入name变量中；第二行代码会根据用户的名字向用户说hello，比如输入Michael：</p>
+<pre><code>C:\Workspace&gt; python hello.py
+Michael
+hello, Michael
+</code></pre><p>但是程序运行的时候，没有任何提示信息告诉用户：“嘿，赶紧输入你的名字”，这样显得很不友好。幸好，input()可以让你显示一个字符串来提示用户，于是我们把代码改成：</p>
+<pre><code>name = input(&apos;please enter your name: &apos;)
+print(&apos;hello,&apos;, name)
+</code></pre><p>再次运行这个程序，你会发现，程序一运行，会首先打印出please enter your name:，这样，用户就可以根据提示，输入名字后，得到hello, xxx的输出：</p>
+<pre><code>C:\Workspace&gt; python hello.py
+please enter your name: Michael
+hello, Michael
+</code></pre><p>每次运行该程序，根据用户输入的不同，输出结果也会不同。</p>
+<p>在命令行下，输入和输出就是这么简单。</p>
+<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p>任何计算机程序都是为了执行一个特定的任务，有了输入，用户才能告诉计算机程序所需的信息，有了输出，程序运行后才能告诉用户任务的结果。</p>
+<p>输入是Input，输出是Output，因此，我们把输入输出统称为Input/Output，或者简写为IO。</p>
+<p>input()和print()是在命令行下面最基本的输入和输出，但是，用户也可以通过其他更高级的图形界面完成输入和输出，比如，在网页上的一个文本框输入自己的名字，点击“确定”后在网页上看到输出信息。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/编程相关/">编程相关</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">6</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 14px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 18px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 20px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/博客/" style="font-size: 12px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/模型/" style="font-size: 14px;">模型</a> <a href="/tags/算法/" style="font-size: 12px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
