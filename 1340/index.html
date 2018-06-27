@@ -6,8 +6,7 @@
   <title>Python中的按位运算 | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
   
-  <meta name="description" content="位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).
-简单来说，按位运算就把数字转换为机器语言——二进制的数字来运算的一种运算">
+  <meta name="description" content="位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -94,7 +93,7 @@
         <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#按位与-amp"><span class="toc-text">按位与    &amp;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按位并"><span class="toc-text">按位并    |</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按位异或"><span class="toc-text">按位异或    ^</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按位翻转"><span class="toc-text">按位翻转  ~</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#左移运算符-lt-lt"><span class="toc-text">左移运算符  &lt;&lt;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#右移动运算符-gt-gt"><span class="toc-text">右移动运算符  &gt;&gt;</span></a></li></ol>
     </div>
 
-        <p>位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).</p>
+        <p>位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).<br><a id="more"></a></p>
 <p>简单来说，<strong>按位运算就把数字转换为机器语言——二进制的数字来运算的一种运算形式</strong>。在计算机系统中，数值一律用补码来表示(存储)。</p>
 <p>Python中的按位运算符有：<strong>左移运算符（&lt;&lt;），右移运算符（&gt;&gt;）,按位与（&amp;），按位或（|），按位翻转（～）</strong>。这些运算符中只有按位翻转运算符是单目运算符，其他的都是双目运算符。</p>
 <h4 id="按位与-amp"><a href="#按位与-amp" class="headerlink" title="按位与    &amp;"></a>按位与    &amp;</h4><p><strong>举例：</strong><br><strong>3&amp;5</strong><br>解法：3的二进制补码是 11,  5的是101, 3&amp;5也就是011&amp;101,先看百位(其实不是百位,这样做只是便于理解) 一个0一个1,根据(1&amp;1=1，1&amp;0=0，0&amp;0=0，0&amp;1=0)可知百位应该是1,同样十位上的数字1&amp;0=0,个位上的数字1&amp;1=1,因此最后的结果是1.(这之后本来应该还有一步,因为我们现在得到的数值只是所求答案的补码,但是因为正数的补码即是它本身,所以就省略了。不过,下面的例子就不能省略最后这一步了).    </p>
