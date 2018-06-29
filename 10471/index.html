@@ -90,7 +90,7 @@
       
         
     <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行模式"><span class="toc-text">命令行模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python交互模式"><span class="toc-text">Python交互模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行模式和Python交互模式"><span class="toc-text">命令行模式和Python交互模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文本编辑器"><span class="toc-text">文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接运行py文件"><span class="toc-text">直接运行py文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-1"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入和输出"><span class="toc-text">输入和输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-2"><span class="toc-text">小结</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行模式"><span class="toc-text">命令行模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python交互模式"><span class="toc-text">Python交互模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行模式和Python交互模式"><span class="toc-text">命令行模式和Python交互模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文本编辑器"><span class="toc-text">文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接运行py文件"><span class="toc-text">直接运行py文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入和输出"><span class="toc-text">输入和输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入"><span class="toc-text">输入</span></a></li></ol>
     </div>
 
         <p>编写第一个Python程序</p>
@@ -126,7 +126,7 @@
 <p>这是正常的。想要输出结果，必须自己用print()打印出来。把calc.py改造一下：</p>
 <p>print(100 + 200 + 300)<br>再执行，就可以看到结果：</p>
 <p>C:\work&gt;python calc.py<br>600<br>最后，Python交互模式的代码是输入一行，执行一行，而命令行模式下直接运行.py文件是一次性执行该文件内的所有代码。可见，Python交互模式主要是为了调试Python代码用的，也便于初学者学习，它不是正式运行Python代码的环境！</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>在Python交互式模式下，可以直接输入代码，然后执行，并立刻得到结果。</p>
+<p><strong>小结</strong><br>在Python交互式模式下，可以直接输入代码，然后执行，并立刻得到结果。</p>
 <p>在命令行模式下，可以直接运行.py文件。</p>
 <hr>
 <h2 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h2><p>在Python的交互式命令行写程序，好处是一下就能得到结果，坏处是没法保存，下次还想运行的时候，还得再敲一遍。</p>
@@ -153,7 +153,7 @@ python: can&#39;t open file &#39;hello.py&#39;: [Errno 2] No such file or direct
 <pre><code>$ chmod a+x hello.py
 </code></pre><p>就可以直接运行hello.py了，比如在Mac下运行：</p>
 <p><img src="https://i.imgur.com/99hTSjo.png" alt=""></p>
-<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>用文本编辑器写Python程序，然后保存为后缀为.py的文件，就可以用Python直接运行这个程序了。</p>
+<p><strong>小结</strong><br>用文本编辑器写Python程序，然后保存为后缀为.py的文件，就可以用Python直接运行这个程序了。</p>
 <p>Python的交互模式和直接运行.py文件有什么区别呢？</p>
 <p>直接输入python进入交互模式，相当于启动了Python解释器，但是等待你一行一行地输入源代码，每输入一行就执行一行。</p>
 <p>直接运行.py文件相当于启动了Python解释器，然后一次性把.py文件的源代码给执行了，你是没有机会以交互的方式输入源代码的。</p>
@@ -205,7 +205,7 @@ please enter your name: Michael
 hello, Michael
 </code></pre><p>每次运行该程序，根据用户输入的不同，输出结果也会不同。</p>
 <p>在命令行下，输入和输出就是这么简单。</p>
-<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p>任何计算机程序都是为了执行一个特定的任务，有了输入，用户才能告诉计算机程序所需的信息，有了输出，程序运行后才能告诉用户任务的结果。</p>
+<p><strong>小结</strong><br>任何计算机程序都是为了执行一个特定的任务，有了输入，用户才能告诉计算机程序所需的信息，有了输出，程序运行后才能告诉用户任务的结果。</p>
 <p>输入是Input，输出是Output，因此，我们把输入输出统称为Input/Output，或者简写为IO。</p>
 <p>input()和print()是在命令行下面最基本的输入和输出，但是，用户也可以通过其他更高级的图形界面完成输入和输出，比如，在网页上的一个文本框输入自己的名字，点击“确定”后在网页上看到输出信息。</p>
 
@@ -251,7 +251,7 @@ hello, Michael
           
 <div class="widget tag">
   <h3 class="title" id="categories">分类</h3>
-     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">9</span></li></ul> 
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学基础/">数学基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">9</span></li></ul> 
 </div>
  
 
@@ -260,7 +260,7 @@ hello, Michael
 <div class="widget tagcloud">
   <h3 class="title">标签</h3>
   <div class="entry">
-    <a href="/tags/Excel/" style="font-size: 14px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 16px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 20px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/博客/" style="font-size: 12px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/模型/" style="font-size: 14px;">模型</a> <a href="/tags/算法/" style="font-size: 12px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
+    <a href="/tags/Excel/" style="font-size: 14px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 16px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 20px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/博客/" style="font-size: 12px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 12px;">机器学习</a> <a href="/tags/模型/" style="font-size: 14px;">模型</a> <a href="/tags/目录/" style="font-size: 10px;">目录</a> <a href="/tags/算法/" style="font-size: 12px;">算法</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a>
   </div>
 </div>
 
@@ -268,7 +268,7 @@ hello, Michael
           
   <div class="widget tag">
     <h3 class="title">归档</h3>
-	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
         
