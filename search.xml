@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>机器学习数学基础(1)——高等数学</title>
+      <link href="/11038/"/>
+      <url>/11038/</url>
+      <content type="html"><![CDATA[<p><img src="https://i.imgur.com/9MPH6WS.jpg" alt=""></p>]]></content>
+      
+      <categories>
+          
+          <category> 数学基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> 高等数学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>机器学习数学基础(0)——目录</title>
       <link href="/31404/"/>
       <url>/31404/</url>
@@ -17,9 +40,9 @@
       
         <tags>
             
-            <tag> 目录 </tag>
-            
             <tag> 机器学习 </tag>
+            
+            <tag> 目录 </tag>
             
         </tags>
       
