@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>机器学习数学基础(2)——线性代数</title>
+      <link href="/16092/"/>
+      <url>/16092/</url>
+      <content type="html"><![CDATA[<p><img src="https://i.imgur.com/RqAIyFu.jpg" alt=""></p>]]></content>
+      
+      <categories>
+          
+          <category> 数学基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> 线性代数 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>机器学习数学基础(1)——高等数学</title>
       <link href="/11038/"/>
       <url>/11038/</url>
@@ -40,9 +63,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 目录 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
