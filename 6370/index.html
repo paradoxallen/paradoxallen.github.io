@@ -1,0 +1,407 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Python面向对象高级编程 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="数据封装、继承和多态只是面向对象程序设计中最基础的3个概念。在Python中，面向对象还有很多高级特性，允许我们写出非常强大的功能。
+我们会讨论多重继承、定制类、元类等概念。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Python面向对象高级编程"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-10-29T16:00:00.000Z"><a href="/6370/">2017-10-30</a></time>
+        
+  
+    <h1 class="title">Python面向对象高级编程</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用slots"><span class="toc-text">使用slots</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用slots-1"><span class="toc-text">使用slots</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-property"><span class="toc-text">使用@property</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多重继承"><span class="toc-text">多重继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MixIn"><span class="toc-text">MixIn</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定制类"><span class="toc-text">定制类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#str"><span class="toc-text">str</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iter"><span class="toc-text">iter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getitem"><span class="toc-text">getitem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getattr"><span class="toc-text">getattr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call"><span class="toc-text">call</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用枚举类"><span class="toc-text">使用枚举类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用元类"><span class="toc-text">使用元类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#type"><span class="toc-text">type()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#metaclass"><span class="toc-text">metaclass</span></a></li></ol></li></ol>
+    </div>
+
+        <p>数据封装、继承和多态只是面向对象程序设计中最基础的3个概念。在Python中，面向对象还有很多高级特性，允许我们写出非常强大的功能。</p>
+<p>我们会讨论多重继承、定制类、元类等概念。</p>
+<a id="more"></a>
+<hr>
+<h2 id="使用slots"><a href="#使用slots" class="headerlink" title="使用slots"></a>使用<strong>slots</strong></h2><p>正常情况下，当我们定义了一个class，创建了一个class的实例后，我们可以给该实例绑定任何属性和方法，这就是动态语言的灵活性。先定义class：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>然后，尝试给实例绑定一个属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; s.name = &apos;Michael&apos; # 动态给实例绑定一个属性</span><br><span class="line">&gt;&gt;&gt; print(s.name)</span><br><span class="line">Michael</span><br></pre></td></tr></table></figure></p>
+<p>还可以尝试给实例绑定一个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def set_age(self, age): # 定义一个函数作为实例方法</span><br><span class="line">...     self.age = age</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; from types import MethodType</span><br><span class="line">&gt;&gt;&gt; s.set_age = MethodType(set_age, s) # 给实例绑定一个方法</span><br><span class="line">&gt;&gt;&gt; s.set_age(25) # 调用实例方法</span><br><span class="line">&gt;&gt;&gt; s.age # 测试结果</span><br><span class="line">25</span><br></pre></td></tr></table></figure></p>
+<p>但是，给一个实例绑定的方法，对另一个实例是不起作用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s2 = Student() # 创建新的实例</span><br><span class="line">&gt;&gt;&gt; s2.set_age(25) # 尝试调用方法</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;set_age&apos;</span><br></pre></td></tr></table></figure></p>
+<p>为了给所有实例都绑定方法，可以给class绑定方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def set_score(self, score):</span><br><span class="line">...     self.score = score</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; Student.set_score = set_score</span><br></pre></td></tr></table></figure></p>
+<p>给class绑定方法后，所有实例均可调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s.set_score(100)</span><br><span class="line">&gt;&gt;&gt; s.score</span><br><span class="line">100</span><br><span class="line">&gt;&gt;&gt; s2.set_score(99)</span><br><span class="line">&gt;&gt;&gt; s2.score</span><br><span class="line">99</span><br></pre></td></tr></table></figure></p>
+<p>通常情况下，上面的<code>set_score</code>方法可以直接定义在class中，但动态绑定允许我们在程序运行的过程中动态给class加上功能，这在静态语言中很难实现。</p>
+<h3 id="使用slots-1"><a href="#使用slots-1" class="headerlink" title="使用slots"></a>使用<strong>slots</strong></h3><p>但是，如果我们想要限制实例的属性怎么办？比如，只允许对Student实例添加<code>name和age</code>属性。</p>
+<p>为了达到限制的目的，Python允许在定义class的时候，定义一个特殊的<code>__slots__</code>变量，来限制该class实例能添加的属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line">    __slots__ = (&apos;name&apos;, &apos;age&apos;) # 用tuple定义允许绑定的属性名称</span><br></pre></td></tr></table></figure></p>
+<p>然后，我们试试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student() # 创建新的实例</span><br><span class="line">&gt;&gt;&gt; s.name = &apos;Michael&apos; # 绑定属性&apos;name&apos;</span><br><span class="line">&gt;&gt;&gt; s.age = 25 # 绑定属性&apos;age&apos;</span><br><span class="line">&gt;&gt;&gt; s.score = 99 # 绑定属性&apos;score&apos;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;score&apos;</span><br></pre></td></tr></table></figure></p>
+<p>由于<code>&#39;score&#39;</code>没有被放到<code>__slots__</code>中，所以不能绑定<code>score</code>属性，试图绑定<code>score</code>将得到<code>AttributeError</code>的错误。</p>
+<p>使用<code>__slots__</code>要注意，<code>__slots__</code>定义的属性仅对当前类实例起作用，对继承的子类是不起作用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class GraduateStudent(Student):</span><br><span class="line">...     pass</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; g = GraduateStudent()</span><br><span class="line">&gt;&gt;&gt; g.score = 9999</span><br></pre></td></tr></table></figure></p>
+<p>除非在子类中也定义<code>__slots__</code>，这样，子类实例允许定义的属性就是自身的<code>__slots__</code>加上父类的<code>__slots__</code>。</p>
+<hr>
+<h2 id="使用-property"><a href="#使用-property" class="headerlink" title="使用@property"></a>使用@property</h2><p>在绑定属性时，如果我们直接把属性暴露出去，虽然写起来很简单，但是，没办法检查参数，导致可以把成绩随便改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = Student()</span><br><span class="line">s.score = 9999</span><br></pre></td></tr></table></figure></p>
+<p>这显然不合逻辑。为了限制score的范围，可以通过一个<code>set_score()</code>方法来设置成绩，再通过一个<code>get_score()</code>来获取成绩，这样，在<code>set_score()</code>方法里，就可以检查参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    def get_score(self):</span><br><span class="line">         return self._score</span><br><span class="line"></span><br><span class="line">    def set_score(self, value):</span><br><span class="line">        if not isinstance(value, int):</span><br><span class="line">            raise ValueError(&apos;score must be an integer!&apos;)</span><br><span class="line">        if value &lt; 0 or value &gt; 100:</span><br><span class="line">            raise ValueError(&apos;score must between 0 ~ 100!&apos;)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure></p>
+<p>现在，对任意的Student实例进行操作，就不能随心所欲地设置score了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; s.set_score(60) # ok!</span><br><span class="line">&gt;&gt;&gt; s.get_score()</span><br><span class="line">60</span><br><span class="line">&gt;&gt;&gt; s.set_score(9999)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: score must between 0 ~ 100!</span><br></pre></td></tr></table></figure></p>
+<p>但是，上面的调用方法又略显复杂，没有直接用属性这么直接简单。</p>
+<p>有没有既能检查参数，又可以用类似属性这样简单的方式来访问类的变量呢？对于追求完美的Python程序员来说，这是必须要做到的！</p>
+<p>还记得装饰器（decorator）可以给函数动态加上功能吗？对于类的方法，装饰器一样起作用。Python内置的<code>@property</code>装饰器就是负责把一个方法变成属性调用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def score(self):</span><br><span class="line">        return self._score</span><br><span class="line"></span><br><span class="line">    @score.setter</span><br><span class="line">    def score(self, value):</span><br><span class="line">        if not isinstance(value, int):</span><br><span class="line">            raise ValueError(&apos;score must be an integer!&apos;)</span><br><span class="line">        if value &lt; 0 or value &gt; 100:</span><br><span class="line">            raise ValueError(&apos;score must between 0 ~ 100!&apos;)</span><br><span class="line">        self._score = value</span><br></pre></td></tr></table></figure></p>
+<p><code>@property</code>的实现比较复杂，我们先考察如何使用。把一个<code>getter</code>方法变成属性，只需要加上<code>@property</code>就可以了，此时，<code>@property</code>本身又创建了另一个装饰器<a href="mailto:`@score.setter" target="_blank" rel="noopener">`@score.setter</a><code>，负责把一个</code>setter`方法变成属性赋值，于是，我们就拥有一个可控的属性操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; s.score = 60 # OK，实际转化为s.set_score(60)</span><br><span class="line">&gt;&gt;&gt; s.score # OK，实际转化为s.get_score()</span><br><span class="line">60</span><br><span class="line">&gt;&gt;&gt; s.score = 9999</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: score must between 0 ~ 100!</span><br></pre></td></tr></table></figure></p>
+<p>注意到这个神奇的<code>@property</code>，我们在对实例属性操作的时候，就知道该属性很可能不是直接暴露的，而是通过getter和setter方法来实现的。</p>
+<p>还可以定义只读属性，只定义getter方法，不定义setter方法就是一个只读属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def birth(self):</span><br><span class="line">        return self._birth</span><br><span class="line"></span><br><span class="line">    @birth.setter</span><br><span class="line">    def birth(self, value):</span><br><span class="line">        self._birth = value</span><br><span class="line"></span><br><span class="line">    @property</span><br><span class="line">    def age(self):</span><br><span class="line">        return 2015 - self._birth</span><br></pre></td></tr></table></figure></p>
+<p>上面的<code>birth</code>是可读写属性，而<code>age</code>就是一个只读属性，因为<code>age</code>可以根据<code>birth</code>和当前时间计算出来。</p>
+<p><strong>小结</strong><br><code>@property</code>广泛应用在类的定义中，可以让调用者写出简短的代码，同时保证对参数进行必要的检查，这样，程序运行时就减少了出错的可能性。</p>
+<hr>
+<h2 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h2><p>继承是面向对象编程的一个重要的方式，因为通过继承，子类就可以扩展父类的功能。</p>
+<p>回忆一下<code>Animal</code>类层次的设计，假设我们要实现以下4种动物：</p>
+<p>Dog - 狗狗；<br>Bat - 蝙蝠；<br>Parrot - 鹦鹉；<br>Ostrich - 鸵鸟。</p>
+<p>可以按照哺乳动物和鸟类归类</p>
+<p>可以按照“能跑”和“能飞”来归类</p>
+<p>如果要把上面的两种分类都包含进来，我们就得设计更多的层次：</p>
+<p>哺乳类：能跑的哺乳类，能飞的哺乳类；<br>鸟类：能跑的鸟类，能飞的鸟类。</p>
+<p>这么一来，类的层次就复杂了</p>
+<p>如果要再增加“宠物类”和“非宠物类”，这么搞下去，类的数量会呈指数增长，很明显这样设计是不行的。</p>
+<p>正确的做法是采用多重继承。首先，主要的类层次仍按照哺乳类和鸟类设计：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Animal(object):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"># 大类:</span><br><span class="line">class Mammal(Animal):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Bird(Animal):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"># 各种动物:</span><br><span class="line">class Dog(Mammal):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Bat(Mammal):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Parrot(Bird):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Ostrich(Bird):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们要给动物再加上<code>Runnable和Flyable</code>的功能，只需要先定义好<code>Runnable和Flyable</code>的类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Runnable(object):</span><br><span class="line">    def run(self):</span><br><span class="line">        print(&apos;Running...&apos;)</span><br><span class="line"></span><br><span class="line">class Flyable(object):</span><br><span class="line">    def fly(self):</span><br><span class="line">        print(&apos;Flying...&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>对于需要<code>Runnable</code>功能的动物，就多继承一个<code>Runnable</code>，例如<code>Dog</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Dog(Mammal, Runnable):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>对于需要<code>Flyable</code>功能的动物，就多继承一个<code>Flyable</code>，例如<code>Bat</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Bat(Mammal, Flyable):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>通过多重继承，一个子类就可以同时获得多个父类的所有功能。</p>
+<h3 id="MixIn"><a href="#MixIn" class="headerlink" title="MixIn"></a>MixIn</h3><p>在设计类的继承关系时，通常，主线都是单一继承下来的，例如，<code>Ostrich</code>继承自<code>Bird</code>。但是，如果需要“混入”额外的功能，通过多重继承就可以实现，比如，让<code>Ostrich</code>除了继承自<code>Bird</code>外，再同时继承<code>Runnable</code>。这种设计通常称之为MixIn。</p>
+<p>为了更好地看出继承关系，我们把<code>Runnable</code>和<code>Flyable</code>改为<code>RunnableMixIn</code>和<code>FlyableMixIn</code>。类似的，你还可以定义出肉食动物<code>CarnivorousMixIn</code>和植食动物<code>HerbivoresMixIn</code>，让某个动物同时拥有好几个MixIn：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Dog(Mammal, RunnableMixIn, CarnivorousMixIn):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>MixIn的目的就是给一个类增加多个功能，这样，在设计类的时候，我们优先考虑通过多重继承来组合多个MixIn的功能，而不是设计多层次的复杂的继承关系。</p>
+<p>Python自带的很多库也使用了MixIn。举个例子，Python自带了<code>TCPServer</code>和<code>UDPServer</code>这两类网络服务，而要同时服务多个用户就必须使用多进程或多线程模型，这两种模型由<code>ForkingMixIn</code>和<code>ThreadingMixIn</code>提供。通过组合，我们就可以创造出合适的服务来。</p>
+<p>比如，编写一个多进程模式的TCP服务，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class MyTCPServer(TCPServer, ForkingMixIn):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>编写一个多线程模式的UDP服务，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class MyUDPServer(UDPServer, ThreadingMixIn):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>如果你打算搞一个更先进的协程模型，可以编写一个<code>CoroutineMixIn</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class MyTCPServer(TCPServer, CoroutineMixIn):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>这样一来，我们不需要复杂而庞大的继承链，只要选择组合不同的类的功能，就可以快速构造出所需的子类。</p>
+<p><strong>小结</strong><br>由于Python允许使用多重继承，因此，MixIn就是一种常见的设计。</p>
+<p>只允许单一继承的语言（如Java）不能使用MixIn的设计。</p>
+<hr>
+<h2 id="定制类"><a href="#定制类" class="headerlink" title="定制类"></a>定制类</h2><p>看到类似<code>__slots__</code>这种形如<code>__xxx__</code>的变量或者函数名就要注意，这些在Python中是有特殊用途的。</p>
+<p><code>__slots__</code>我们已经知道怎么用了，<code>__len__()</code>方法我们也知道是为了能让class作用于<code>len()</code>函数。</p>
+<p>除此之外，Python的class中还有许多这样有特殊用途的函数，可以帮助我们定制类。</p>
+<h3 id="str"><a href="#str" class="headerlink" title="str"></a><strong>str</strong></h3><p>我们先定义一个Student类，打印一个实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class Student(object):</span><br><span class="line">...     def __init__(self, name):</span><br><span class="line">...         self.name = name</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; print(Student(&apos;Michael&apos;))</span><br><span class="line">&lt;__main__.Student object at 0x109afb190&gt;</span><br></pre></td></tr></table></figure></p>
+<p>打印出一堆<code>&lt;__main__.Student object at 0x109afb190&gt;</code>，不好看。</p>
+<p>怎么才能打印得好看呢？只需要定义好<code>__str__()</code>方法，返回一个好看的字符串就可以了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class Student(object):</span><br><span class="line">...     def __init__(self, name):</span><br><span class="line">...         self.name = name</span><br><span class="line">...     def __str__(self):</span><br><span class="line">...         return &apos;Student object (name: %s)&apos; % self.name</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; print(Student(&apos;Michael&apos;))</span><br><span class="line">Student object (name: Michael)</span><br></pre></td></tr></table></figure></p>
+<p>这样打印出来的实例，不但好看，而且容易看出实例内部重要的数据。</p>
+<p>但是细心的朋友会发现直接敲变量不用<code>print</code>，打印出来的实例还是不好看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student(&apos;Michael&apos;)</span><br><span class="line">&gt;&gt;&gt; s</span><br><span class="line">&lt;__main__.Student object at 0x109afb310&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这是因为直接显示变量调用的不是<code>__str__()</code>，而是<code>__repr__()</code>，两者的区别是<code>__str__()</code>返回用户看到的字符串，而<code>__repr__()</code>返回程序开发者看到的字符串，也就是说，<code>__repr__()</code>是为调试服务的。</p>
+<p>解决办法是再定义一个<code>__repr__()</code>。但是通常<code>__str__()</code>和<code>__repr__()</code>代码都是一样的，所以，有个偷懒的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        self.name = name</span><br><span class="line">    def __str__(self):</span><br><span class="line">        return &apos;Student object (name=%s)&apos; % self.name</span><br><span class="line">    __repr__ = __str__</span><br></pre></td></tr></table></figure></p>
+<h3 id="iter"><a href="#iter" class="headerlink" title="iter"></a><strong>iter</strong></h3><p>如果一个类想被用于<code>for ... in</code>循环，类似list或tuple那样，就必须实现一个<code>__iter__()</code>方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的<code>__next__()</code>方法拿到循环的下一个值，直到遇到<code>StopIteration</code>错误时退出循环。</p>
+<p>我们以斐波那契数列为例，写一个Fib类，可以作用于for循环：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Fib(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.a, self.b = 0, 1 # 初始化两个计数器a，b</span><br><span class="line"></span><br><span class="line">    def __iter__(self):</span><br><span class="line">        return self # 实例本身就是迭代对象，故返回自己</span><br><span class="line"></span><br><span class="line">    def __next__(self):</span><br><span class="line">        self.a, self.b = self.b, self.a + self.b # 计算下一个值</span><br><span class="line">        if self.a &gt; 100000: # 退出循环的条件</span><br><span class="line">            raise StopIteration()</span><br><span class="line">        return self.a # 返回下一个值</span><br></pre></td></tr></table></figure></p>
+<p>现在，试试把Fib实例作用于for循环：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; for n in Fib():</span><br><span class="line">...     print(n)</span><br><span class="line">...</span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">...</span><br><span class="line">46368</span><br><span class="line">75025</span><br></pre></td></tr></table></figure></p>
+<h3 id="getitem"><a href="#getitem" class="headerlink" title="getitem"></a><strong>getitem</strong></h3><p>Fib实例虽然能作用于for循环，看起来和list有点像，但是，把它当成list来使用还是不行，比如，取第5个元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Fib()[5]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">TypeError: &apos;Fib&apos; object does not support indexing</span><br></pre></td></tr></table></figure></p>
+<p>要表现得像list那样按照下标取出元素，需要实现<code>__getitem__()</code>方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Fib(object):</span><br><span class="line">    def __getitem__(self, n):</span><br><span class="line">        a, b = 1, 1</span><br><span class="line">        for x in range(n):</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">        return a</span><br></pre></td></tr></table></figure></p>
+<p>现在，就可以按下标访问数列的任意一项了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = Fib()</span><br><span class="line">&gt;&gt;&gt; f[0]</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; f[1]</span><br><span class="line">1</span><br><span class="line">&gt;&gt;&gt; f[2]</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; f[3]</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; f[10]</span><br><span class="line">89</span><br><span class="line">&gt;&gt;&gt; f[100]</span><br><span class="line">573147844013817084101</span><br></pre></td></tr></table></figure></p>
+<p>但是list有个神奇的切片方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(range(100))[5:10]</span><br><span class="line">[5, 6, 7, 8, 9]</span><br></pre></td></tr></table></figure></p>
+<p>对于Fib却报错。原因是<code>__getitem__()</code>传入的参数可能是一个int，也可能是一个切片对象<code>slice</code>，所以要做判断：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Fib(object):</span><br><span class="line">    def __getitem__(self, n):</span><br><span class="line">        if isinstance(n, int): # n是索引</span><br><span class="line">            a, b = 1, 1</span><br><span class="line">            for x in range(n):</span><br><span class="line">                a, b = b, a + b</span><br><span class="line">            return a</span><br><span class="line">        if isinstance(n, slice): # n是切片</span><br><span class="line">            start = n.start</span><br><span class="line">            stop = n.stop</span><br><span class="line">            if start is None:</span><br><span class="line">                start = 0</span><br><span class="line">            a, b = 1, 1</span><br><span class="line">            L = []</span><br><span class="line">            for x in range(stop):</span><br><span class="line">                if x &gt;= start:</span><br><span class="line">                    L.append(a)</span><br><span class="line">                a, b = b, a + b</span><br><span class="line">            return L</span><br></pre></td></tr></table></figure></p>
+<p>现在试试Fib的切片：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = Fib()</span><br><span class="line">&gt;&gt;&gt; f[0:5]</span><br><span class="line">[1, 1, 2, 3, 5]</span><br><span class="line">&gt;&gt;&gt; f[:10]</span><br><span class="line">[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]</span><br></pre></td></tr></table></figure></p>
+<p>但是没有对step参数作处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f[:10:2]</span><br><span class="line">[1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]</span><br></pre></td></tr></table></figure></p>
+<p>也没有对负数作处理，所以，要正确实现一个<code>__getitem__()</code>还是有很多工作要做的。</p>
+<p>此外，如果把对象看成<code>dict</code>，<code>__getitem__()</code>的参数也可能是一个可以作key的object，例如<code>str</code>。</p>
+<p>与之对应的是<code>__setitem__()</code>方法，把对象视作list或dict来对集合赋值。最后，还有一个<code>__delitem__()</code>方法，用于删除某个元素。</p>
+<p>总之，通过上面的方法，我们自己定义的类表现得和Python自带的list、tuple、dict没什么区别，这完全归功于动态语言的“鸭子类型”，不需要强制继承某个接口。</p>
+<h3 id="getattr"><a href="#getattr" class="headerlink" title="getattr"></a><strong>getattr</strong></h3><p>正常情况下，当我们调用类的方法或属性时，如果不存在，就会报错。比如定义<code>Student</code>类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name = &apos;Michael&apos;</span><br></pre></td></tr></table></figure></p>
+<p>调用<code>name</code>属性，没问题，但是，调用不存在的<code>score</code>属性，就有问题了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; print(s.name)</span><br><span class="line">Michael</span><br><span class="line">&gt;&gt;&gt; print(s.score)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;score&apos;</span><br></pre></td></tr></table></figure></p>
+<p>错误信息很清楚地告诉我们，没有找到<code>score</code>这个attribute。</p>
+<p>要避免这个错误，除了可以加上一个<code>score</code>属性外，Python还有另一个机制，那就是写一个<code>__getattr__()</code>方法，动态返回一个属性。修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name = &apos;Michael&apos;</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, attr):</span><br><span class="line">        if attr==&apos;score&apos;:</span><br><span class="line">            return 99</span><br></pre></td></tr></table></figure></p>
+<p>当调用不存在的属性时，比如score，Python解释器会试图调用<code>__getattr__(self, &#39;score&#39;)</code>来尝试获得属性，这样，我们就有机会返回<code>score</code>的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student()</span><br><span class="line">&gt;&gt;&gt; s.name</span><br><span class="line">&apos;Michael&apos;</span><br><span class="line">&gt;&gt;&gt; s.score</span><br><span class="line">99</span><br></pre></td></tr></table></figure></p>
+<p>返回函数也是完全可以的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, attr):</span><br><span class="line">        if attr==&apos;age&apos;:</span><br><span class="line">            return lambda: 25</span><br></pre></td></tr></table></figure></p>
+<p>只是调用方式要变为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s.age()</span><br><span class="line">25</span><br></pre></td></tr></table></figure></p>
+<p>注意，只有在没有找到属性的情况下，才调用<code>__getattr__</code>，已有的属性，比如<code>name</code>，不会在<code>__getattr__</code>中查找。</p>
+<p>此外，注意到任意调用如<code>s.abc</code>都会返回<code>None</code>，这是因为我们定义的<code>__getattr__</code>默认返回就是<code>None</code>。要让class只响应特定的几个属性，我们就要按照约定，抛出<code>AttributeError</code>的错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, attr):</span><br><span class="line">        if attr==&apos;age&apos;:</span><br><span class="line">            return lambda: 25</span><br><span class="line">        raise AttributeError(&apos;\&apos;Student\&apos; object has no attribute \&apos;%s\&apos;&apos; % attr)</span><br></pre></td></tr></table></figure></p>
+<p>这实际上可以把一个类的所有属性和方法调用全部动态化处理了，不需要任何特殊手段。</p>
+<p>这种完全动态调用的特性有什么实际作用呢？作用就是，可以针对完全动态的情况作调用。</p>
+<p>举个例子：</p>
+<p>现在很多网站都搞REST API，比如新浪微博、豆瓣啥的，调用API的URL类似：</p>
+<p><a href="http://api.server/user/friends" target="_blank" rel="noopener">http://api.server/user/friends</a><br><a href="http://api.server/user/timeline/list" target="_blank" rel="noopener">http://api.server/user/timeline/list</a></p>
+<p>如果要写SDK，给每个URL对应的API都写一个方法，那得累死，而且，API一旦改动，SDK也要改。</p>
+<p>利用完全动态的<code>__getattr__</code>，我们可以写出一个链式调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Chain(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self, path=&apos;&apos;):</span><br><span class="line">        self._path = path</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, path):</span><br><span class="line">        return Chain(&apos;%s/%s&apos; % (self._path, path))</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self._path</span><br><span class="line"></span><br><span class="line">    __repr__ = __str__</span><br></pre></td></tr></table></figure></p>
+<p>试试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Chain().status.user.timeline.list</span><br><span class="line">&apos;/status/user/timeline/list&apos;</span><br></pre></td></tr></table></figure></p>
+<p>这样，无论API怎么变，SDK都可以根据URL实现完全动态的调用，而且，不随API的增加而改变！</p>
+<p>还有些REST API会把参数放到URL中，比如GitHub的API：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /users/:user/repos</span><br></pre></td></tr></table></figure></p>
+<p>调用时，需要把:user替换为实际用户名。如果我们能写出这样的链式调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Chain().users(&apos;michael&apos;).repos</span><br></pre></td></tr></table></figure></p>
+<p>就可以非常方便地调用API了。有兴趣的童鞋可以试试写出来。</p>
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a><strong>call</strong></h3><p>一个对象实例可以有自己的属性和方法，当我们调用实例方法时，我们用<code>instance.method()</code>来调用。能不能直接在实例本身上调用呢？在Python中，答案是肯定的。</p>
+<p>任何类，只需要定义一个<code>__call__()</code>方法，就可以直接对实例进行调用。请看示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    def __call__(self):</span><br><span class="line">        print(&apos;My name is %s.&apos; % self.name)</span><br></pre></td></tr></table></figure></p>
+<p>调用方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = Student(&apos;Michael&apos;)</span><br><span class="line">&gt;&gt;&gt; s() # self参数不要传入</span><br><span class="line">My name is Michael.</span><br></pre></td></tr></table></figure></p>
+<p><code>__call__()</code>还可以定义参数。对实例进行直接调用就好比对一个函数进行调用一样，所以你完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别。</p>
+<p>如果你把对象看成函数，那么函数本身其实也可以在运行期动态创建出来，因为类的实例都是运行期创建出来的，这么一来，我们就模糊了对象和函数的界限。</p>
+<p>那么，怎么判断一个变量是对象还是函数呢？其实，更多的时候，我们需要判断一个对象是否能被调用，能被调用的对象就是一个<code>Callable</code>对象，比如函数和我们上面定义的带有<code>__call__()</code>的类实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; callable(Student())</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; callable(max)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; callable([1, 2, 3])</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; callable(None)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; callable(&apos;str&apos;)</span><br><span class="line">False</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>callable()</code>函数，我们就可以判断一个对象是否是“可调用”对象。</p>
+<p><strong>小结</strong><br>Python的class允许定义许多定制方法，可以让我们非常方便地生成特定的类。</p>
+<p>本节介绍的是最常用的几个定制方法，还有很多可定制的方法，请参考Python的官方文档。</p>
+<hr>
+<h2 id="使用枚举类"><a href="#使用枚举类" class="headerlink" title="使用枚举类"></a>使用枚举类</h2><p>当我们需要定义常量时，一个办法是用大写变量通过整数来定义，例如月份：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JAN = 1</span><br><span class="line">FEB = 2</span><br><span class="line">MAR = 3</span><br><span class="line">...</span><br><span class="line">NOV = 11</span><br><span class="line">DEC = 12</span><br></pre></td></tr></table></figure></p>
+<p>好处是简单，缺点是类型是<code>int</code>，并且仍然是变量。</p>
+<p>更好的方法是为这样的枚举类型定义一个class类型，然后，每个常量都是class的一个唯一实例。Python提供了<code>Enum</code>类来实现这个功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from enum import Enum</span><br><span class="line"></span><br><span class="line">Month = Enum(&apos;Month&apos;, (&apos;Jan&apos;, &apos;Feb&apos;, &apos;Mar&apos;, &apos;Apr&apos;, &apos;May&apos;, &apos;Jun&apos;, &apos;Jul&apos;, &apos;Aug&apos;, &apos;Sep&apos;, &apos;Oct&apos;, &apos;Nov&apos;, &apos;Dec&apos;))</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就获得了<code>Month</code>类型的枚举类，可以直接使用<code>Month.Jan</code>来引用一个常量，或者枚举它的所有成员：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for name, member in Month.__members__.items():</span><br><span class="line">    print(name, &apos;=&gt;&apos;, member, &apos;,&apos;, member.value)</span><br></pre></td></tr></table></figure></p>
+<p><code>value</code>属性则是自动赋给成员的<code>int</code>常量，默认从<code>1</code>开始计数。</p>
+<p>如果需要更精确地控制枚举类型，可以从<code>Enum</code>派生出自定义类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from enum import Enum, unique</span><br><span class="line"></span><br><span class="line">@unique</span><br><span class="line">class Weekday(Enum):</span><br><span class="line">    Sun = 0 # Sun的value被设定为0</span><br><span class="line">    Mon = 1</span><br><span class="line">    Tue = 2</span><br><span class="line">    Wed = 3</span><br><span class="line">    Thu = 4</span><br><span class="line">    Fri = 5</span><br><span class="line">    Sat = 6</span><br></pre></td></tr></table></figure></p>
+<p><code>@unique</code>装饰器可以帮助我们检查保证没有重复值。</p>
+<p>访问这些枚举类型可以有若干种方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; day1 = Weekday.Mon</span><br><span class="line">&gt;&gt;&gt; print(day1)</span><br><span class="line">Weekday.Mon</span><br><span class="line">&gt;&gt;&gt; print(Weekday.Tue)</span><br><span class="line">Weekday.Tue</span><br><span class="line">&gt;&gt;&gt; print(Weekday[&apos;Tue&apos;])</span><br><span class="line">Weekday.Tue</span><br><span class="line">&gt;&gt;&gt; print(Weekday.Tue.value)</span><br><span class="line">2</span><br><span class="line">&gt;&gt;&gt; print(day1 == Weekday.Mon)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; print(day1 == Weekday.Tue)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; print(Weekday(1))</span><br><span class="line">Weekday.Mon</span><br><span class="line">&gt;&gt;&gt; print(day1 == Weekday(1))</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; Weekday(7)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">ValueError: 7 is not a valid Weekday</span><br><span class="line">&gt;&gt;&gt; for name, member in Weekday.__members__.items():</span><br><span class="line">...     print(name, &apos;=&gt;&apos;, member)</span><br><span class="line">...</span><br><span class="line">Sun =&gt; Weekday.Sun</span><br><span class="line">Mon =&gt; Weekday.Mon</span><br><span class="line">Tue =&gt; Weekday.Tue</span><br><span class="line">Wed =&gt; Weekday.Wed</span><br><span class="line">Thu =&gt; Weekday.Thu</span><br><span class="line">Fri =&gt; Weekday.Fri</span><br><span class="line">Sat =&gt; Weekday.Sat</span><br></pre></td></tr></table></figure></p>
+<p>可见，既可以用成员名称引用枚举常量，又可以直接根据value的值获得枚举常量。</p>
+<p><strong>小结</strong><br><code>Enum</code>可以把一组相关常量定义在一个class中，且class不可变，而且成员可以直接比较。</p>
+<hr>
+<h2 id="使用元类"><a href="#使用元类" class="headerlink" title="使用元类"></a>使用元类</h2><h3 id="type"><a href="#type" class="headerlink" title="type()"></a>type()</h3><p>动态语言和静态语言最大的不同，就是函数和类的定义，不是编译时定义的，而是运行时动态创建的。</p>
+<p>比方说我们要定义一个<code>Hello</code>的class，就写一个<code>hello.py</code>模块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Hello(object):</span><br><span class="line">    def hello(self, name=&apos;world&apos;):</span><br><span class="line">        print(&apos;Hello, %s.&apos; % name)</span><br></pre></td></tr></table></figure></p>
+<p>当Python解释器载入<code>hello</code>模块时，就会依次执行该模块的所有语句，执行结果就是动态创建出一个<code>Hello</code>的class对象，测试如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from hello import Hello</span><br><span class="line">&gt;&gt;&gt; h = Hello()</span><br><span class="line">&gt;&gt;&gt; h.hello()</span><br><span class="line">Hello, world.</span><br><span class="line">&gt;&gt;&gt; print(type(Hello))</span><br><span class="line">&lt;class &apos;type&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; print(type(h))</span><br><span class="line">&lt;class &apos;hello.Hello&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>type()</code>函数可以查看一个类型或变量的类型，<code>Hello</code>是一个class，它的类型就是<code>type</code>，而<code>h</code>是一个实例，它的类型就是class <code>Hello</code>。</p>
+<p>我们说class的定义是运行时动态创建的，而创建class的方法就是使用<code>type()</code>函数。</p>
+<p><code>type()</code>函数既可以返回一个对象的类型，又可以创建出新的类型，比如，我们可以通过type()函数创建出Hello类，而无需通过<code>class Hello(object)...</code>的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def fn(self, name=&apos;world&apos;): # 先定义函数</span><br><span class="line">...     print(&apos;Hello, %s.&apos; % name)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; Hello = type(&apos;Hello&apos;, (object,), dict(hello=fn)) # 创建Hello class</span><br><span class="line">&gt;&gt;&gt; h = Hello()</span><br><span class="line">&gt;&gt;&gt; h.hello()</span><br><span class="line">Hello, world.</span><br><span class="line">&gt;&gt;&gt; print(type(Hello))</span><br><span class="line">&lt;class &apos;type&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; print(type(h))</span><br><span class="line">&lt;class &apos;__main__.Hello&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>要创建一个class对象，<code>type()</code>函数依次传入3个参数：</p>
+<ol>
+<li>class的名称；</li>
+<li>继承的父类集合，注意Python支持多重继承，如果只有一个父类，别忘</li>
+<li>了tuple的单元素写法；</li>
+</ol>
+<p>class的方法名称与函数绑定，这里我们把函数fn绑定到方法名hello上。<br>通过<code>type()</code>函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用<code>type()</code>函数创建出class。</p>
+<p>正常情况下，我们都用<code>class Xxx...</code>来定义类，但是，<code>type()</code>函数也允许我们动态创建出类来，也就是说，动态语言本身支持运行期动态创建类，这和静态语言有非常大的不同，要在静态语言运行期创建类，必须构造源代码字符串再调用编译器，或者借助一些工具生成字节码实现，本质上都是动态编译，会非常复杂。</p>
+<h3 id="metaclass"><a href="#metaclass" class="headerlink" title="metaclass"></a>metaclass</h3><p>除了使用<code>type()</code>动态创建类以外，要控制类的创建行为，还可以使用metaclass。</p>
+<p>metaclass，直译为元类，简单的解释就是：</p>
+<p>当我们定义了类以后，就可以根据这个类创建出实例，所以：先定义类，然后创建实例。</p>
+<p>但是如果我们想创建出类呢？那就必须根据metaclass创建出类，所以：先定义metaclass，然后创建类。</p>
+<p>连接起来就是：先定义metaclass，就可以创建类，最后创建实例。</p>
+<p>所以，metaclass允许你创建类或者修改类。换句话说，你可以把类看成是metaclass创建出来的“实例”。</p>
+<p>metaclass是Python面向对象里最难理解，也是最难使用的魔术代码。正常情况下，你不会碰到需要使用metaclass的情况，所以，以下内容看不懂也没关系，因为基本上你不会用到。</p>
+<p>我们先看一个简单的例子，这个metaclass可以给我们自定义的MyList增加一个add方法：</p>
+<p>定义<code>ListMetaclass</code>，按照默认习惯，metaclass的类名总是以Metaclass结尾，以便清楚地表示这是一个metaclass：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># metaclass是类的模板，所以必须从`type`类型派生：</span><br><span class="line">class ListMetaclass(type):</span><br><span class="line">    def __new__(cls, name, bases, attrs):</span><br><span class="line">        attrs[&apos;add&apos;] = lambda self, value: self.append(value)</span><br><span class="line">        return type.__new__(cls, name, bases, attrs)</span><br></pre></td></tr></table></figure></p>
+<p>有了ListMetaclass，我们在定义类的时候还要指示使用ListMetaclass来定制类，传入关键字参数<code>metaclass</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class MyList(list, metaclass=ListMetaclass):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></p>
+<p>当我们传入关键字参数<code>metaclass</code>时，魔术就生效了，它指示Python解释器在创建MyList时，要通过<code>ListMetaclass.__new__()</code>来创建，在此，我们可以修改类的定义，比如，加上新的方法，然后，返回修改后的定义。</p>
+<p><code>__new__()</code>方法接收到的参数依次是：</p>
+<ol>
+<li><p>当前准备创建的类的对象；</p>
+</li>
+<li><p>类的名字；</p>
+</li>
+<li><p>类继承的父类集合；</p>
+</li>
+<li><p>类的方法集合。</p>
+</li>
+</ol>
+<p>测试一下<code>MyList</code>是否可以调用<code>add()</code>方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L = MyList()</span><br><span class="line">&gt;&gt;&gt; L.add(1)</span><br><span class="line">&gt;&gt; L</span><br><span class="line">[1]</span><br></pre></td></tr></table></figure></p>
+<p>而普通的<code>list</code>没有<code>add()</code>方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L2 = list()</span><br><span class="line">&gt;&gt;&gt; L2.add(1)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">AttributeError: &apos;list&apos; object has no attribute &apos;add&apos;</span><br></pre></td></tr></table></figure></p>
+<p>动态修改有什么意义？直接在<code>MyList</code>定义中写上<code>add()</code>方法不是更简单吗？正常情况下，确实应该直接写，通过metaclass修改纯属变态。</p>
+<p>但是，总会遇到需要通过metaclass修改类定义的。ORM就是一个典型的例子。</p>
+<p>ORM全称“Object Relational Mapping”，即对象-关系映射，就是把关系数据库的一行映射为一个对象，也就是一个类对应一个表，这样，写代码更简单，不用直接操作SQL语句。</p>
+<p>要编写一个ORM框架，所有的类都只能动态定义，因为只有使用者才能根据表的结构定义出对应的类来。</p>
+<p>让我们来尝试编写一个ORM框架。</p>
+<p>编写底层模块的第一步，就是先把调用接口写出来。比如，使用者如果使用这个ORM框架，想定义一个User类来操作对应的数据库表User，我们期待他写出这样的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class User(Model):</span><br><span class="line">    # 定义类的属性到列的映射：</span><br><span class="line">    id = IntegerField(&apos;id&apos;)</span><br><span class="line">    name = StringField(&apos;username&apos;)</span><br><span class="line">    email = StringField(&apos;email&apos;)</span><br><span class="line">    password = StringField(&apos;password&apos;)</span><br><span class="line"></span><br><span class="line"># 创建一个实例：</span><br><span class="line">u = User(id=12345, name=&apos;Michael&apos;, email=&apos;test@orm.org&apos;, password=&apos;my-pwd&apos;)</span><br><span class="line"># 保存到数据库：</span><br><span class="line">u.save()</span><br></pre></td></tr></table></figure></p>
+<p>其中，父类<code>Model</code>和属性类型<code>StringField、IntegerField</code>是由ORM框架提供的，剩下的魔术方法比如<code>save()</code>全部由metaclass自动完成。虽然metaclass的编写会比较复杂，但ORM的使用者用起来却异常简单。</p>
+<p>现在，我们就按上面的接口来实现该ORM。</p>
+<p>首先来定义Field类，它负责保存数据库表的字段名和字段类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Field(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name, column_type):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.column_type = column_type</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return &apos;&lt;%s:%s&gt;&apos; % (self.__class__.__name__, self.name)</span><br></pre></td></tr></table></figure></p>
+<p>在Field的基础上，进一步定义各种类型的Field，比如StringField，IntegerField等等：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class StringField(Field):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        super(StringField, self).__init__(name, &apos;varchar(100)&apos;)</span><br><span class="line"></span><br><span class="line">class IntegerField(Field):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name):</span><br><span class="line">        super(IntegerField, self).__init__(name, &apos;bigint&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>下一步，就是编写最复杂的ModelMetaclass了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class ModelMetaclass(type):</span><br><span class="line"></span><br><span class="line">    def __new__(cls, name, bases, attrs):</span><br><span class="line">        if name==&apos;Model&apos;:</span><br><span class="line">            return type.__new__(cls, name, bases, attrs)</span><br><span class="line">        print(&apos;Found model: %s&apos; % name)</span><br><span class="line">        mappings = dict()</span><br><span class="line">        for k, v in attrs.items():</span><br><span class="line">            if isinstance(v, Field):</span><br><span class="line">                print(&apos;Found mapping: %s ==&gt; %s&apos; % (k, v))</span><br><span class="line">                mappings[k] = v</span><br><span class="line">        for k in mappings.keys():</span><br><span class="line">            attrs.pop(k)</span><br><span class="line">        attrs[&apos;__mappings__&apos;] = mappings # 保存属性和列的映射关系</span><br><span class="line">        attrs[&apos;__table__&apos;] = name # 假设表名和类名一致</span><br><span class="line">        return type.__new__(cls, name, bases, attrs)</span><br></pre></td></tr></table></figure></p>
+<p>以及基类Model：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Model(dict, metaclass=ModelMetaclass):</span><br><span class="line"></span><br><span class="line">    def __init__(self, **kw):</span><br><span class="line">        super(Model, self).__init__(**kw)</span><br><span class="line"></span><br><span class="line">    def __getattr__(self, key):</span><br><span class="line">        try:</span><br><span class="line">            return self[key]</span><br><span class="line">        except KeyError:</span><br><span class="line">            raise AttributeError(r&quot;&apos;Model&apos; object has no attribute &apos;%s&apos;&quot; % key)</span><br><span class="line"></span><br><span class="line">    def __setattr__(self, key, value):</span><br><span class="line">        self[key] = value</span><br><span class="line"></span><br><span class="line">    def save(self):</span><br><span class="line">        fields = []</span><br><span class="line">        params = []</span><br><span class="line">        args = []</span><br><span class="line">        for k, v in self.__mappings__.items():</span><br><span class="line">            fields.append(v.name)</span><br><span class="line">            params.append(&apos;?&apos;)</span><br><span class="line">            args.append(getattr(self, k, None))</span><br><span class="line">        sql = &apos;insert into %s (%s) values (%s)&apos; % (self.__table__, &apos;,&apos;.join(fields), &apos;,&apos;.join(params))</span><br><span class="line">        print(&apos;SQL: %s&apos; % sql)</span><br><span class="line">        print(&apos;ARGS: %s&apos; % str(args))</span><br></pre></td></tr></table></figure></p>
+<p>当用户定义一个<code>class User(Model)</code>时，Python解释器首先在当前类<code>User</code>的定义中查找<code>metaclass</code>，如果没有找到，就继续在父类<code>Model</code>中查找<code>metaclass</code>，找到了，就使用<code>Model</code>中定义的<code>metaclass</code>的<code>ModelMetaclass</code>来创建<code>User</code>类，也就是说，metaclass可以隐式地继承到子类，但子类自己却感觉不到。</p>
+<p>在<code>ModelMetaclass</code>中，一共做了几件事情：</p>
+<ol>
+<li><p>排除掉对<code>Model</code>类的修改；</p>
+</li>
+<li><p>在当前类（比如<code>User</code>）中查找定义的类的所有属性，如果找到一个<code>Field</code>属性，就把它保存到一个<code>__mappings__</code>的<code>dict</code>中，同时从类属性中删除该<code>Field</code>属性，否则，容易造成运行时错误（实例的属性会遮盖类的同名属性）；</p>
+</li>
+<li><p>把表名保存到<code>__table__</code>中，这里简化为表名默认为类名。</p>
+</li>
+</ol>
+<p>在<code>Model</code>类中，就可以定义各种操作数据库的方法，比如<code>save()，delete()，find()，update</code>等等。</p>
+<p>我们实现了<code>save()</code>方法，把一个实例保存到数据库中。因为有表名，属性到字段的映射和属性值的集合，就可以构造出<code>INSERT</code>语句。</p>
+<p>编写代码试试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u = User(id=12345, name=&apos;Michael&apos;, email=&apos;test@orm.org&apos;, password=&apos;my-pwd&apos;)</span><br><span class="line">u.save()</span><br></pre></td></tr></table></figure></p>
+<p>输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Found model: User</span><br><span class="line">Found mapping: email ==&gt; &lt;StringField:email&gt;</span><br><span class="line">Found mapping: password ==&gt; &lt;StringField:password&gt;</span><br><span class="line">Found mapping: id ==&gt; &lt;IntegerField:uid&gt;</span><br><span class="line">Found mapping: name ==&gt; &lt;StringField:username&gt;</span><br><span class="line">SQL: insert into User (password,email,username,id) values (?,?,?,?)</span><br><span class="line">ARGS: [&apos;my-pwd&apos;, &apos;test@orm.org&apos;, &apos;Michael&apos;, 12345]</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，<code>save()</code>方法已经打印出了可执行的SQL语句，以及参数列表，只需要真正连接到数据库，执行该SQL语句，就可以完成真正的功能。</p>
+<p>不到100行代码，我们就通过metaclass实现了一个精简的ORM框架，是不是非常简单？</p>
+<p>真叫人头大</p>
+<p>小结<br>metaclass是Python中非常具有魔术性的对象，它可以改变类创建时的行为。这种强大的功能使用起来务必小心。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/编程相关/">编程相关</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学基础/">数学基础</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">13</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 15px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 17.5px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 20px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/博客/" style="font-size: 12.5px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 17.5px;">机器学习</a> <a href="/tags/概率论与数理统计/" style="font-size: 10px;">概率论与数理统计</a> <a href="/tags/模型/" style="font-size: 15px;">模型</a> <a href="/tags/目录/" style="font-size: 10px;">目录</a> <a href="/tags/算法/" style="font-size: 12.5px;">算法</a> <a href="/tags/线性代数/" style="font-size: 10px;">线性代数</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a> <a href="/tags/高等数学/" style="font-size: 10px;">高等数学</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
