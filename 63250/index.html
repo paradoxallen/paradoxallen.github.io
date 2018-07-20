@@ -1,0 +1,385 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Python进程与线程 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="很多同学都听说过，现代操作系统比如Mac OS X，UNIX，Linux，Windows等，都是支持“多任务”的操作系统。
+什么叫“多任务”呢？简单地说，就是操作系统可以同时运行多个任务。打个比方，你一边在用浏览器上网，一边在听MP3，一边在用Word赶作业，这就是多任务，至少同时有3个任务正在运行。还有很多任务悄悄地在后台同时运行着，只是桌面上没有显示而已。
+现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？
+答案就是操作系统轮流让各个任务交替执行，任务1执行0.01秒，切换到任务2，任务2执行0.01秒，再切换到任务3，执行0.01秒……这样反复执行下去。表面上看，每个任务都是交替执行的，但是，由于CPU的执行速度实在是太快了，我们感觉就像所有任务都在同时执行一样。
+真正的并行执行多任务只能在多核CPU上实现，但是，由于任务数量远远多于CPU的核心数量，所以，操作系统也会自动把很多任务轮流调度到每个核心上执行。
+对于操作系统来说，一个任务就是一个进程（Process），比如打开一个浏览器就是启动一个浏览器进程，打开一个记事本就启动了一个记事本进程，打开两个记事本就启动了两个记事本进程，打开一个Word就启动了一个Word进程。
+有些进程还不止同时干一件事，比如Word，它可以同时进行打字、拼写检查、打印等事情。在一个进程内部，要同时干多件事，就需要同时运行多个“子任务”，我们把进程内的这些“子任务”称为线程（Thread）。
+由于每个进程至少要干一件事，所以，一个进程至少有一个线程。当然，像Word这种复杂的进程可以有多个线程，多个线程可以同时执行，多线程的执行方式和多进程是一样的，也是由操作系统在多个线程之间快速切换，让每个线程都短暂地交替运行，看起来就像同时执行一样。当然，真正地同时执行多线程需要多核CPU才可能实现。
+我们前面编写的所有的Python程序，都是执行单任务的进程，也就是只有一个线程。如果我们要同时执行多个任务怎么办？
+有两种解决方案：
+一种是启动多个进程，每个进程虽然只有一个线程，但多个进程可以一块执行多个任务。
+还有一种方法是启动一个进程，在一个进程内启动多个线程，这样，多个线程也可以一块执行多个任务。
+当然还有第三种方法，就是启动多个进程，每个进程再启动多个线程，这样同时执行的任务就更多了，当然这种模型更复杂，实际很少采用。
+总结一下就是，多任务的实现有3种方式：
+多进程模式；多线程模式；多进程+多线程模式。同时执行多个任务通常各个任务之间并不是没有关联的，而是需要相互通信和协调，有时，任务1必须暂停等待任务2完成后才能继续执行，有时，任务3和任务4又不能同时执行，所以，多进程和多线程的程序的复杂度要远远高于我们前面写的单进程单线程的程序。
+因为复杂度高，调试困难，所以，不是迫不得已，我们也不想编写多任务。但是，有很多时候，没有多任务还真不行。想想在电脑上看电影，就必须由一个线程播放视频，另一个线程播放音频，否则，单线程实现的话就只能先把视频播放完再播放音频，或者先把音频播放完再播放视频，这显然是不行的。
+Python既支持多进程，又支持多线程，我们会讨论如何编写这两种多任务程序。
+小结线程是最小的执行单元，而进程由至少一个线程组成。如何调度进程和线程，完全由操作系统决定，程序自己不能决定什么时候执行，执行多长时间。
+多进程和多线程的程序涉及到同步、数据共享的问题，编写起来更复杂。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Python进程与线程"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-11-10T16:00:00.000Z"><a href="/63250/">2017-11-11</a></time>
+        
+  
+    <h1 class="title">Python进程与线程</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#多进程"><span class="toc-text">多进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#multiprocessing"><span class="toc-text">multiprocessing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pool"><span class="toc-text">Pool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子进程"><span class="toc-text">子进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程间通信"><span class="toc-text">进程间通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程"><span class="toc-text">多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lock"><span class="toc-text">Lock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多核CPU"><span class="toc-text">多核CPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TheadLocal"><span class="toc-text">TheadLocal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程vs-线程"><span class="toc-text">进程vs.线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#线程切换"><span class="toc-text">线程切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算密集型-vs-IO密集型"><span class="toc-text">计算密集型 vs. IO密集型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异步IO"><span class="toc-text">异步IO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式进程"><span class="toc-text">分布式进程</span></a></li></ol>
+    </div>
+
+        <p>很多同学都听说过，现代操作系统比如Mac OS X，UNIX，Linux，Windows等，都是支持“多任务”的操作系统。</p>
+<p>什么叫“多任务”呢？简单地说，就是操作系统可以同时运行多个任务。打个比方，你一边在用浏览器上网，一边在听MP3，一边在用Word赶作业，这就是多任务，至少同时有3个任务正在运行。还有很多任务悄悄地在后台同时运行着，只是桌面上没有显示而已。</p>
+<p>现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？</p>
+<p>答案就是操作系统轮流让各个任务交替执行，任务1执行0.01秒，切换到任务2，任务2执行0.01秒，再切换到任务3，执行0.01秒……这样反复执行下去。表面上看，每个任务都是交替执行的，但是，由于CPU的执行速度实在是太快了，我们感觉就像所有任务都在同时执行一样。</p>
+<p>真正的并行执行多任务只能在多核CPU上实现，但是，由于任务数量远远多于CPU的核心数量，所以，操作系统也会自动把很多任务轮流调度到每个核心上执行。</p>
+<p>对于操作系统来说，一个任务就是一个进程（Process），比如打开一个浏览器就是启动一个浏览器进程，打开一个记事本就启动了一个记事本进程，打开两个记事本就启动了两个记事本进程，打开一个Word就启动了一个Word进程。</p>
+<p>有些进程还不止同时干一件事，比如Word，它可以同时进行打字、拼写检查、打印等事情。在一个进程内部，要同时干多件事，就需要同时运行多个“子任务”，我们把进程内的这些“子任务”称为线程（Thread）。</p>
+<p>由于每个进程至少要干一件事，所以，一个进程至少有一个线程。当然，像Word这种复杂的进程可以有多个线程，多个线程可以同时执行，多线程的执行方式和多进程是一样的，也是由操作系统在多个线程之间快速切换，让每个线程都短暂地交替运行，看起来就像同时执行一样。当然，真正地同时执行多线程需要多核CPU才可能实现。</p>
+<p>我们前面编写的所有的Python程序，都是执行单任务的进程，也就是只有一个线程。如果我们要同时执行多个任务怎么办？</p>
+<p>有两种解决方案：</p>
+<p>一种是启动多个进程，每个进程虽然只有一个线程，但多个进程可以一块执行多个任务。</p>
+<p>还有一种方法是启动一个进程，在一个进程内启动多个线程，这样，多个线程也可以一块执行多个任务。</p>
+<p>当然还有第三种方法，就是启动多个进程，每个进程再启动多个线程，这样同时执行的任务就更多了，当然这种模型更复杂，实际很少采用。</p>
+<p>总结一下就是，多任务的实现有3种方式：</p>
+<p>多进程模式；<br>多线程模式；<br>多进程+多线程模式。<br>同时执行多个任务通常各个任务之间并不是没有关联的，而是需要相互通信和协调，有时，任务1必须暂停等待任务2完成后才能继续执行，有时，任务3和任务4又不能同时执行，所以，多进程和多线程的程序的复杂度要远远高于我们前面写的单进程单线程的程序。</p>
+<p>因为复杂度高，调试困难，所以，不是迫不得已，我们也不想编写多任务。但是，有很多时候，没有多任务还真不行。想想在电脑上看电影，就必须由一个线程播放视频，另一个线程播放音频，否则，单线程实现的话就只能先把视频播放完再播放音频，或者先把音频播放完再播放视频，这显然是不行的。</p>
+<p>Python既支持多进程，又支持多线程，我们会讨论如何编写这两种多任务程序。</p>
+<p><strong>小结</strong><br>线程是最小的执行单元，而进程由至少一个线程组成。如何调度进程和线程，完全由操作系统决定，程序自己不能决定什么时候执行，执行多长时间。</p>
+<p>多进程和多线程的程序涉及到同步、数据共享的问题，编写起来更复杂。</p>
+<a id="more"></a>
+<hr>
+<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><p>要让Python程序实现多进程（multiprocessing），我们先了解操作系统的相关知识。</p>
+<p>Unix/Linux操作系统提供了一个<code>fork()</code>系统调用，它非常特殊。普通的函数调用，调用一次，返回一次，但是<code>fork()</code>调用一次，返回两次，因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），然后，分别在父进程和子进程内返回。</p>
+<p>子进程永远返回<code>0</code>，而父进程返回子进程的ID。这样做的理由是，一个父进程可以fork出很多子进程，所以，父进程要记下每个子进程的ID，而子进程只需要调用<code>getppid()</code>就可以拿到父进程的ID。</p>
+<p>Python的<code>os</code>模块封装了常见的系统调用，其中就包括<code>fork</code>，可以在Python程序中轻松创建子进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"></span><br><span class="line">print(&apos;Process (%s) start...&apos; % os.getpid())</span><br><span class="line"># Only works on Unix/Linux/Mac:</span><br><span class="line">pid = os.fork()</span><br><span class="line">if pid == 0:</span><br><span class="line">    print(&apos;I am child process (%s) and my parent is %s.&apos; % (os.getpid(), os.getppid()))</span><br><span class="line">else:</span><br><span class="line">    print(&apos;I (%s) just created a child process (%s).&apos; % (os.getpid(), pid))</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Process (876) start...</span><br><span class="line">I (876) just created a child process (877).</span><br><span class="line">I am child process (877) and my parent is 876.</span><br></pre></td></tr></table></figure></p>
+<p>由于Windows没有<code>fork</code>调用，上面的代码在Windows上无法运行。由于Mac系统是基于BSD（Unix的一种）内核，所以，在Mac下运行是没有问题的，推荐大家用Mac学Python！</p>
+<p>有了<code>fork</code>调用，一个进程在接到新任务时就可以复制出一个子进程来处理新任务，常见的Apache服务器就是由父进程监听端口，每当有新的http请求时，就fork出子进程来处理新的http请求。</p>
+<h3 id="multiprocessing"><a href="#multiprocessing" class="headerlink" title="multiprocessing"></a>multiprocessing</h3><p>如果你打算编写多进程的服务程序，Unix/Linux无疑是正确的选择。由于Windows没有<code>fork</code>调用，难道在Windows上无法用Python编写多进程的程序？</p>
+<p>由于Python是跨平台的，自然也应该提供一个跨平台的多进程支持。<code>multiprocessing</code>模块就是跨平台版本的多进程模块。</p>
+<p><code>multiprocessing</code>模块提供了一个<code>Process</code>类来代表一个进程对象，下面的例子演示了启动一个子进程并等待其结束：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Process</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"># 子进程要执行的代码</span><br><span class="line">def run_proc(name):</span><br><span class="line">    print(&apos;Run child process %s (%s)...&apos; % (name, os.getpid()))</span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    print(&apos;Parent process %s.&apos; % os.getpid())</span><br><span class="line">    p = Process(target=run_proc, args=(&apos;test&apos;,))</span><br><span class="line">    print(&apos;Child process will start.&apos;)</span><br><span class="line">    p.start()</span><br><span class="line">    p.join()</span><br><span class="line">    print(&apos;Child process end.&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parent process 928.</span><br><span class="line">Process will start.</span><br><span class="line">Run child process test (929)...</span><br><span class="line">Process end.</span><br></pre></td></tr></table></figure></p>
+<p>创建子进程时，只需要传入一个执行函数和函数的参数，创建一个<code>Process</code>实例，用<code>start()</code>方法启动，这样创建进程比<code>fork()</code>还要简单。</p>
+<p><code>join()</code>方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。</p>
+<h3 id="Pool"><a href="#Pool" class="headerlink" title="Pool"></a>Pool</h3><p>如果要启动大量的子进程，可以用进程池的方式批量创建子进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Pool</span><br><span class="line">import os, time, random</span><br><span class="line"></span><br><span class="line">def long_time_task(name):</span><br><span class="line">    print(&apos;Run task %s (%s)...&apos; % (name, os.getpid()))</span><br><span class="line">    start = time.time()</span><br><span class="line">    time.sleep(random.random() * 3)</span><br><span class="line">    end = time.time()</span><br><span class="line">    print(&apos;Task %s runs %0.2f seconds.&apos; % (name, (end - start)))</span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    print(&apos;Parent process %s.&apos; % os.getpid())</span><br><span class="line">    p = Pool(4)</span><br><span class="line">    for i in range(5):</span><br><span class="line">        p.apply_async(long_time_task, args=(i,))</span><br><span class="line">    print(&apos;Waiting for all subprocesses done...&apos;)</span><br><span class="line">    p.close()</span><br><span class="line">    p.join()</span><br><span class="line">    print(&apos;All subprocesses done.&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Parent process 669.</span><br><span class="line">Waiting for all subprocesses done...</span><br><span class="line">Run task 0 (671)...</span><br><span class="line">Run task 1 (672)...</span><br><span class="line">Run task 2 (673)...</span><br><span class="line">Run task 3 (674)...</span><br><span class="line">Task 2 runs 0.14 seconds.</span><br><span class="line">Run task 4 (673)...</span><br><span class="line">Task 1 runs 0.27 seconds.</span><br><span class="line">Task 3 runs 0.86 seconds.</span><br><span class="line">Task 0 runs 1.41 seconds.</span><br><span class="line">Task 4 runs 1.91 seconds.</span><br><span class="line">All subprocesses done.</span><br></pre></td></tr></table></figure></p>
+<p>代码解读：</p>
+<p>对<code>Pool</code>对象调用<code>join()</code>方法会等待所有子进程执行完毕，调用<code>join()</code>之前必须先调用<code>close()</code>，调用<code>close()</code>之后就不能继续添加新的<code>Process</code>了。</p>
+<p>请注意输出的结果，task <code>0，1，2，3</code>是立刻执行的，而task <code>4</code>要等待前面某个task完成后才执行，这是因为<code>Pool</code>的默认大小在我的电脑上是4，因此，最多同时执行4个进程。这是<code>Pool</code>有意设计的限制，并不是操作系统的限制。如果改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p = Pool(5)</span><br></pre></td></tr></table></figure></p>
+<p>就可以同时跑5个进程。</p>
+<p>由于<code>Pool</code>的默认大小是CPU的核数，如果你不幸拥有8核CPU，你要提交至少9个子进程才能看到上面的等待效果。</p>
+<h3 id="子进程"><a href="#子进程" class="headerlink" title="子进程"></a>子进程</h3><p>很多时候，子进程并不是自身，而是一个外部进程。我们创建了子进程后，还需要控制子进程的输入和输出。</p>
+<p><code>subprocess</code>模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。</p>
+<p>下面的例子演示了如何在Python代码中运行命令<code>nslookup www.python.org</code>，这和命令行直接运行的效果是一样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line"></span><br><span class="line">print(&apos;$ nslookup www.python.org&apos;)</span><br><span class="line">r = subprocess.call([&apos;nslookup&apos;, &apos;www.python.org&apos;])</span><br><span class="line">print(&apos;Exit code:&apos;, r)</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ nslookup www.python.org</span><br><span class="line">Server:        192.168.19.4</span><br><span class="line">Address:    192.168.19.4#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">www.python.org    canonical name = python.map.fastly.net.</span><br><span class="line">Name:    python.map.fastly.net</span><br><span class="line">Address: 199.27.79.223</span><br><span class="line"></span><br><span class="line">Exit code: 0</span><br></pre></td></tr></table></figure></p>
+<p>如果子进程还需要输入，则可以通过<code>communicate()</code>方法输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import subprocess</span><br><span class="line"></span><br><span class="line">print(&apos;$ nslookup&apos;)</span><br><span class="line">p = subprocess.Popen([&apos;nslookup&apos;], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</span><br><span class="line">output, err = p.communicate(b&apos;set q=mx\npython.org\nexit\n&apos;)</span><br><span class="line">print(output.decode(&apos;utf-8&apos;))</span><br><span class="line">print(&apos;Exit code:&apos;, p.returncode)</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码相当于在命令行执行命令<code>nslookup</code>，然后手动输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set q=mx</span><br><span class="line">python.org</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ nslookup</span><br><span class="line">Server:        192.168.19.4</span><br><span class="line">Address:    192.168.19.4#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">python.org    mail exchanger = 50 mail.python.org.</span><br><span class="line"></span><br><span class="line">Authoritative answers can be found from:</span><br><span class="line">mail.python.org    internet address = 82.94.164.166</span><br><span class="line">mail.python.org    has AAAA address 2001:888:2000:d::a6</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Exit code: 0</span><br></pre></td></tr></table></figure></p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p><code>Process</code>之间肯定是需要通信的，操作系统提供了很多机制来实现进程间的通信。Python的<code>multiprocessing</code>模块包装了底层的机制，提供了<code>Queue、Pipes</code>等多种方式来交换数据。</p>
+<p>我们以<code>Queue</code>为例，在父进程中创建两个子进程，一个往<code>Queue</code>里写数据，一个从<code>Queue</code>里读数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Process, Queue</span><br><span class="line">import os, time, random</span><br><span class="line"></span><br><span class="line"># 写数据进程执行的代码:</span><br><span class="line">def write(q):</span><br><span class="line">    print(&apos;Process to write: %s&apos; % os.getpid())</span><br><span class="line">    for value in [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]:</span><br><span class="line">        print(&apos;Put %s to queue...&apos; % value)</span><br><span class="line">        q.put(value)</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line"></span><br><span class="line"># 读数据进程执行的代码:</span><br><span class="line">def read(q):</span><br><span class="line">    print(&apos;Process to read: %s&apos; % os.getpid())</span><br><span class="line">    while True:</span><br><span class="line">        value = q.get(True)</span><br><span class="line">        print(&apos;Get %s from queue.&apos; % value)</span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    # 父进程创建Queue，并传给各个子进程：</span><br><span class="line">    q = Queue()</span><br><span class="line">    pw = Process(target=write, args=(q,))</span><br><span class="line">    pr = Process(target=read, args=(q,))</span><br><span class="line">    # 启动子进程pw，写入:</span><br><span class="line">    pw.start()</span><br><span class="line">    # 启动子进程pr，读取:</span><br><span class="line">    pr.start()</span><br><span class="line">    # 等待pw结束:</span><br><span class="line">    pw.join()</span><br><span class="line">    # pr进程里是死循环，无法等待其结束，只能强行终止:</span><br><span class="line">    pr.terminate()</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Process to write: 50563</span><br><span class="line">Put A to queue...</span><br><span class="line">Process to read: 50564</span><br><span class="line">Get A from queue.</span><br><span class="line">Put B to queue...</span><br><span class="line">Get B from queue.</span><br><span class="line">Put C to queue...</span><br><span class="line">Get C from queue.</span><br></pre></td></tr></table></figure></p>
+<p>在Unix/Linux下，<code>multiprocessing</code>模块封装了<code>fork()</code>调用，使我们不需要关注<code>fork()</code>的细节。由于Windows没有<code>fork</code>调用，因此，<code>multiprocessing</code>需要“模拟”出<code>fork</code>的效果，父进程所有Python对象都必须通过<code>pickle</code>序列化再传到子进程去，所有，如果<code>multiprocessing</code>在Windows下调用失败了，要先考虑是不是<code>pickle</code>失败了。</p>
+<p><strong>小结</strong><br>在Unix/Linux下，可以使用<code>fork()</code>调用实现多进程。</p>
+<p>要实现跨平台的多进程，可以使用<code>multiprocessing</code>模块。</p>
+<p>进程间通信是通过<code>Queue、Pipes</code>等实现的。</p>
+<hr>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多任务可以由多进程完成，也可以由一个进程内的多线程完成。</p>
+<p>我们前面提到了进程是由若干线程组成的，一个进程至少有一个线程。</p>
+<p>由于线程是操作系统直接支持的执行单元，因此，高级语言通常都内置多线程的支持，Python也不例外，并且，Python的线程是真正的Posix Thread，而不是模拟出来的线程。</p>
+<p>Python的标准库提供了两个模块：<code>_thread和threading</code>，<code>_thread</code>是低级模块，<code>threading</code>是高级模块，对<code>_thread</code>进行了封装。绝大多数情况下，我们只需要使用<code>threading</code>这个高级模块。</p>
+<p>启动一个线程就是把一个函数传入并创建<code>Thread</code>实例，然后调用<code>start()</code>开始执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import time, threading</span><br><span class="line"></span><br><span class="line"># 新线程执行的代码:</span><br><span class="line">def loop():</span><br><span class="line">    print(&apos;thread %s is running...&apos; % threading.current_thread().name)</span><br><span class="line">    n = 0</span><br><span class="line">    while n &lt; 5:</span><br><span class="line">        n = n + 1</span><br><span class="line">        print(&apos;thread %s &gt;&gt;&gt; %s&apos; % (threading.current_thread().name, n))</span><br><span class="line">        time.sleep(1)</span><br><span class="line">    print(&apos;thread %s ended.&apos; % threading.current_thread().name)</span><br><span class="line"></span><br><span class="line">print(&apos;thread %s is running...&apos; % threading.current_thread().name)</span><br><span class="line">t = threading.Thread(target=loop, name=&apos;LoopThread&apos;)</span><br><span class="line">t.start()</span><br><span class="line">t.join()</span><br><span class="line">print(&apos;thread %s ended.&apos; % threading.current_thread().name)</span><br></pre></td></tr></table></figure></p>
+<p>执行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">thread MainThread is running...</span><br><span class="line">thread LoopThread is running...</span><br><span class="line">thread LoopThread &gt;&gt;&gt; 1</span><br><span class="line">thread LoopThread &gt;&gt;&gt; 2</span><br><span class="line">thread LoopThread &gt;&gt;&gt; 3</span><br><span class="line">thread LoopThread &gt;&gt;&gt; 4</span><br><span class="line">thread LoopThread &gt;&gt;&gt; 5</span><br><span class="line">thread LoopThread ended.</span><br><span class="line">thread MainThread ended.</span><br></pre></td></tr></table></figure></p>
+<p>由于任何进程默认就会启动一个线程，我们把该线程称为主线程，主线程又可以启动新的线程，Python的<code>threading</code>模块有个<code>current_thread()</code>函数，它永远返回当前线程的实例。主线程实例的名字叫<code>MainThread</code>，子线程的名字在创建时指定，我们用<code>LoopThread</code>命名子线程。名字仅仅在打印时用来显示，完全没有其他意义，如果不起名字Python就自动给线程命名为<code>Thread-1，Thread-2</code>……</p>
+<h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>多线程和多进程最大的不同在于，多进程中，同一个变量，各自有一份拷贝存在于每个进程中，互不影响，而多线程中，所有变量都由所有线程共享，所以，任何一个变量都可以被任何一个线程修改，因此，线程之间共享数据最大的危险在于多个线程同时改一个变量，把内容给改乱了。</p>
+<p>来看看多个线程同时操作一个变量怎么把内容给改乱了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import time, threading</span><br><span class="line"></span><br><span class="line"># 假定这是你的银行存款:</span><br><span class="line">balance = 0</span><br><span class="line"></span><br><span class="line">def change_it(n):</span><br><span class="line">    # 先存后取，结果应该为0:</span><br><span class="line">    global balance</span><br><span class="line">    balance = balance + n</span><br><span class="line">    balance = balance - n</span><br><span class="line"></span><br><span class="line">def run_thread(n):</span><br><span class="line">    for i in range(100000):</span><br><span class="line">        change_it(n)</span><br><span class="line"></span><br><span class="line">t1 = threading.Thread(target=run_thread, args=(5,))</span><br><span class="line">t2 = threading.Thread(target=run_thread, args=(8,))</span><br><span class="line">t1.start()</span><br><span class="line">t2.start()</span><br><span class="line">t1.join()</span><br><span class="line">t2.join()</span><br><span class="line">print(balance)</span><br></pre></td></tr></table></figure></p>
+<p>我们定义了一个共享变量<code>balance</code>，初始值为<code>0</code>，并且启动两个线程，先存后取，理论上结果应该为<code>0</code>，但是，由于线程的调度是由操作系统决定的，当t1、t2交替执行时，只要循环次数足够多，<code>balance</code>的结果就不一定是<code>0</code>了。</p>
+<p>原因是因为高级语言的一条语句在CPU执行时是若干条语句，即使一个简单的计算：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">balance = balance + n</span><br></pre></td></tr></table></figure></p>
+<p>也分两步：</p>
+<ol>
+<li>计算balance + n，存入临时变量中；</li>
+<li>将临时变量的值赋给balance。<br>也就是可以看成：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = balance + n</span><br><span class="line">balance = x</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>由于x是局部变量，两个线程各自都有自己的x，当代码正常执行时：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">初始值 balance = 0</span><br><span class="line"></span><br><span class="line">t1: x1 = balance + 5 # x1 = 0 + 5 = 5</span><br><span class="line">t1: balance = x1     # balance = 5</span><br><span class="line">t1: x1 = balance - 5 # x1 = 5 - 5 = 0</span><br><span class="line">t1: balance = x1     # balance = 0</span><br><span class="line"></span><br><span class="line">t2: x2 = balance + 8 # x2 = 0 + 8 = 8</span><br><span class="line">t2: balance = x2     # balance = 8</span><br><span class="line">t2: x2 = balance - 8 # x2 = 8 - 8 = 0</span><br><span class="line">t2: balance = x2     # balance = 0</span><br><span class="line"></span><br><span class="line">结果 balance = 0</span><br></pre></td></tr></table></figure></p>
+<p>但是t1和t2是交替运行的，如果操作系统以下面的顺序执行t1、t2：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">初始值 balance = 0</span><br><span class="line"></span><br><span class="line">t1: x1 = balance + 5  # x1 = 0 + 5 = 5</span><br><span class="line"></span><br><span class="line">t2: x2 = balance + 8  # x2 = 0 + 8 = 8</span><br><span class="line">t2: balance = x2      # balance = 8</span><br><span class="line"></span><br><span class="line">t1: balance = x1      # balance = 5</span><br><span class="line">t1: x1 = balance - 5  # x1 = 5 - 5 = 0</span><br><span class="line">t1: balance = x1      # balance = 0</span><br><span class="line"></span><br><span class="line">t2: x2 = balance - 8  # x2 = 0 - 8 = -8</span><br><span class="line">t2: balance = x2   # balance = -8</span><br><span class="line"></span><br><span class="line">结果 balance = -8</span><br></pre></td></tr></table></figure></p>
+<p>究其原因，是因为修改<code>balance</code>需要多条语句，而执行这几条语句时，线程可能中断，从而导致多个线程把同一个对象的内容改乱了。</p>
+<p>两个线程同时一存一取，就可能导致余额不对，你肯定不希望你的银行存款莫名其妙地变成了负数，所以，我们必须确保一个线程在修改<code>balance</code>的时候，别的线程一定不能改。</p>
+<p>如果我们要确保<code>balance</code>计算正确，就要给<code>change_it()</code>上一把锁，当某个线程开始执行<code>change_it()</code>时，我们说，该线程因为获得了锁，因此其他线程不能同时执行<code>change_it()</code>，只能等待，直到锁被释放后，获得该锁以后才能改。由于锁只有一个，无论多少线程，同一时刻最多只有一个线程持有该锁，所以，不会造成修改的冲突。创建一个锁就是通过<code>threading.Lock()</code>来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">balance = 0</span><br><span class="line">lock = threading.Lock()</span><br><span class="line"></span><br><span class="line">def run_thread(n):</span><br><span class="line">    for i in range(100000):</span><br><span class="line">        # 先要获取锁:</span><br><span class="line">        lock.acquire()</span><br><span class="line">        try:</span><br><span class="line">            # 放心地改吧:</span><br><span class="line">            change_it(n)</span><br><span class="line">        finally:</span><br><span class="line">            # 改完了一定要释放锁:</span><br><span class="line">            lock.release()</span><br></pre></td></tr></table></figure></p>
+<p>当多个线程同时执行<code>lock.acquire()</code>时，只有一个线程能成功地获取锁，然后继续执行代码，其他线程就继续等待直到获得锁为止。</p>
+<p>获得锁的线程用完后一定要释放锁，否则那些苦苦等待锁的线程将永远等待下去，成为死线程。所以我们用<code>try...finally</code>来确保锁一定会被释放。</p>
+<p>锁的好处就是确保了某段关键代码只能由一个线程从头到尾完整地执行，坏处当然也很多，首先是阻止了多线程并发执行，包含锁的某段代码实际上只能以单线程模式执行，效率就大大地下降了。其次，由于可以存在多个锁，不同的线程持有不同的锁，并试图获取对方持有的锁时，可能会造成死锁，导致多个线程全部挂起，既不能执行，也无法结束，只能靠操作系统强制终止。</p>
+<h3 id="多核CPU"><a href="#多核CPU" class="headerlink" title="多核CPU"></a>多核CPU</h3><p>如果你不幸拥有一个多核CPU，你肯定在想，多核应该可以同时执行多个线程。</p>
+<p>如果写一个死循环的话，会出现什么情况呢？</p>
+<p>打开Mac OS X的Activity Monitor，或者Windows的Task Manager，都可以监控某个进程的CPU使用率。</p>
+<p>我们可以监控到一个死循环线程会100%占用一个CPU。</p>
+<p>如果有两个死循环线程，在多核CPU中，可以监控到会占用200%的CPU，也就是占用两个CPU核心。</p>
+<p>要想把N核CPU的核心全部跑满，就必须启动N个死循环线程。</p>
+<p>试试用Python写个死循环：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import threading, multiprocessing</span><br><span class="line"></span><br><span class="line">def loop():</span><br><span class="line">    x = 0</span><br><span class="line">    while True:</span><br><span class="line">        x = x ^ 1</span><br><span class="line"></span><br><span class="line">for i in range(multiprocessing.cpu_count()):</span><br><span class="line">    t = threading.Thread(target=loop)</span><br><span class="line">    t.start()</span><br></pre></td></tr></table></figure></p>
+<p>启动与CPU核心数量相同的N个线程，在4核CPU上可以监控到CPU占用率仅有102%，也就是仅使用了一核。</p>
+<p>但是用C、C++或Java来改写相同的死循环，直接可以把全部核心跑满，4核就跑到400%，8核就跑到800%，为什么Python不行呢？</p>
+<p>因为Python的线程虽然是真正的线程，但解释器执行代码时，有一个GIL锁：<code>Global Interpreter Lock</code>，任何Python线程执行前，必须先获得GIL锁，然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。</p>
+<p>GIL是Python解释器设计的历史遗留问题，通常我们用的解释器是官方实现的CPython，要真正利用多核，除非重写一个不带GIL的解释器。</p>
+<p>所以，在Python中，可以使用多线程，但不要指望能有效利用多核。如果一定要通过多线程利用多核，那只能通过C扩展来实现，不过这样就失去了Python简单易用的特点。</p>
+<p>不过，也不用过于担心，Python虽然不能利用多线程实现多核任务，但可以通过多进程实现多核任务。多个Python进程有各自独立的GIL锁，互不影响。</p>
+<p><strong>小结</strong><br>多线程编程，模型复杂，容易发生冲突，必须用锁加以隔离，同时，又要小心死锁的发生。</p>
+<p>Python解释器由于设计时有GIL全局锁，导致了多线程无法利用多核。多线程的并发在Python中就是一个美丽的梦。</p>
+<hr>
+<h2 id="TheadLocal"><a href="#TheadLocal" class="headerlink" title="TheadLocal"></a>TheadLocal</h2><p>在多线程环境下，每个线程都有自己的数据。一个线程使用自己的局部变量比使用全局变量好，因为局部变量只有线程自己能看见，不会影响其他线程，而全局变量的修改必须加锁。</p>
+<p>但是局部变量也有问题，就是在函数调用的时候，传递起来很麻烦：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def process_student(name):</span><br><span class="line">    std = Student(name)</span><br><span class="line">    # std是局部变量，但是每个函数都要用它，因此必须传进去：</span><br><span class="line">    do_task_1(std)</span><br><span class="line">    do_task_2(std)</span><br><span class="line"></span><br><span class="line">def do_task_1(std):</span><br><span class="line">    do_subtask_1(std)</span><br><span class="line">    do_subtask_2(std)</span><br><span class="line"></span><br><span class="line">def do_task_2(std):</span><br><span class="line">    do_subtask_2(std)</span><br><span class="line">    do_subtask_2(std)</span><br></pre></td></tr></table></figure></p>
+<p>每个函数一层一层调用都这么传参数那还得了？用全局变量？也不行，因为每个线程处理不同的<code>Student</code>对象，不能共享。</p>
+<p>如果用一个全局<code>dict</code>存放所有的<code>Student</code>对象，然后以<code>thread</code>自身作为<code>key</code>获得线程对应的<code>Student</code>对象如何？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">global_dict = &#123;&#125;</span><br><span class="line"></span><br><span class="line">def std_thread(name):</span><br><span class="line">    std = Student(name)</span><br><span class="line">    # 把std放到全局变量global_dict中：</span><br><span class="line">    global_dict[threading.current_thread()] = std</span><br><span class="line">    do_task_1()</span><br><span class="line">    do_task_2()</span><br><span class="line"></span><br><span class="line">def do_task_1():</span><br><span class="line">    # 不传入std，而是根据当前线程查找：</span><br><span class="line">    std = global_dict[threading.current_thread()]</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">def do_task_2():</span><br><span class="line">    # 任何函数都可以查找出当前线程的std变量：</span><br><span class="line">    std = global_dict[threading.current_thread()]</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<p>这种方式理论上是可行的，它最大的优点是消除了<code>std</code>对象在每层函数中的传递问题，但是，每个函数获取<code>std</code>的代码有点丑。</p>
+<p>有没有更简单的方式？</p>
+<p><code>ThreadLocal</code>应运而生，不用查找<code>dict，ThreadLocal</code>帮你自动做这件事：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line"># 创建全局ThreadLocal对象:</span><br><span class="line">local_school = threading.local()</span><br><span class="line"></span><br><span class="line">def process_student():</span><br><span class="line">    # 获取当前线程关联的student:</span><br><span class="line">    std = local_school.student</span><br><span class="line">    print(&apos;Hello, %s (in %s)&apos; % (std, threading.current_thread().name))</span><br><span class="line"></span><br><span class="line">def process_thread(name):</span><br><span class="line">    # 绑定ThreadLocal的student:</span><br><span class="line">    local_school.student = name</span><br><span class="line">    process_student()</span><br><span class="line"></span><br><span class="line">t1 = threading.Thread(target= process_thread, args=(&apos;Alice&apos;,), name=&apos;Thread-A&apos;)</span><br><span class="line">t2 = threading.Thread(target= process_thread, args=(&apos;Bob&apos;,), name=&apos;Thread-B&apos;)</span><br><span class="line">t1.start()</span><br><span class="line">t2.start()</span><br><span class="line">t1.join()</span><br><span class="line">t2.join()</span><br></pre></td></tr></table></figure></p>
+<p>执行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello, Alice (in Thread-A)</span><br><span class="line">Hello, Bob (in Thread-B)</span><br></pre></td></tr></table></figure></p>
+<p>全局变量<code>local_school</code>就是一个<code>ThreadLocal</code>对象，每个<code>Thread</code>对它都可以读写<code>student</code>属性，但互不影响。你可以把<code>local_school</code>看成全局变量，但每个属性如<code>local_school.student</code>都是线程的局部变量，可以任意读写而互不干扰，也不用管理锁的问题，<code>ThreadLocal</code>内部会处理。</p>
+<p>可以理解为全局变量<code>local_school</code>是一个<code>dict</code>，不但可以用<code>local_school.student</code>，还可以绑定其他变量，如<code>local_school.teacher</code>等等。</p>
+<p><code>ThreadLocal</code>最常用的地方就是为每个线程绑定一个数据库连接，HTTP请求，用户身份信息等，这样一个线程的所有调用到的处理函数都可以非常方便地访问这些资源。</p>
+<p><strong>小结</strong><br>一个<code>ThreadLocal</code>变量虽然是全局变量，但每个线程都只能读写自己线程的独立副本，互不干扰。<code>ThreadLocal</code>解决了参数在一个线程中各个函数之间互相传递的问题。</p>
+<hr>
+<h2 id="进程vs-线程"><a href="#进程vs-线程" class="headerlink" title="进程vs.线程"></a>进程vs.线程</h2><p>我们介绍了多进程和多线程，这是实现多任务最常用的两种方式。现在，我们来讨论一下这两种方式的优缺点。</p>
+<p>首先，要实现多任务，通常我们会设计<code>Master-Worker</code>模式，Master负责分配任务，Worker负责执行任务，因此，多任务环境下，通常是一个Master，多个Worker。</p>
+<p>如果用多进程实现Master-Worker，主进程就是Master，其他进程就是Worker。</p>
+<p>如果用多线程实现Master-Worker，主线程就是Master，其他线程就是Worker。</p>
+<p>多进程模式最大的优点就是稳定性高，因为一个子进程崩溃了，不会影响主进程和其他子进程。（当然主进程挂了所有进程就全挂了，但是Master进程只负责分配任务，挂掉的概率低）著名的Apache最早就是采用多进程模式。</p>
+<p>多进程模式的缺点是创建进程的代价大，在Unix/Linux系统下，用fork调用还行，在Windows下创建进程开销巨大。另外，操作系统能同时运行的进程数也是有限的，在内存和CPU的限制下，如果有几千个进程同时运行，操作系统连调度都会成问题。</p>
+<p>多线程模式通常比多进程快一点，但是也快不到哪去，而且，多线程模式致命的缺点就是任何一个线程挂掉都可能直接造成整个进程崩溃，因为所有线程共享进程的内存。在Windows上，如果一个线程执行的代码出了问题，你经常可以看到这样的提示：“该程序执行了非法操作，即将关闭”，其实往往是某个线程出了问题，但是操作系统会强制结束整个进程。</p>
+<p>在Windows下，多线程的效率比多进程要高，所以微软的IIS服务器默认采用多线程模式。由于多线程存在稳定性的问题，IIS的稳定性就不如Apache。为了缓解这个问题，IIS和Apache现在又有多进程+多线程的混合模式，真是把问题越搞越复杂。</p>
+<h3 id="线程切换"><a href="#线程切换" class="headerlink" title="线程切换"></a>线程切换</h3><p>无论是多进程还是多线程，只要数量一多，效率肯定上不去，为什么呢？</p>
+<p>我们打个比方，假设你不幸正在准备中考，每天晚上需要做语文、数学、英语、物理、化学这5科的作业，每项作业耗时1小时。</p>
+<p>如果你先花1小时做语文作业，做完了，再花1小时做数学作业，这样，依次全部做完，一共花5小时，这种方式称为单任务模型，或者批处理任务模型。</p>
+<p>假设你打算切换到多任务模型，可以先做1分钟语文，再切换到数学作业，做1分钟，再切换到英语，以此类推，只要切换速度足够快，这种方式就和单核CPU执行多任务是一样的了，以幼儿园小朋友的眼光来看，你就正在同时写5科作业。</p>
+<p>但是，切换作业是有代价的，比如从语文切到数学，要先收拾桌子上的语文书本、钢笔（这叫保存现场），然后，打开数学课本、找出圆规直尺（这叫准备新环境），才能开始做数学作业。操作系统在切换进程或者线程时也是一样的，它需要先保存当前执行的现场环境（CPU寄存器状态、内存页等），然后，把新任务的执行环境准备好（恢复上次的寄存器状态，切换内存页等），才能开始执行。这个切换过程虽然很快，但是也需要耗费时间。如果有几千个任务同时进行，操作系统可能就主要忙着切换任务，根本没有多少时间去执行任务了，这种情况最常见的就是硬盘狂响，点窗口无反应，系统处于假死状态。</p>
+<p>所以，多任务一旦多到一个限度，就会消耗掉系统所有的资源，结果效率急剧下降，所有任务都做不好。</p>
+<h3 id="计算密集型-vs-IO密集型"><a href="#计算密集型-vs-IO密集型" class="headerlink" title="计算密集型 vs. IO密集型"></a>计算密集型 vs. IO密集型</h3><p>是否采用多任务的第二个考虑是任务的类型。我们可以把任务分为计算密集型和IO密集型。</p>
+<p>计算密集型任务的特点是要进行大量的计算，消耗CPU资源，比如计算圆周率、对视频进行高清解码等等，全靠CPU的运算能力。这种计算密集型任务虽然也可以用多任务完成，但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低，所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。</p>
+<p>计算密集型任务由于主要消耗CPU资源，因此，代码运行效率至关重要。Python这样的脚本语言运行效率很低，完全不适合计算密集型任务。对于计算密集型任务，最好用C语言编写。</p>
+<p>第二种任务的类型是IO密集型，涉及到网络、磁盘IO的任务都是IO密集型任务，这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成（因为IO的速度远远低于CPU和内存的速度）。对于IO密集型任务，任务越多，CPU效率越高，但也有一个限度。常见的大部分任务都是IO密集型任务，比如Web应用。</p>
+<p>IO密集型任务执行期间，99%的时间都花在IO上，花在CPU上的时间很少，因此，用运行速度极快的C语言替换用Python这样运行速度极低的脚本语言，完全无法提升运行效率。对于IO密集型任务，最合适的语言就是开发效率最高（代码量最少）的语言，脚本语言是首选，C语言最差。</p>
+<h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><p>考虑到CPU和IO之间巨大的速度差异，一个任务在执行的过程中大部分时间都在等待IO操作，单进程单线程模型会导致别的任务无法并行执行，因此，我们才需要多进程模型或者多线程模型来支持多任务并发执行。</p>
+<p>现代操作系统对IO操作已经做了巨大的改进，最大的特点就是支持异步IO。如果充分利用操作系统提供的异步IO支持，就可以用单进程单线程模型来执行多任务，这种全新的模型称为事件驱动模型，Nginx就是支持异步IO的Web服务器，它在单核CPU上采用单进程模型就可以高效地支持多任务。在多核CPU上，可以运行多个进程（数量与CPU核心数相同），充分利用多核CPU。由于系统总的进程数量十分有限，因此操作系统调度非常高效。用异步IO编程模型来实现多任务是一个主要的趋势。</p>
+<p>对应到Python语言，单线程的异步编程模型称为协程，有了协程的支持，就可以基于事件驱动编写高效的多任务程序。我们会在后面讨论如何编写协程。</p>
+<hr>
+<h2 id="分布式进程"><a href="#分布式进程" class="headerlink" title="分布式进程"></a>分布式进程</h2><p>在Thread和Process中，应当优选Process，因为Process更稳定，而且，Process可以分布到多台机器上，而Thread最多只能分布到同一台机器的多个CPU上。</p>
+<p>Python的<code>multiprocessing</code>模块不但支持多进程，其中<code>managers</code>子模块还支持把多进程分布到多台机器上。一个服务进程可以作为调度者，将任务分布到其他多个进程中，依靠网络通信。由于<code>managers</code>模块封装很好，不必了解网络通信的细节，就可以很容易地编写分布式多进程程序。</p>
+<p>举个例子：如果我们已经有一个通过<code>Queue</code>通信的多进程程序在同一台机器上运行，现在，由于处理任务的进程任务繁重，希望把发送任务的进程和处理任务的进程分布到两台机器上。怎么用分布式进程实现？</p>
+<p>原有的<code>Queue</code>可以继续使用，但是，通过<code>managers</code>模块把<code>Queue</code>通过网络暴露出去，就可以让其他机器的进程访问<code>Queue</code>了。</p>
+<p>我们先看服务进程，服务进程负责启动<code>Queue</code>，把<code>Queue</code>注册到网络上，然后往<code>Queue</code>里面写入任务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># task_master.py</span><br><span class="line"></span><br><span class="line">import random, time, queue</span><br><span class="line">from multiprocessing.managers import BaseManager</span><br><span class="line"></span><br><span class="line"># 发送任务的队列:</span><br><span class="line">task_queue = queue.Queue()</span><br><span class="line"># 接收结果的队列:</span><br><span class="line">result_queue = queue.Queue()</span><br><span class="line"></span><br><span class="line"># 从BaseManager继承的QueueManager:</span><br><span class="line">class QueueManager(BaseManager):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"># 把两个Queue都注册到网络上, callable参数关联了Queue对象:</span><br><span class="line">QueueManager.register(&apos;get_task_queue&apos;, callable=lambda: task_queue)</span><br><span class="line">QueueManager.register(&apos;get_result_queue&apos;, callable=lambda: result_queue)</span><br><span class="line"># 绑定端口5000, 设置验证码&apos;abc&apos;:</span><br><span class="line">manager = QueueManager(address=(&apos;&apos;, 5000), authkey=b&apos;abc&apos;)</span><br><span class="line"># 启动Queue:</span><br><span class="line">manager.start()</span><br><span class="line"># 获得通过网络访问的Queue对象:</span><br><span class="line">task = manager.get_task_queue()</span><br><span class="line">result = manager.get_result_queue()</span><br><span class="line"># 放几个任务进去:</span><br><span class="line">for i in range(10):</span><br><span class="line">    n = random.randint(0, 10000)</span><br><span class="line">    print(&apos;Put task %d...&apos; % n)</span><br><span class="line">    task.put(n)</span><br><span class="line"># 从result队列读取结果:</span><br><span class="line">print(&apos;Try get results...&apos;)</span><br><span class="line">for i in range(10):</span><br><span class="line">    r = result.get(timeout=10)</span><br><span class="line">    print(&apos;Result: %s&apos; % r)</span><br><span class="line"># 关闭:</span><br><span class="line">manager.shutdown()</span><br><span class="line">print(&apos;master exit.&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>请注意，当我们在一台机器上写多进程程序时，创建的<code>Queue</code>可以直接拿来用，但是，在分布式多进程环境下，添加任务到<code>Queue</code>不可以直接对原始的<code>task_queue</code>进行操作，那样就绕过了<code>QueueManager</code>的封装，必须通过<code>manager.get_task_queue()</code>获得的Queue接口添加。</p>
+<p>然后，在另一台机器上启动任务进程（本机上启动也可以）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># task_worker.py</span><br><span class="line"></span><br><span class="line">import time, sys, queue</span><br><span class="line">from multiprocessing.managers import BaseManager</span><br><span class="line"></span><br><span class="line"># 创建类似的QueueManager:</span><br><span class="line">class QueueManager(BaseManager):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"># 由于这个QueueManager只从网络上获取Queue，所以注册时只提供名字:</span><br><span class="line">QueueManager.register(&apos;get_task_queue&apos;)</span><br><span class="line">QueueManager.register(&apos;get_result_queue&apos;)</span><br><span class="line"></span><br><span class="line"># 连接到服务器，也就是运行task_master.py的机器:</span><br><span class="line">server_addr = &apos;127.0.0.1&apos;</span><br><span class="line">print(&apos;Connect to server %s...&apos; % server_addr)</span><br><span class="line"># 端口和验证码注意保持与task_master.py设置的完全一致:</span><br><span class="line">m = QueueManager(address=(server_addr, 5000), authkey=b&apos;abc&apos;)</span><br><span class="line"># 从网络连接:</span><br><span class="line">m.connect()</span><br><span class="line"># 获取Queue的对象:</span><br><span class="line">task = m.get_task_queue()</span><br><span class="line">result = m.get_result_queue()</span><br><span class="line"># 从task队列取任务,并把结果写入result队列:</span><br><span class="line">for i in range(10):</span><br><span class="line">    try:</span><br><span class="line">        n = task.get(timeout=1)</span><br><span class="line">        print(&apos;run task %d * %d...&apos; % (n, n))</span><br><span class="line">        r = &apos;%d * %d = %d&apos; % (n, n, n*n)</span><br><span class="line">        time.sleep(1)</span><br><span class="line">        result.put(r)</span><br><span class="line">    except Queue.Empty:</span><br><span class="line">        print(&apos;task queue is empty.&apos;)</span><br><span class="line"># 处理结束:</span><br><span class="line">print(&apos;worker exit.&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>任务进程要通过网络连接到服务进程，所以要指定服务进程的IP。</p>
+<p>现在，可以试试分布式进程的工作效果了。先启动<code>task_master.py</code>服务进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ python3 task_master.py </span><br><span class="line">Put task 3411...</span><br><span class="line">Put task 1605...</span><br><span class="line">Put task 1398...</span><br><span class="line">Put task 4729...</span><br><span class="line">Put task 5300...</span><br><span class="line">Put task 7471...</span><br><span class="line">Put task 68...</span><br><span class="line">Put task 4219...</span><br><span class="line">Put task 339...</span><br><span class="line">Put task 7866...</span><br><span class="line">Try get results...</span><br></pre></td></tr></table></figure></p>
+<p><code>task_master.py</code>进程发送完任务后，开始等待<code>result</code>队列的结果。现在启动<code>task_worker.py</code>进程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ python3 task_worker.py</span><br><span class="line">Connect to server 127.0.0.1...</span><br><span class="line">run task 3411 * 3411...</span><br><span class="line">run task 1605 * 1605...</span><br><span class="line">run task 1398 * 1398...</span><br><span class="line">run task 4729 * 4729...</span><br><span class="line">run task 5300 * 5300...</span><br><span class="line">run task 7471 * 7471...</span><br><span class="line">run task 68 * 68...</span><br><span class="line">run task 4219 * 4219...</span><br><span class="line">run task 339 * 339...</span><br><span class="line">run task 7866 * 7866...</span><br><span class="line">worker exit.</span><br></pre></td></tr></table></figure></p>
+<p><code>task_worker.py</code>进程结束，在<code>task_master.py</code>进程中会继续打印出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Result: 3411 * 3411 = 11634921</span><br><span class="line">Result: 1605 * 1605 = 2576025</span><br><span class="line">Result: 1398 * 1398 = 1954404</span><br><span class="line">Result: 4729 * 4729 = 22363441</span><br><span class="line">Result: 5300 * 5300 = 28090000</span><br><span class="line">Result: 7471 * 7471 = 55815841</span><br><span class="line">Result: 68 * 68 = 4624</span><br><span class="line">Result: 4219 * 4219 = 17799961</span><br><span class="line">Result: 339 * 339 = 114921</span><br><span class="line">Result: 7866 * 7866 = 61873956</span><br></pre></td></tr></table></figure></p>
+<p>这个简单的<code>Master/Worker</code>模型有什么用？其实这就是一个简单但真正的分布式计算，把代码稍加改造，启动多个worker，就可以把任务分布到几台甚至几十台机器上，比如把计算n*n的代码换成发送邮件，就实现了邮件队列的异步发送。</p>
+<p><code>Queue</code>对象存储在哪？注意到<code>task_worker.py</code>中根本没有创建<code>Queue</code>的代码，所以，<code>Queue</code>对象存储在<code>task_master.py</code>进程中</p>
+<p>而<code>Queue</code>之所以能通过网络访问，就是通过<code>QueueManager</code>实现的。由于<code>QueueManager</code>管理的不止一个<code>Queue</code>，所以，要给每个<code>Queue</code>的网络调用接口起个名字，比如<code>get_task_queue</code>。</p>
+<p><code>authkey</code>有什么用？这是为了保证两台机器正常通信，不被其他机器恶意干扰。如果<code>task_worker.py</code>的<code>authkey</code>和<code>task_master.py</code>的<code>authkey</code>不一致，肯定连接不上。</p>
+<p><strong>小结</strong><br>Python的分布式进程接口简单，封装良好，适合需要把繁重任务分布到多台机器的环境下。</p>
+<p>注意<code>Queue</code>的作用是用来传递任务和接收结果，每个任务的描述数据量要尽量小。比如发送一个处理日志文件的任务，就不要发送几百兆的日志文件本身，而是发送日志文件存放的完整路径，由<code>Worker</code>进程再去共享的磁盘上读取文件。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/编程相关/">编程相关</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学基础/">数学基础</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">16</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 14px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 16px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 18px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/博客/" style="font-size: 12px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 16px;">机器学习</a> <a href="/tags/概率论与数理统计/" style="font-size: 10px;">概率论与数理统计</a> <a href="/tags/模型/" style="font-size: 14px;">模型</a> <a href="/tags/目录/" style="font-size: 10px;">目录</a> <a href="/tags/算法/" style="font-size: 12px;">算法</a> <a href="/tags/线性代数/" style="font-size: 10px;">线性代数</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a> <a href="/tags/高等数学/" style="font-size: 10px;">高等数学</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
