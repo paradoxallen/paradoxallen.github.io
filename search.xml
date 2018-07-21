@@ -86,9 +86,9 @@
       
         <tags>
             
-            <tag> 目录 </tag>
-            
             <tag> 机器学习 </tag>
+            
+            <tag> 目录 </tag>
             
         </tags>
       
@@ -133,6 +133,48 @@
         <tags>
             
             <tag> 统计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Python图形界面</title>
+      <link href="/53971/"/>
+      <url>/53971/</url>
+      <content type="html"><![CDATA[<p>Python支持多种图形界面的第三方库，包括：</p><ul><li><p>Tk</p></li><li><p>wxWidgets</p></li><li><p>Qt</p></li><li><p>GTK</p></li></ul><p>等等。</p><p>但是Python自带的库是支持Tk的Tkinter，使用Tkinter，无需安装任何包，就可以直接使用。本章简单介绍如何使用Tkinter进行GUI编程。</p><a id="more"></a><hr><h3 id="Tkinter"><a href="#Tkinter" class="headerlink" title="Tkinter"></a>Tkinter</h3><p>我们来梳理一下概念：</p><p>我们编写的Python代码会调用内置的Tkinter，Tkinter封装了访问Tk的接口；</p><p>Tk是一个图形库，支持多个操作系统，使用Tcl语言开发；</p><p>Tk会调用操作系统提供的本地GUI接口，完成最终的GUI。</p><p>所以，我们的代码只需要调用Tkinter提供的接口就可以了。</p><h3 id="第一个GUI程序"><a href="#第一个GUI程序" class="headerlink" title="第一个GUI程序"></a>第一个GUI程序</h3><p>使用Tkinter十分简单，我们来编写一个GUI版本的“Hello, world!”。</p><p>第一步是导入Tkinter包的所有内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from tkinter import *</span><br></pre></td></tr></table></figure></p><p>第二步是从Frame派生一个Application类，这是所有Widget的父容器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Application(Frame):</span><br><span class="line">    def __init__(self, master=None):</span><br><span class="line">        Frame.__init__(self, master)</span><br><span class="line">        self.pack()</span><br><span class="line">        self.createWidgets()</span><br><span class="line"></span><br><span class="line">    def createWidgets(self):</span><br><span class="line">        self.helloLabel = Label(self, text=&apos;Hello, world!&apos;)</span><br><span class="line">        self.helloLabel.pack()</span><br><span class="line">        self.quitButton = Button(self, text=&apos;Quit&apos;, command=self.quit)</span><br><span class="line">        self.quitButton.pack()</span><br></pre></td></tr></table></figure></p><p>在GUI中，每个Button、Label、输入框等，都是一个Widget。Frame则是可以容纳其他Widget的Widget，所有的Widget组合起来就是一棵树。</p><p>pack()方法把Widget加入到父容器中，并实现布局。pack()是最简单的布局，grid()可以实现更复杂的布局。</p><p>在createWidgets()方法中，我们创建一个Label和一个Button，当Button被点击时，触发self.quit()使程序退出。</p><p>第三步，实例化Application，并启动消息循环：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app = Application()</span><br><span class="line"># 设置窗口标题:</span><br><span class="line">app.master.title(&apos;Hello World&apos;)</span><br><span class="line"># 主消息循环:</span><br><span class="line">app.mainloop()</span><br></pre></td></tr></table></figure></p><p>GUI程序的主线程负责监听来自操作系统的消息，并依次处理每一条消息。因此，如果消息处理非常耗时，就需要在新线程中处理。</p><p>运行这个GUI程序，可以看到窗口</p><p>点击“Quit”按钮或者窗口的“x”结束程序。</p><h3 id="输入文本"><a href="#输入文本" class="headerlink" title="输入文本"></a>输入文本</h3><p>我们再对这个GUI程序改进一下，加入一个文本框，让用户可以输入文本，然后点按钮后，弹出消息对话框。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">from tkinter import *</span><br><span class="line">import tkinter.messagebox as messagebox</span><br><span class="line"></span><br><span class="line">class Application(Frame):</span><br><span class="line">    def __init__(self, master=None):</span><br><span class="line">        Frame.__init__(self, master)</span><br><span class="line">        self.pack()</span><br><span class="line">        self.createWidgets()</span><br><span class="line"></span><br><span class="line">    def createWidgets(self):</span><br><span class="line">        self.nameInput = Entry(self)</span><br><span class="line">        self.nameInput.pack()</span><br><span class="line">        self.alertButton = Button(self, text=&apos;Hello&apos;, command=self.hello)</span><br><span class="line">        self.alertButton.pack()</span><br><span class="line"></span><br><span class="line">    def hello(self):</span><br><span class="line">        name = self.nameInput.get() or &apos;world&apos;</span><br><span class="line">        messagebox.showinfo(&apos;Message&apos;, &apos;Hello, %s&apos; % name)</span><br><span class="line"></span><br><span class="line">app = Application()</span><br><span class="line"># 设置窗口标题:</span><br><span class="line">app.master.title(&apos;Hello World&apos;)</span><br><span class="line"># 主消息循环:</span><br><span class="line">app.mainloop()</span><br></pre></td></tr></table></figure></p><p>当用户点击按钮时，触发hello()，通过self.nameInput.get()获得用户输入的文本后，使用tkMessageBox.showinfo()可以弹出消息对话框。</p><p><strong>小结</strong><br>Python内置的Tkinter可以满足基本的GUI程序的要求，如果是非常复杂的GUI程序，建议用操作系统原生支持的语言和库来编写。</p>]]></content>
+      
+      <categories>
+          
+          <category> 编程相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Python vertualenv</title>
+      <link href="/60484/"/>
+      <url>/60484/</url>
+      <content type="html"><![CDATA[<p>在开发Python应用程序的时候，系统安装的Python3只有一个版本：3.4。所有第三方的包都会被pip安装到Python3的site-packages目录下。</p><p>如果我们要同时开发多个应用程序，那这些应用程序都会共用一个Python，就是安装在系统的Python 3。如果应用A需要jinja 2.7，而应用B需要jinja 2.6怎么办？</p><a id="more"></a><hr><p>这种情况下，每个应用可能需要各自拥有一套“独立”的Python运行环境。virtualenv就是用来为一个应用创建一套“隔离”的Python运行环境。</p><p>首先，我们用pip安装virtualenv：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install virtualenv</span><br></pre></td></tr></table></figure></p><p>然后，假定我们要开发一个新的项目，需要一套独立的Python运行环境，可以这么做：</p><p>第一步，创建目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mac:~ michael$ mkdir myproject</span><br><span class="line">Mac:~ michael$ cd myproject/</span><br><span class="line">Mac:myproject michael$</span><br></pre></td></tr></table></figure></p><p>第二步，创建一个独立的Python运行环境，命名为venv：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mac:myproject michael$ virtualenv --no-site-packages venv</span><br><span class="line">Using base prefix &apos;/usr/local/.../Python.framework/Versions/3.4&apos;</span><br><span class="line">New python executable in venv/bin/python3.4</span><br><span class="line">Also creating executable in venv/bin/python</span><br><span class="line">Installing setuptools, pip, wheel...done.</span><br></pre></td></tr></table></figure></p><p>命令virtualenv就可以创建一个独立的Python运行环境，我们还加上了参数–no-site-packages，这样，已经安装到系统Python环境中的所有第三方包都不会复制过来，这样，我们就得到了一个不带任何第三方包的“干净”的Python运行环境。</p><p>新建的Python环境被放到当前目录下的venv目录。有了venv这个Python环境，可以用source进入该环境：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mac:myproject michael$ source venv/bin/activate</span><br><span class="line">(venv)Mac:myproject michael$</span><br></pre></td></tr></table></figure></p><p>注意到命令提示符变了，有个(venv)前缀，表示当前环境是一个名为venv的Python环境。</p><p>下面正常安装各种第三方包，并运行python命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(venv)Mac:myproject michael$ pip install jinja2</span><br><span class="line">...</span><br><span class="line">Successfully installed jinja2-2.7.3 markupsafe-0.23</span><br><span class="line">(venv)Mac:myproject michael$ python myapp.py</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p><p>在venv环境下，用pip安装的包都被安装到venv这个环境下，系统Python环境不受任何影响。也就是说，venv环境是专门针对myproject这个应用创建的。</p><p>退出当前的venv环境，使用deactivate命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(venv)Mac:myproject michael$ deactivate </span><br><span class="line">Mac:myproject michael$</span><br></pre></td></tr></table></figure></p><p>此时就回到了正常的环境，现在pip或python均是在系统Python环境下执行。</p><p>完全可以针对每个应用创建独立的Python运行环境，这样就可以对每个应用的Python环境进行隔离。</p><p>virtualenv是如何创建“独立”的Python运行环境的呢？原理很简单，就是把系统Python复制一份到virtualenv的环境，用命令source venv/bin/activate进入一个virtualenv环境时，virtualenv会修改相关环境变量，让命令python和pip均指向当前的virtualenv环境。</p><p><strong>小结</strong><br>virtualenv为应用提供了隔离的Python运行环境，解决了不同应用间多版本的冲突问题。</p>]]></content>
+      
+      <categories>
+          
+          <category> 编程相关 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
             
         </tags>
       
