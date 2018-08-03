@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Python访问数据库 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="程序运行的时候，数据都是在内存中的。当程序终止的时候，通常都需要将数据保存到磁盘上，无论是保存到本地磁盘，还是通过网络保存到服务器上，最终都会将数据写入磁盘文件。
+而如何定义数据的存储格式就是一个大问题。如果我们自己来定义存储格式，比如保存一个班级所有学生的成绩单：
+名字    成绩Michael    99Bob        85Bart    59Lisa    87你可以用一个文本文件保存，一行保存一个学生，用,隔开：1234Michael,99Bob,85Bart,59Lisa,87
+你还可以用JSON格式保存，也是文本文件：123456[    &amp;#123;&amp;quot;name&amp;quot;:&amp;quot;Michael&amp;quot;,&amp;quot;score&amp;quot;:99&amp;#125;,    &amp;#123;&amp;quot;name&amp;quot;:&amp;quot;Bob&amp;quot;,&amp;quot;score&amp;quot;:85&amp;#125;,    &amp;#123;&amp;quot;name&amp;quot;:&amp;quot;Bart&amp;quot;,&amp;quot;score&amp;quot;:59&amp;#125;,    &amp;#123;&amp;quot;name&amp;quot;:&amp;quot;Lisa&amp;quot;,&amp;quot;score&amp;quot;:87&amp;#125;]
+你还可以定义各种保存格式，但是问题来了：
+存储和读取需要自己实现，JSON还是标准，自己定义的格式就各式各样了；
+不能做快速查询，只有把数据全部读到内存中才能自己遍历，但有时候数据的大小远远超过了内存（比如蓝光电影，40GB的数据），根本无法全部读入内存。
+为了便于程序保存和读取数据，而且，能直接通过条件快速查询到指定的数据，就出现了数据库（Database）这种专门用于集中存储和查询的软件。
+数据库软件诞生的历史非常久远，早在1950年数据库就诞生了。经历了网状数据库，层次数据库，我们现在广泛使用的关系数据库是20世纪70年代基于关系模型的基础上诞生的。
+关系模型有一套复杂的数学理论，但是从概念上是十分容易理解的。举个学校的例子：
+假设某个XX省YY市ZZ县第一实验小学有3个年级，要表示出这3个年级，可以在Excel中用一个表格画出来
+每个年级又有若干个班级，要把所有班级表示出来，可以在Excel中再画一个表格
+这两个表格有个映射关系，就是根据Grade_ID可以在班级表中查找到对应的所有班级
+也就是Grade表的每一行对应Class表的多行，在关系数据库中，这种基于表（Table）的一对多的关系就是关系数据库的基础。
+根据某个年级的ID就可以查找所有班级的行，这种查询语句在关系数据库中称为SQL语句，可以写成：1SELECT * FROM classes WHERE grade_id = &amp;apos;1&amp;apos;;
+结果也是一个表：
+1234567grade_id | class_id | name1        | 11       | 一年级一班1        | 12       | 一年级二班1        | 13       | 一年级三班
+类似的，Class表的一行记录又可以关联到Student表的多行记录
+NoSQL也许还听说过NoSQL数据库，很多NoSQL宣传其速度和规模远远超过关系数据库，所以很多同学觉得有了NoSQL是否就不需要SQL了呢？千万不要被忽悠了，连SQL都不明白怎么可能搞明白NoSQL呢？
+数据库类别既然我们要使用关系数据库，就必须选择一个关系数据库。目前广泛使用的关系数据库也就这么几种：
+付费的商用数据库：
+Oracle，典型的高富帅；
+SQL Server，微软自家产品，Windows定制专款；
+DB2，IBM的产品，听起来挺高端；
+Sybase，曾经跟微软是好基友，后来关系破裂，现在家境惨淡。
+这些数据库都是不开源而且付费的，最大的好处是花了钱出了问题可以找厂家解决，不过在Web的世界里，常常需要部署成千上万的数据库服务器，当然不能把大把大把的银子扔给厂家，所以，无论是Google、Facebook，还是国内的BAT，无一例外都选择了免费的开源数据库：
+MySQL，大家都在用，一般错不了；
+PostgreSQL，学术气息有点重，其实挺不错，但知名度没有MySQL高；
+sqlite，嵌入式数据库，适合桌面和移动应用。
+作为Python开发工程师，选择哪个免费数据库呢？当然是MySQL。因为MySQL普及率最高，出了错，可以很容易找到解决方法。而且，围绕MySQL有一大堆监控和运维的工具，安装和使用很方便。
+从MySQL官方网站下载并安装MySQL Community Server 5.6，这个版本是免费的，其他高级版本是要收钱的。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Python访问数据库"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-12-01T16:00:00.000Z"><a href="/55836/">2017-12-02</a></time>
+        
+  
+    <h1 class="title">Python访问数据库</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#NoSQL"><span class="toc-text">NoSQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库类别"><span class="toc-text">数据库类别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用SQLite"><span class="toc-text">使用SQLite</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用MySQL"><span class="toc-text">使用MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MySQL"><span class="toc-text">安装MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MySQL驱动"><span class="toc-text">安装MySQL驱动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用SQLAlchemy"><span class="toc-text">使用SQLAlchemy</span></a>
+    </div>
+
+        <p>程序运行的时候，数据都是在内存中的。当程序终止的时候，通常都需要将数据保存到磁盘上，无论是保存到本地磁盘，还是通过网络保存到服务器上，最终都会将数据写入磁盘文件。</p>
+<p>而如何定义数据的存储格式就是一个大问题。如果我们自己来定义存储格式，比如保存一个班级所有学生的成绩单：</p>
+<p>名字    成绩<br>Michael    99<br>Bob        85<br>Bart    59<br>Lisa    87<br>你可以用一个文本文件保存，一行保存一个学生，用,隔开：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Michael,99</span><br><span class="line">Bob,85</span><br><span class="line">Bart,59</span><br><span class="line">Lisa,87</span><br></pre></td></tr></table></figure></p>
+<p>你还可以用JSON格式保存，也是文本文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Michael&quot;,&quot;score&quot;:99&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Bob&quot;,&quot;score&quot;:85&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Bart&quot;,&quot;score&quot;:59&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Lisa&quot;,&quot;score&quot;:87&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>你还可以定义各种保存格式，但是问题来了：</p>
+<p>存储和读取需要自己实现，JSON还是标准，自己定义的格式就各式各样了；</p>
+<p>不能做快速查询，只有把数据全部读到内存中才能自己遍历，但有时候数据的大小远远超过了内存（比如蓝光电影，40GB的数据），根本无法全部读入内存。</p>
+<p>为了便于程序保存和读取数据，而且，能直接通过条件快速查询到指定的数据，就出现了数据库（Database）这种专门用于集中存储和查询的软件。</p>
+<p>数据库软件诞生的历史非常久远，早在1950年数据库就诞生了。经历了网状数据库，层次数据库，我们现在广泛使用的关系数据库是20世纪70年代基于关系模型的基础上诞生的。</p>
+<p>关系模型有一套复杂的数学理论，但是从概念上是十分容易理解的。举个学校的例子：</p>
+<p>假设某个XX省YY市ZZ县第一实验小学有3个年级，要表示出这3个年级，可以在Excel中用一个表格画出来</p>
+<p>每个年级又有若干个班级，要把所有班级表示出来，可以在Excel中再画一个表格</p>
+<p>这两个表格有个映射关系，就是根据Grade_ID可以在班级表中查找到对应的所有班级</p>
+<p>也就是Grade表的每一行对应Class表的多行，在关系数据库中，这种基于表（Table）的一对多的关系就是关系数据库的基础。</p>
+<p>根据某个年级的ID就可以查找所有班级的行，这种查询语句在关系数据库中称为SQL语句，可以写成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM classes WHERE grade_id = &apos;1&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>结果也是一个表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">grade_id | class_id | name</span><br><span class="line"></span><br><span class="line">1        | 11       | 一年级一班</span><br><span class="line"></span><br><span class="line">1        | 12       | 一年级二班</span><br><span class="line"></span><br><span class="line">1        | 13       | 一年级三班</span><br></pre></td></tr></table></figure>
+<p>类似的，Class表的一行记录又可以关联到Student表的多行记录</p>
+<h3 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h3><p>也许还听说过NoSQL数据库，很多NoSQL宣传其速度和规模远远超过关系数据库，所以很多同学觉得有了NoSQL是否就不需要SQL了呢？千万不要被忽悠了，连SQL都不明白怎么可能搞明白NoSQL呢？</p>
+<h3 id="数据库类别"><a href="#数据库类别" class="headerlink" title="数据库类别"></a>数据库类别</h3><p>既然我们要使用关系数据库，就必须选择一个关系数据库。目前广泛使用的关系数据库也就这么几种：</p>
+<p>付费的商用数据库：</p>
+<p>Oracle，典型的高富帅；</p>
+<p>SQL Server，微软自家产品，Windows定制专款；</p>
+<p>DB2，IBM的产品，听起来挺高端；</p>
+<p>Sybase，曾经跟微软是好基友，后来关系破裂，现在家境惨淡。</p>
+<p>这些数据库都是不开源而且付费的，最大的好处是花了钱出了问题可以找厂家解决，不过在Web的世界里，常常需要部署成千上万的数据库服务器，当然不能把大把大把的银子扔给厂家，所以，无论是Google、Facebook，还是国内的BAT，无一例外都选择了免费的开源数据库：</p>
+<p>MySQL，大家都在用，一般错不了；</p>
+<p>PostgreSQL，学术气息有点重，其实挺不错，但知名度没有MySQL高；</p>
+<p>sqlite，嵌入式数据库，适合桌面和移动应用。</p>
+<p>作为Python开发工程师，选择哪个免费数据库呢？当然是MySQL。因为MySQL普及率最高，出了错，可以很容易找到解决方法。而且，围绕MySQL有一大堆监控和运维的工具，安装和使用很方便。</p>
+<p>从MySQL官方网站下载并安装MySQL Community Server 5.6，这个版本是免费的，其他高级版本是要收钱的。</p>
+<a id="more"></a>
+<hr>
+<h2 id="使用SQLite"><a href="#使用SQLite" class="headerlink" title="使用SQLite"></a>使用SQLite</h2><p>SQLite是一种嵌入式数据库，它的数据库就是一个文件。由于SQLite本身是C写的，而且体积很小，所以，经常被集成到各种应用程序中，甚至在iOS和Android的App中都可以集成。</p>
+<p>Python就内置了SQLite3，所以，在Python中使用SQLite，不需要安装任何东西，直接使用。</p>
+<p>在使用SQLite前，我们先要搞清楚几个概念：</p>
+<p>表是数据库中存放关系数据的集合，一个数据库里面通常都包含多个表，比如学生的表，班级的表，学校的表，等等。表和表之间通过外键关联。</p>
+<p>要操作关系数据库，首先需要连接到数据库，一个数据库连接称为Connection；</p>
+<p>连接到数据库后，需要打开游标，称之为Cursor，通过Cursor执行SQL语句，然后，获得执行结果。</p>
+<p>Python定义了一套操作数据库的API接口，任何数据库要连接到Python，只需要提供符合Python标准的数据库驱动即可。</p>
+<p>由于SQLite的驱动内置在Python标准库中，所以可以直接来操作SQLite数据库。</p>
+<p>在Python交互式命令行实践一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 导入SQLite驱动:</span><br><span class="line">&gt;&gt;&gt; import sqlite3</span><br><span class="line"># 连接到SQLite数据库</span><br><span class="line"># 数据库文件是test.db</span><br><span class="line"># 如果文件不存在，会自动在当前目录创建:</span><br><span class="line">&gt;&gt;&gt; conn = sqlite3.connect(&apos;test.db&apos;)</span><br><span class="line"># 创建一个Cursor:</span><br><span class="line">&gt;&gt;&gt; cursor = conn.cursor()</span><br><span class="line"># 执行一条SQL语句，创建user表:</span><br><span class="line">&gt;&gt;&gt; cursor.execute(&apos;create table user (id varchar(20) primary key, name varchar(20))&apos;)</span><br><span class="line">&lt;sqlite3.Cursor object at 0x10f8aa260&gt;</span><br><span class="line"># 继续执行一条SQL语句，插入一条记录:</span><br><span class="line">&gt;&gt;&gt; cursor.execute(&apos;insert into user (id, name) values (\&apos;1\&apos;, \&apos;Michael\&apos;)&apos;)</span><br><span class="line">&lt;sqlite3.Cursor object at 0x10f8aa260&gt;</span><br><span class="line"># 通过rowcount获得插入的行数:</span><br><span class="line">&gt;&gt;&gt; cursor.rowcount</span><br><span class="line">1</span><br><span class="line"># 关闭Cursor:</span><br><span class="line">&gt;&gt;&gt; cursor.close()</span><br><span class="line"># 提交事务:</span><br><span class="line">&gt;&gt;&gt; conn.commit()</span><br><span class="line"># 关闭Connection:</span><br><span class="line">&gt;&gt;&gt; conn.close()</span><br></pre></td></tr></table></figure></p>
+<p>再试试查询记录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; conn = sqlite3.connect(&apos;test.db&apos;)</span><br><span class="line">&gt;&gt;&gt; cursor = conn.cursor()</span><br><span class="line"># 执行查询语句:</span><br><span class="line">&gt;&gt;&gt; cursor.execute(&apos;select * from user where id=?&apos;, (&apos;1&apos;,))</span><br><span class="line">&lt;sqlite3.Cursor object at 0x10f8aa340&gt;</span><br><span class="line"># 获得查询结果集:</span><br><span class="line">&gt;&gt;&gt; values = cursor.fetchall()</span><br><span class="line">&gt;&gt;&gt; values</span><br><span class="line">[(&apos;1&apos;, &apos;Michael&apos;)]</span><br><span class="line">&gt;&gt;&gt; cursor.close()</span><br><span class="line">&gt;&gt;&gt; conn.close()</span><br></pre></td></tr></table></figure></p>
+<p>使用Python的DB-API时，只要搞清楚Connection和Cursor对象，打开后一定记得关闭，就可以放心地使用。</p>
+<p>使用Cursor对象执行insert，update，delete语句时，执行结果由rowcount返回影响的行数，就可以拿到执行结果。</p>
+<p>使用Cursor对象执行select语句时，通过featchall()可以拿到结果集。结果集是一个list，每个元素都是一个tuple，对应一行记录。</p>
+<p>如果SQL语句带有参数，那么需要把参数按照位置传递给execute()方法，有几个?占位符就必须对应几个参数，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cursor.execute(&apos;select * from user where name=? and pwd=?&apos;, (&apos;abc&apos;, &apos;password&apos;))</span><br></pre></td></tr></table></figure></p>
+<p>SQLite支持常见的标准SQL语句以及几种常见的数据类型。具体文档请参阅SQLite官方网站。</p>
+<p><strong>小结</strong><br>在Python中操作数据库时，要先导入数据库对应的驱动，然后，通过Connection对象和Cursor对象操作数据。</p>
+<p>要确保打开的Connection对象和Cursor对象都正确地被关闭，否则，资源就会泄露。</p>
+<p>如何才能确保出错的情况下也关闭掉Connection对象和Cursor对象呢？请回忆try:…except:…finally:…的用法。</p>
+<hr>
+<h2 id="使用MySQL"><a href="#使用MySQL" class="headerlink" title="使用MySQL"></a>使用MySQL</h2><p>MySQL是Web世界中使用最广泛的数据库服务器。SQLite的特点是轻量级、可嵌入，但不能承受高并发访问，适合桌面和移动应用。而MySQL是为服务器端设计的数据库，能承受高并发访问，同时占用的内存也远远大于SQLite。</p>
+<p>此外，MySQL内部有多种数据库引擎，最常用的引擎是支持数据库事务的InnoDB。</p>
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><p>可以直接从MySQL官方网站下载最新的Community Server 5.6.x版本。MySQL是跨平台的，选择对应的平台下载安装文件，安装即可。</p>
+<p>安装时，MySQL会提示输入root用户的口令，请务必记清楚。如果怕记不住，就把口令设置为password。</p>
+<p>在Windows上，安装时请选择UTF-8编码，以便正确地处理中文。</p>
+<p>在Mac或Linux上，需要编辑MySQL的配置文件，把数据库默认的编码全部改为UTF-8。MySQL的配置文件默认存放在/etc/my.cnf或者/etc/mysql/my.cnf：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">default-character-set = utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">default-storage-engine = INNODB</span><br><span class="line">character-set-server = utf8</span><br><span class="line">collation-server = utf8_general_ci</span><br></pre></td></tr></table></figure></p>
+<p>重启MySQL后，可以通过MySQL的客户端命令行检查编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MySQL monitor...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &apos;%char%&apos;;</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                  |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                   |</span><br><span class="line">| character_set_connection | utf8                                                   |</span><br><span class="line">| character_set_database   | utf8                                                   |</span><br><span class="line">| character_set_filesystem | binary                                                 |</span><br><span class="line">| character_set_results    | utf8                                                   |</span><br><span class="line">| character_set_server     | utf8                                                   |</span><br><span class="line">| character_set_system     | utf8                                                   |</span><br><span class="line">| character_sets_dir       | /usr/local/mysql-5.1.65-osx10.6-x86_64/share/charsets/ |</span><br><span class="line">+--------------------------+--------------------------------------------------------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>看到utf8字样就表示编码设置正确。</p>
+<p>注：如果MySQL的版本≥5.5.3，可以把编码设置为utf8mb4，utf8mb4和utf8完全兼容，但它支持最新的Unicode标准，可以显示emoji字符。</p>
+<h3 id="安装MySQL驱动"><a href="#安装MySQL驱动" class="headerlink" title="安装MySQL驱动"></a>安装MySQL驱动</h3><p>由于MySQL服务器以独立的进程运行，并通过网络对外服务，所以，需要支持Python的MySQL驱动来连接到MySQL服务器。MySQL官方提供了mysql-connector-python驱动，但是安装的时候需要给pip命令加上参数–allow-external：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install mysql-connector-python --allow-external mysql-connector-python</span><br></pre></td></tr></table></figure></p>
+<p>如果上面的命令安装失败，可以试试另一个驱动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install mysql-connector</span><br></pre></td></tr></table></figure></p>
+<p>我们演示如何连接到MySQL服务器的test数据库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 导入MySQL驱动:</span><br><span class="line">&gt;&gt;&gt; import mysql.connector</span><br><span class="line"># 注意把password设为你的root口令:</span><br><span class="line">&gt;&gt;&gt; conn = mysql.connector.connect(user=&apos;root&apos;, password=&apos;password&apos;, database=&apos;test&apos;)</span><br><span class="line">&gt;&gt;&gt; cursor = conn.cursor()</span><br><span class="line"># 创建user表:</span><br><span class="line">&gt;&gt;&gt; cursor.execute(&apos;create table user (id varchar(20) primary key, name varchar(20))&apos;)</span><br><span class="line"># 插入一行记录，注意MySQL的占位符是%s:</span><br><span class="line">&gt;&gt;&gt; cursor.execute(&apos;insert into user (id, name) values (%s, %s)&apos;, [&apos;1&apos;, &apos;Michael&apos;])</span><br><span class="line">&gt;&gt;&gt; cursor.rowcount</span><br><span class="line">1</span><br><span class="line"># 提交事务:</span><br><span class="line">&gt;&gt;&gt; conn.commit()</span><br><span class="line">&gt;&gt;&gt; cursor.close()</span><br><span class="line"># 运行查询:</span><br><span class="line">&gt;&gt;&gt; cursor = conn.cursor()</span><br><span class="line">&gt;&gt;&gt; cursor.execute(&apos;select * from user where id = %s&apos;, (&apos;1&apos;,))</span><br><span class="line">&gt;&gt;&gt; values = cursor.fetchall()</span><br><span class="line">&gt;&gt;&gt; values</span><br><span class="line">[(&apos;1&apos;, &apos;Michael&apos;)]</span><br><span class="line"># 关闭Cursor和Connection:</span><br><span class="line">&gt;&gt;&gt; cursor.close()</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; conn.close()</span><br></pre></td></tr></table></figure></p>
+<p>由于Python的DB-API定义都是通用的，所以，操作MySQL的数据库代码和SQLite类似。</p>
+<p><strong>小结</strong><br>执行INSERT等操作后要调用commit()提交事务；</p>
+<p>MySQL的SQL占位符是%s。</p>
+<hr>
+<h2 id="使用SQLAlchemy"><a href="#使用SQLAlchemy" class="headerlink" title="使用SQLAlchemy"></a>使用SQLAlchemy</h2><p>数据库表是一个二维表，包含多行多列。把一个表的内容用Python的数据结构表示出来的话，可以用一个list表示多行，list的每一个元素是tuple，表示一行记录，比如，包含id和name的user表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    (&apos;1&apos;, &apos;Michael&apos;),</span><br><span class="line">    (&apos;2&apos;, &apos;Bob&apos;),</span><br><span class="line">    (&apos;3&apos;, &apos;Adam&apos;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>Python的DB-API返回的数据结构就是像上面这样表示的。</p>
+<p>但是用tuple表示一行很难看出表的结构。如果把一个tuple用class实例来表示，就可以更容易地看出表的结构来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class User(object):</span><br><span class="line">    def __init__(self, id, name):</span><br><span class="line">        self.id = id</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">    User(&apos;1&apos;, &apos;Michael&apos;),</span><br><span class="line">    User(&apos;2&apos;, &apos;Bob&apos;),</span><br><span class="line">    User(&apos;3&apos;, &apos;Adam&apos;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>这就是传说中的ORM技术：Object-Relational Mapping，把关系数据库的表结构映射到对象上。是不是很简单？</p>
+<p>但是由谁来做这个转换呢？所以ORM框架应运而生。</p>
+<p>在Python中，最有名的ORM框架是SQLAlchemy。我们来看看SQLAlchemy的用法。</p>
+<p>首先通过pip安装SQLAlchemy：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install sqlalchemy</span><br></pre></td></tr></table></figure></p>
+<p>然后，利用上次我们在MySQL的test数据库中创建的user表，用SQLAlchemy来试试：</p>
+<p>第一步，导入SQLAlchemy，并初始化DBSession：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 导入:</span><br><span class="line">from sqlalchemy import Column, String, create_engine</span><br><span class="line">from sqlalchemy.orm import sessionmaker</span><br><span class="line">from sqlalchemy.ext.declarative import declarative_base</span><br><span class="line"></span><br><span class="line"># 创建对象的基类:</span><br><span class="line">Base = declarative_base()</span><br><span class="line"></span><br><span class="line"># 定义User对象:</span><br><span class="line">class User(Base):</span><br><span class="line">    # 表的名字:</span><br><span class="line">    __tablename__ = &apos;user&apos;</span><br><span class="line"></span><br><span class="line">    # 表的结构:</span><br><span class="line">    id = Column(String(20), primary_key=True)</span><br><span class="line">    name = Column(String(20))</span><br><span class="line"></span><br><span class="line"># 初始化数据库连接:</span><br><span class="line">engine = create_engine(&apos;mysql+mysqlconnector://root:password@localhost:3306/test&apos;)</span><br><span class="line"># 创建DBSession类型:</span><br><span class="line">DBSession = sessionmaker(bind=engine)</span><br></pre></td></tr></table></figure></p>
+<p>以上代码完成SQLAlchemy的初始化和具体每个表的class定义。如果有多个表，就继续定义其他class，例如School：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class School(Base):</span><br><span class="line">    __tablename__ = &apos;school&apos;</span><br><span class="line">    id = ...</span><br><span class="line">    name = ...</span><br></pre></td></tr></table></figure></p>
+<p>create_engine()用来初始化数据库连接。SQLAlchemy用一个字符串表示连接信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;数据库类型+数据库驱动名称://用户名:口令@机器地址:端口号/数据库名&apos;</span><br></pre></td></tr></table></figure></p>
+<p>你只需要根据需要替换掉用户名、口令等信息即可。</p>
+<p>下面，我们看看如何向数据库表中添加一行记录。</p>
+<p>由于有了ORM，我们向数据库表中添加一行记录，可以视为添加一个User对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 创建session对象:</span><br><span class="line">session = DBSession()</span><br><span class="line"># 创建新User对象:</span><br><span class="line">new_user = User(id=&apos;5&apos;, name=&apos;Bob&apos;)</span><br><span class="line"># 添加到session:</span><br><span class="line">session.add(new_user)</span><br><span class="line"># 提交即保存到数据库:</span><br><span class="line">session.commit()</span><br><span class="line"># 关闭session:</span><br><span class="line">session.close()</span><br></pre></td></tr></table></figure></p>
+<p>可见，关键是获取session，然后把对象添加到session，最后提交并关闭。DBSession对象可视为当前数据库连接。</p>
+<p>如何从数据库表中查询数据呢？有了ORM，查询出来的可以不再是tuple，而是User对象。SQLAlchemy提供的查询接口如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 创建Session:</span><br><span class="line">session = DBSession()</span><br><span class="line"># 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:</span><br><span class="line">user = session.query(User).filter(User.id==&apos;5&apos;).one()</span><br><span class="line"># 打印类型和对象的name属性:</span><br><span class="line">print(&apos;type:&apos;, type(user))</span><br><span class="line">print(&apos;name:&apos;, user.name)</span><br><span class="line"># 关闭Session:</span><br><span class="line">session.close()</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type: &lt;class &apos;__main__.User&apos;&gt;</span><br><span class="line">name: Bob</span><br></pre></td></tr></table></figure></p>
+<p>可见，ORM就是把数据库表的行与相应的对象建立关联，互相转换。</p>
+<p>由于关系数据库的多个表还可以用外键实现一对多、多对多等关联，相应地，ORM框架也可以提供两个对象之间的一对多、多对多等功能。</p>
+<p>例如，如果一个User拥有多个Book，就可以定义一对多关系如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User(Base):</span><br><span class="line">    __tablename__ = &apos;user&apos;</span><br><span class="line"></span><br><span class="line">    id = Column(String(20), primary_key=True)</span><br><span class="line">    name = Column(String(20))</span><br><span class="line">    # 一对多:</span><br><span class="line">    books = relationship(&apos;Book&apos;)</span><br><span class="line"></span><br><span class="line">class Book(Base):</span><br><span class="line">    __tablename__ = &apos;book&apos;</span><br><span class="line"></span><br><span class="line">    id = Column(String(20), primary_key=True)</span><br><span class="line">    name = Column(String(20))</span><br><span class="line">    # “多”的一方的book表是通过外键关联到user表的:</span><br><span class="line">    user_id = Column(String(20), ForeignKey(&apos;user.id&apos;))</span><br></pre></td></tr></table></figure></p>
+<p>当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。</p>
+<p><strong>小结</strong><br>ORM框架的作用就是把数据库表的一行记录与一个对象互相做自动转换。</p>
+<p>正确使用ORM的前提是了解关系数据库的原理。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/编程相关/">编程相关</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学基础/">数学基础</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">24</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 13.33px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 18.33px;">Machine Learning 课程笔记</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/博客/" style="font-size: 11.67px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 16.67px;">机器学习</a> <a href="/tags/概率论与数理统计/" style="font-size: 10px;">概率论与数理统计</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/爬虫/" style="font-size: 11.67px;">爬虫</a> <a href="/tags/目录/" style="font-size: 10px;">目录</a> <a href="/tags/算法/" style="font-size: 11.67px;">算法</a> <a href="/tags/线性代数/" style="font-size: 10px;">线性代数</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a> <a href="/tags/高等数学/" style="font-size: 10px;">高等数学</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
