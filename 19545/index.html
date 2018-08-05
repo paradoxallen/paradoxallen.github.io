@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>第 3 页 | RP&#39;s Blog</title>
+  <title>Matplotlib数据可视化 | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
+  
+  <meta name="description" content="12import matplotlib.pyplot as pltimport numpy as np
+123456##基本使用#基本用法x = np.linspace(-1, 1, 50)y = 2*x + 1plt.plot(x, y)plt.show
+&amp;lt;function matplotl">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Matplotlib数据可视化"/>
   <meta property="og:site_name" content="RP&#39;s Blog"/>
 
   
@@ -70,285 +74,7 @@
 </div>
 </header>
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper">
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-11-02T16:00:00.000Z"><a href="/25993/">2017-11-03</a></time>
-        
-  
-    <h1 class="title"><a href="/25993/">Python错误，调试和测试</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>在程序运行过程中，总会遇到各种各样的错误。</p>
-<p>有的错误是程序编写有问题造成的，比如本来应该输出整数结果输出了字符串，这种错误我们通常称之为bug，bug是必须修复的。</p>
-<p>有的错误是用户输入造成的，比如让用户输入email地址，结果得到一个空字符串，这种错误可以通过检查用户输入来做相应的处理。</p>
-<p>还有一类错误是完全无法在程序运行过程中预测的，比如写入文件的时候，磁盘满了，写不进去了，或者从网络抓取数据，网络突然断掉了。这类错误也称为异常，在程序中通常是必须处理的，否则，程序会因为各种问题终止并退出。</p>
-<p>Python内置了一套异常处理机制，来帮助我们进行错误处理。</p>
-<p>此外，我们也需要跟踪程序的执行，查看变量的值是否正确，这个过程称为调试。Python的pdb可以让我们以单步方式执行代码。</p>
-<p>最后，编写测试也很重要。有了良好的测试，就可以在程序修改后反复运行，确保程序输出符合我们编写的测试。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/25993/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-29T16:00:00.000Z"><a href="/6370/">2017-10-30</a></time>
-        
-  
-    <h1 class="title"><a href="/6370/">Python面向对象高级编程</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>数据封装、继承和多态只是面向对象程序设计中最基础的3个概念。在Python中，面向对象还有很多高级特性，允许我们写出非常强大的功能。</p>
-<p>我们会讨论多重继承、定制类、元类等概念。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/6370/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-25T16:00:00.000Z"><a href="/44293/">2017-10-26</a></time>
-        
-  
-    <h1 class="title"><a href="/44293/">Python面向对象编程</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>面向对象编程——Object Oriented Programming，简称OOP，是一种程序设计思想。OOP把对象作为程序的基本单元，一个对象包含了数据和操作数据的函数。</p>
-<p>面向过程的程序设计把计算机程序视为一系列的命令集合，即一组函数的顺序执行。为了简化程序设计，面向过程把函数继续切分为子函数，即把大块函数通过切割成小块函数来降低系统的复杂度。</p>
-<p>而面向对象的程序设计把计算机程序视为一组对象的集合，而每个对象都可以接收其他对象发过来的消息，并处理这些消息，计算机程序的执行就是一系列消息在各个对象之间传递。</p>
-<p>在Python中，所有数据类型都可以视为对象，当然也可以自定义对象。自定义的对象数据类型就是面向对象中的类（Class）的概念。</p>
-<p>我们以一个例子来说明面向过程和面向对象在程序流程上的不同之处。</p>
-<p>假设我们要处理学生的成绩表，为了表示一个学生的成绩，面向过程的程序可以用一个dict表示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std1 = &#123; &apos;name&apos;: &apos;Michael&apos;, &apos;score&apos;: 98 &#125;</span><br><span class="line">std2 = &#123; &apos;name&apos;: &apos;Bob&apos;, &apos;score&apos;: 81 &#125;</span><br></pre></td></tr></table></figure></p>
-<p>而处理学生成绩可以通过函数实现，比如打印学生的成绩：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def print_score(std):</span><br><span class="line">    print(&apos;%s: %s&apos; % (std[&apos;name&apos;], std[&apos;score&apos;]))</span><br></pre></td></tr></table></figure></p>
-<p>如果采用面向对象的程序设计思想，我们首选思考的不是程序的执行流程，而是<code>Student</code>这种数据类型应该被视为一个对象，这个对象拥有<code>name</code>和<code>score</code>这两个属性（Property）。如果要打印一个学生的成绩，首先必须创建出这个学生对应的对象，然后，给对象发一个<code>print_score</code>消息，让对象自己把自己的数据打印出来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Student(object):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name, score):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.score = score</span><br><span class="line"></span><br><span class="line">    def print_score(self):</span><br><span class="line">        print(&apos;%s: %s&apos; % (self.name, self.score))</span><br></pre></td></tr></table></figure></p>
-<p>给对象发消息实际上就是调用对象对应的关联函数，我们称之为对象的方法（Method）。面向对象的程序写出来就像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bart = Student(&apos;Bart Simpson&apos;, 59)</span><br><span class="line">lisa = Student(&apos;Lisa Simpson&apos;, 87)</span><br><span class="line">bart.print_score()</span><br><span class="line">lisa.print_score()</span><br></pre></td></tr></table></figure></p>
-<p>面向对象的设计思想是从自然界中来的，因为在自然界中，类（Class）和实例（Instance）的概念是很自然的。Class是一种抽象概念，比如我们定义的Class——Student，是指学生这个概念，而实例（Instance）则是一个个具体的Student，比如，Bart Simpson和Lisa Simpson是两个具体的Student。</p>
-<p>所以，面向对象的设计思想是抽象出Class，根据Class创建Instance。</p>
-<p>面向对象的抽象程度又比函数要高，因为一个Class既包含数据，又包含操作数据的方法。</p>
-<p><strong>小结</strong><br>数据封装、继承和多态是面向对象的三大特点，我们后面会详细讲解。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/44293/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-23T16:00:00.000Z"><a href="/58477/">2017-10-24</a></time>
-        
-  
-    <h1 class="title"><a href="/58477/">Python模块</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>在计算机程序的开发过程中，随着程序代码越写越多，在一个文件里代码就会越来越长，越来越不容易维护。</p>
-<p>为了编写可维护的代码，我们把很多函数分组，分别放到不同的文件里，这样，每个文件包含的代码就相对较少，很多编程语言都采用这种组织代码的方式。在Python中，一个.py文件就称之为一个模块（Module）。</p>
-<p>使用模块有什么好处？</p>
-<p>最大的好处是大大提高了代码的可维护性。其次，编写代码不必从零开始。当一个模块编写完毕，就可以被其他地方引用。我们在编写程序的时候，也经常引用其他模块，包括Python内置的模块和来自第三方的模块。</p>
-<p>使用模块还可以避免函数名和变量名冲突。相同名字的函数和变量完全可以分别存在不同的模块中，因此，我们自己在编写模块时，不必考虑名字会与其他模块冲突。但是也要注意，尽量不要与内置函数名字冲突。</p>
-<p>你也许还想到，如果不同的人编写的模块名相同怎么办？为了避免模块名冲突，Python又引入了按目录来组织模块的方法，称为包（Package）。</p>
-<p>举个例子，一个<code>abc.py</code>的文件就是一个名字叫abc的模块，一个<code>xyz.py</code>的文件就是一个名字叫<code>xyz</code>的模块。</p>
-<p>现在，假设我们的<code>abc</code>和<code>xyz</code>这两个模块名字与其他模块冲突了，于是我们可以通过包来组织模块，避免冲突。方法是选择一个顶层包名，比如<code>mycompany</code>，按照如下目录存放：</p>
-<p>mycompany<br>├─ <strong>init</strong>.py<br>├─ abc.py<br>└─ xyz.py</p>
-<p>引入了包以后，只要顶层的包名不与别人冲突，那所有模块都不会与别人冲突。现在，<code>abc.py</code>模块的名字就变成了<code>mycompany.abc</code>，类似的，<code>xyz.py</code>的模块名变成了<code>mycompany.xyz</code>。</p>
-<p>请注意，每一个包目录下面都会有一个<code>__init__.py</code>的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。<code>__init__.py</code>可以是空文件，也可以有Python代码，因为<code>__init__.py</code>本身就是一个模块，而它的模块名就是<code>mycompany</code>。</p>
-<p>类似的，可以有多级目录，组成多级层次的包结构。比如如下的目录结构：</p>
-<p>mycompany<br> ├─ web<br> │  ├─ <strong>init</strong>.py<br> │  ├─ utils.py<br> │  └─ <a href="http://www.py" target="_blank" rel="noopener">www.py</a><br> ├─ <strong>init</strong>.py<br> ├─ abc.py<br> └─ xyz.py</p>
-<p>文件<code>www.py</code>的模块名就是<code>mycompany.web.www</code>，两个文件<code>utils.py</code>的模块名分别是<code>mycompany.utils</code>和<code>mycompany.web.utils</code>。</p>
-<p>自己创建模块时要注意命名，不能和Python自带的模块名称冲突。例如，系统自带了sys模块，自己的模块就不可命名为sys.py，否则将无法导入系统自带的sys模块。</p>
-<p><code>mycompany.web</code>也是一个模块，请指出该模块对应的<code>.py</code>文件。</p>
-<p><strong>总结</strong><br>模块是一组Python代码的集合，可以使用其他模块，也可以被其他模块使用。</p>
-<p>创建自己的模块时，要注意：</p>
-<p>模块名要遵循Python变量命名规范，不要使用中文、特殊字符；<br>模块名不要和系统模块名冲突，最好先查看系统是否已存在该模块，检查方法是在Python交互环境执行<code>import abc</code>，若成功则说明系统存在此模块。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/58477/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-19T16:00:00.000Z"><a href="/9796/">2017-10-20</a></time>
-        
-  
-    <h1 class="title"><a href="/9796/">Python函数式编程</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>函数是Python内建支持的一种封装，我们通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务，这种分解可以称之为面向过程的程序设计。函数就是面向过程的程序设计的基本单元。</p>
-<p>而函数式编程（请注意多了一个“式”字）——Functional Programming，虽然也可以归结到面向过程的程序设计，但其思想更接近数学计算。</p>
-<p>我们首先要搞明白计算机（Computer）和计算（Compute）的概念。</p>
-<p>在计算机的层次上，CPU执行的是加减乘除的指令代码，以及各种条件判断和跳转指令，所以，汇编语言是最贴近计算机的语言。</p>
-<p>而计算则指数学意义上的计算，越是抽象的计算，离计算机硬件越远。</p>
-<p>对应到编程语言，就是越低级的语言，越贴近计算机，抽象程度低，执行效率高，比如C语言；越高级的语言，越贴近计算，抽象程度高，执行效率低，比如Lisp语言。</p>
-<p>函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。而允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出，因此，这种函数是有副作用的。</p>
-<p>函数式编程的一个特点就是，允许把函数本身作为参数传入另一个函数，还允许返回一个函数！</p>
-<p>Python对函数式编程提供部分支持。由于Python允许使用变量，因此，Python不是纯函数式编程语言。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/9796/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-14T16:00:00.000Z"><a href="/28663/">2017-10-15</a></time>
-        
-  
-    <h1 class="title"><a href="/28663/">Python高级特性</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>掌握了Python的数据类型、语句和函数，基本上就可以编写出很多有用的程序了。</p>
-<p>比如构造一个1, 3, 5, 7, …, 99的列表，可以通过循环实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L = []</span><br><span class="line">n = 1</span><br><span class="line">while n &lt;= 99:</span><br><span class="line">    L.append(n)</span><br><span class="line">    n = n + 2</span><br></pre></td></tr></table></figure></p>
-<p>取list的前一半的元素，也可以通过循环实现。</p>
-<p>但是在Python中，代码不是越多越好，而是越少越好。代码不是越复杂越好，而是越简单越好。</p>
-<p>基于这一思想，我们来介绍Python中非常有用的高级特性，1行代码能实现的功能，决不写5行代码。请始终牢记，代码越少，开发效率越高。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/28663/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -357,7 +83,7 @@
         <time datetime="2017-10-09T16:00:00.000Z"><a href="/19545/">2017-10-10</a></time>
         
   
-    <h1 class="title"><a href="/19545/">Matplotlib数据可视化</a></h1>
+    <h1 class="title">Matplotlib数据可视化</h1>
   
 
     </header>
@@ -428,7 +154,20 @@
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/编程相关/">编程相关</a>
+  </div>
+
         
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
       
       <div class="clearfix"></div>
     </footer>
@@ -438,132 +177,7 @@
 <div id="toTop">
 	<a href="#">▲</a>
 	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-09T16:00:00.000Z"><a href="/23304/">2017-10-10</a></time>
-        
-  
-    <h1 class="title"><a href="/23304/">Python函数</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>Python的函数相关<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/23304/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-06T16:00:00.000Z"><a href="/14702/">2017-10-07</a></time>
-        
-  
-    <h1 class="title"><a href="/14702/">Python基础</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>Python是一种计算机编程语言。计算机编程语言和我们日常使用的自然语言有所不同，最大的区别就是，自然语言在不同的语境下有不同的理解，而计算机要根据编程语言执行任务，就必须保证编程语言写出的程序决不能有歧义，所以，任何一种编程语言都有自己的一套语法，编译器或者解释器就是负责把符合语法的程序代码转换成CPU能够执行的机器码，然后执行。Python也不例外。</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/14702/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
-
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        <div class="icon"></div>
-        
-        <time datetime="2017-10-03T16:00:00.000Z"><a href="/10471/">2017-10-04</a></time>
-        
-  
-    <h1 class="title"><a href="/10471/">第一个Python程序</a></h1>
-  
-
-    </header>
-
-    <div class="entry">
-      
-        <p>编写第一个Python程序</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/10471/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-<!-- 返回顶部 -->
-<div id="toTop">
-	<a href="#">▲</a>
-	<a href="#footer">▼</a>
-</div>
- 
-<nav id="pagination">
-  
-    <a href="/page/2/" class="alignleft prev">上一页</a>
-  
-  
-    <a href="/page/4/" class="alignright next">下一页</a>
-  
-  <div class="clearfix"></div>
-</nav>
-</div></div>
+</div></div></div>
       <aside id="sidebar" class="alignright">
         
            <div class="search">
