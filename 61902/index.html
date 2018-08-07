@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SQL基础 | RP&#39;s Blog</title>
+  <meta name="author" content="LRP">
+  
+  <meta name="description" content="SQL 是用于访问和处理数据库的标准的计算机语言。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="SQL基础"/>
+  <meta property="og:site_name" content="RP&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="alternate" href="/atom.xml" title="RP&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- wumiiVerification -->
+  <meta name="wumiiVerification" content="fb50a101-84fe-4ca2-91a7-ae8cf792978b" />
+  <meta name="wumiiVerification" content="d73b5866-c390-4156-a4dd-51b526b5335e" />
+  <!-- favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body>
+  <header id="header"><div class= "header-content inner">
+	<div class = "alignleft col-one">
+		
+			<div class='avatar'>
+				<img src = "/img/default/avatar.jpg">
+              </div>
+		
+		<div class="header-div">
+		    <h1><a href="/">RP&#39;s Blog</a></h1>
+		    <h2><a href="/">学习总结  思考感悟</a></h2>
+		</div>
+	</div>
+	<div class = "alignright col-two">
+		
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class= "header-nav">
+	<div class='header-nav-content inner'>
+		<div id="main-nav" class="alignleft">
+		    		
+		    		  <a href="/"><i class="fa fa-home"></i>首页</a>
+		    		
+		    		  <a href="/archives"><i class="fa fa-archive"></i>归档</a>
+		    		
+		</div>
+		<div id="sub-nav" class="alignright">
+		    
+		      <a href="/atom.xml"><i class="fa fa-rss"></i>订阅</a>
+		    
+		      <a href="/about"><i class="fa fa-user"></i>关于</a>
+		    
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</header>
+    <div id="content" class="inner">
+      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+        <div class="icon"></div>
+        
+        <time datetime="2017-03-03T16:00:00.000Z"><a href="/61902/">2017-03-04</a></time>
+        
+  
+    <h1 class="title">SQL基础</h1>
+  
+
+    </header>
+
+    <div class="entry">
+      
+        
+    <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-简介"><span class="toc-text">SQL 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是-SQL？"><span class="toc-text">什么是 SQL？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-能做什么？"><span class="toc-text">SQL 能做什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-是一种标准-但是…"><span class="toc-text">SQL 是一种标准 - 但是…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在您的网站中使用-SQL"><span class="toc-text">在您的网站中使用 SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RDBMS"><span class="toc-text">RDBMS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-语法"><span class="toc-text">SQL 语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库表"><span class="toc-text">数据库表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-语句"><span class="toc-text">SQL 语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重要事项"><span class="toc-text">重要事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-语句后面的分号？"><span class="toc-text">SQL 语句后面的分号？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-DML-和-DDL"><span class="toc-text">SQL DML 和 DDL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-SELECT-语句"><span class="toc-text">SQL SELECT 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-SELECT-语句-1"><span class="toc-text">SQL SELECT 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL-SELECT-语法"><span class="toc-text">SQL SELECT 语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL-SELECT-实例"><span class="toc-text">SQL SELECT 实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL-SELECT-实例-1"><span class="toc-text">SQL SELECT * 实例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在结果集（result-set）中导航"><span class="toc-text">在结果集（result-set）中导航</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-SELECT-DISTINCT-语句"><span class="toc-text">SQL SELECT DISTINCT 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-SELECT-DISTINCT-语句-1"><span class="toc-text">SQL SELECT DISTINCT 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#语法："><span class="toc-text">语法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-DISTINCT-关键词"><span class="toc-text">使用 DISTINCT 关键词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-WHERE-子句"><span class="toc-text">SQL WHERE 子句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WHERE-子句"><span class="toc-text">WHERE 子句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#语法"><span class="toc-text">语法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-WHERE-子句"><span class="toc-text">使用 WHERE 子句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引号的使用"><span class="toc-text">引号的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文本值："><span class="toc-text">文本值：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数值："><span class="toc-text">数值：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-AND-amp-OR-运算符"><span class="toc-text">SQL AND &amp; OR 运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AND-和-OR-运算符"><span class="toc-text">AND 和 OR 运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AND-运算符实例"><span class="toc-text">AND 运算符实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OR-运算符实例"><span class="toc-text">OR 运算符实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结合-AND-和-OR-运算符"><span class="toc-text">结合 AND 和 OR 运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-ORDER-BY-子句"><span class="toc-text">SQL ORDER BY 子句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ORDER-BY-语句"><span class="toc-text">ORDER BY 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实例-1"><span class="toc-text">实例 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例-2"><span class="toc-text">实例 2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例-3"><span class="toc-text">实例 3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例-4"><span class="toc-text">实例 4</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-INSERT-INTO-语句"><span class="toc-text">SQL INSERT INTO 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#INSERT-INTO-语句"><span class="toc-text">INSERT INTO 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#语法-1"><span class="toc-text">语法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入新的行"><span class="toc-text">插入新的行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL-语句："><span class="toc-text">SQL 语句：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在指定的列中插入数据"><span class="toc-text">在指定的列中插入数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL-语句：-1"><span class="toc-text">SQL 语句：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-UPDATE-语句"><span class="toc-text">SQL UPDATE 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-语句"><span class="toc-text">Update 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#语法：-1"><span class="toc-text">语法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新某一行中的一个列"><span class="toc-text">更新某一行中的一个列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新某一行中的若干列"><span class="toc-text">更新某一行中的若干列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-DELETE-语句"><span class="toc-text">SQL DELETE 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DELETE-语句"><span class="toc-text">DELETE 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#语法-2"><span class="toc-text">语法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除某行"><span class="toc-text">删除某行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除所有行"><span class="toc-text">删除所有行</span></a></li></ol></li></ol>
+    </div>
+
+        <p>SQL 是用于访问和处理数据库的标准的计算机语言。</p>
+<a id="more"></a>
+<hr>
+<h2 id="SQL-简介"><a href="#SQL-简介" class="headerlink" title="SQL 简介"></a>SQL 简介</h2><h3 id="什么是-SQL？"><a href="#什么是-SQL？" class="headerlink" title="什么是 SQL？"></a>什么是 SQL？</h3><p>SQL 指结构化查询语言<br>SQL 使我们有能力访问数据库<br>SQL 是一种 ANSI 的标准计算机语言<br>注：ANSI，美国国家标准化组织</p>
+<h3 id="SQL-能做什么？"><a href="#SQL-能做什么？" class="headerlink" title="SQL 能做什么？"></a>SQL 能做什么？</h3><p>SQL 面向数据库执行查询<br>SQL 可从数据库取回数据<br>SQL 可在数据库中插入新的记录<br>SQL 可更新数据库中的数据<br>SQL 可从数据库删除记录<br>SQL 可创建新数据库<br>SQL 可在数据库中创建新表<br>SQL 可在数据库中创建存储过程<br>SQL 可在数据库中创建视图<br>SQL 可以设置表、存储过程和视图的权限</p>
+<h3 id="SQL-是一种标准-但是…"><a href="#SQL-是一种标准-但是…" class="headerlink" title="SQL 是一种标准 - 但是…"></a>SQL 是一种标准 - 但是…</h3><p>SQL 是一门 ANSI 的标准计算机语言，用来访问和操作数据库系统。SQL 语句用于取回和更新数据库中的数据。SQL 可与数据库程序协同工作，比如 MS Access、DB2、Informix、MS SQL Server、Oracle、Sybase 以及其他数据库系统。</p>
+<p>不幸地是，存在着很多不同版本的 SQL 语言，但是为了与 ANSI 标准相兼容，它们必须以相似的方式共同地来支持一些主要的关键词（比如 SELECT、UPDATE、DELETE、INSERT、WHERE 等等）。</p>
+<p>注释：除了 SQL 标准之外，大部分 SQL 数据库程序都拥有它们自己的私有扩展！</p>
+<h3 id="在您的网站中使用-SQL"><a href="#在您的网站中使用-SQL" class="headerlink" title="在您的网站中使用 SQL"></a>在您的网站中使用 SQL</h3><p>要创建发布数据库中数据的网站，您需要以下要素：</p>
+<p>RDBMS 数据库程序（比如 MS Access, SQL Server, MySQL）<br>服务器端脚本语言（比如 PHP 或 ASP）<br>SQL<br>HTML / CSS</p>
+<h3 id="RDBMS"><a href="#RDBMS" class="headerlink" title="RDBMS"></a>RDBMS</h3><p>RDBMS 指的是关系型数据库管理系统。</p>
+<p>RDBMS 是 SQL 的基础，同样也是所有现代数据库系统的基础，比如 MS SQL Server, IBM DB2, Oracle, MySQL 以及 Microsoft Access。</p>
+<p>RDBMS 中的数据存储在被称为表（tables）的数据库对象中。</p>
+<p>表是相关的数据项的集合，它由列和行组成。</p>
+<hr>
+<h2 id="SQL-语法"><a href="#SQL-语法" class="headerlink" title="SQL 语法"></a>SQL 语法</h2><h3 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h3><p>一个数据库通常包含一个或多个表。每个表由一个名字标识（例如“客户”或者“订单”）。表包含带有数据的记录（行）。</p>
+<p>下面的例子是一个名为 “Persons” 的表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Id	LastName   FirstName	Address	     City   </span><br><span class="line">1	Adams	   John	     Oxford Street   London</span><br><span class="line">2	Bush	    George	   Fifth Avenue    New York</span><br><span class="line">3	Carter	  Thomas	   Changan Street  Beijing</span><br></pre></td></tr></table></figure></p>
+<p>上面的表包含三条记录（每一条对应一个人）和五个列（Id、姓、名、地址和城市）。</p>
+<h3 id="SQL-语句"><a href="#SQL-语句" class="headerlink" title="SQL 语句"></a>SQL 语句</h3><p>您需要在数据库上执行的大部分工作都由 SQL 语句完成。</p>
+<p>下面的语句从表中选取 LastName 列的数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT LastName FROM Persons</span><br></pre></td></tr></table></figure></p>
+<p>结果集类似这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LastName</span><br><span class="line">Adams</span><br><span class="line">Bush</span><br><span class="line">Carter</span><br></pre></td></tr></table></figure></p>
+<p>以下将讲解各种不同的 SQL 语句。</p>
+<h3 id="重要事项"><a href="#重要事项" class="headerlink" title="重要事项"></a>重要事项</h3><p>一定要记住，SQL 对大小写不敏感！</p>
+<h3 id="SQL-语句后面的分号？"><a href="#SQL-语句后面的分号？" class="headerlink" title="SQL 语句后面的分号？"></a>SQL 语句后面的分号？</h3><p>某些数据库系统要求在每条 SQL 命令的末端使用分号。这里不使用分号。</p>
+<p>分号是在数据库系统中分隔每条 SQL 语句的标准方法，这样就可以在对服务器的相同请求中执行一条以上的语句。</p>
+<p>如果您使用的是 MS Access 和 SQL Server 2000，则不必在每条 SQL 语句之后使用分号，不过某些数据库软件要求必须使用分号。</p>
+<h3 id="SQL-DML-和-DDL"><a href="#SQL-DML-和-DDL" class="headerlink" title="SQL DML 和 DDL"></a>SQL DML 和 DDL</h3><p>可以把 SQL 分为两个部分：数据操作语言 (DML) 和 数据定义语言 (DDL)。<br>SQL (结构化查询语言)是用于执行查询的语法。但是 SQL 语言也包含用于更新、插入和删除记录的语法。</p>
+<p>查询和更新指令构成了 SQL 的 DML 部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT - 从数据库表中获取数据</span><br><span class="line">UPDATE - 更新数据库表中的数据</span><br><span class="line">DELETE - 从数据库表中删除数据</span><br><span class="line">INSERT INTO - 向数据库表中插入数据</span><br></pre></td></tr></table></figure></p>
+<p>SQL 的数据定义语言 (DDL) 部分使我们有能力创建或删除表格。我们也可以定义索引（键），规定表之间的链接，以及施加表间的约束。</p>
+<p>SQL 中最重要的 DDL 语句:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE - 创建新数据库</span><br><span class="line">ALTER DATABASE - 修改数据库</span><br><span class="line">CREATE TABLE - 创建新表</span><br><span class="line">ALTER TABLE - 变更（改变）数据库表</span><br><span class="line">DROP TABLE - 删除表</span><br><span class="line">CREATE INDEX - 创建索引（搜索键）</span><br><span class="line">DROP INDEX - 删除索引</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="SQL-SELECT-语句"><a href="#SQL-SELECT-语句" class="headerlink" title="SQL SELECT 语句"></a>SQL SELECT 语句</h2><p>这里讲解 SELECT 和 SELECT * 语句。</p>
+<h3 id="SQL-SELECT-语句-1"><a href="#SQL-SELECT-语句-1" class="headerlink" title="SQL SELECT 语句"></a>SQL SELECT 语句</h3><p>SELECT 语句用于从表中选取数据。</p>
+<p>结果被存储在一个结果表中（称为结果集）。</p>
+<h4 id="SQL-SELECT-语法"><a href="#SQL-SELECT-语法" class="headerlink" title="SQL SELECT 语法"></a>SQL SELECT 语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名称 FROM 表名称</span><br></pre></td></tr></table></figure>
+<p> 以及：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名称</span><br></pre></td></tr></table></figure></p>
+<p>注释：SQL 语句对大小写不敏感。SELECT 等效于 select。</p>
+<h4 id="SQL-SELECT-实例"><a href="#SQL-SELECT-实例" class="headerlink" title="SQL SELECT 实例"></a>SQL SELECT 实例</h4><p>如需获取名为 “LastName” 和 “FirstName” 的列的内容（从名为 “Persons” 的数据库表），请使用类似这样的 SELECT 语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT LastName,FirstName FROM Persons</span><br><span class="line">&quot;Persons&quot; 表:</span><br><span class="line">Id	LastName	FirstName	Address	City</span><br><span class="line">1	Adams	John	Oxford Street	London</span><br><span class="line">2	Bush	George	Fifth Avenue	New York</span><br><span class="line">3	Carter	Thomas	Changan Street	Beijing</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName</span><br><span class="line">Adams	John</span><br><span class="line">Bush	George</span><br><span class="line">Carter	Thomas</span><br></pre></td></tr></table></figure></p>
+<h4 id="SQL-SELECT-实例-1"><a href="#SQL-SELECT-实例-1" class="headerlink" title="SQL SELECT * 实例"></a>SQL SELECT * 实例</h4><p>现在我们希望从 “Persons” 表中选取所有的列。</p>
+<p>请使用符号 * 取代列的名称，就像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons</span><br></pre></td></tr></table></figure></p>
+<p>提示：星号（*）是选取所有列的快捷方式。</p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Id	LastName	FirstName	Address	City</span><br><span class="line">1	Adams	John	Oxford Street	London</span><br><span class="line">2	Bush	George	Fifth Avenue	New York</span><br><span class="line">3	Carter	Thomas	Changan Street	Beijing</span><br></pre></td></tr></table></figure></p>
+<h3 id="在结果集（result-set）中导航"><a href="#在结果集（result-set）中导航" class="headerlink" title="在结果集（result-set）中导航"></a>在结果集（result-set）中导航</h3><p>由 SQL 查询程序获得的结果被存放在一个结果集中。大多数数据库软件系统都允许使用编程函数在结果集中进行导航，比如：Move-To-First-Record、Get-Record-Content、Move-To-Next-Record 等等。</p>
+<p>类似这些编程函数不在这里讲解之列。如需学习通过函数调用访问数据的知识，请学习相关 ADO 教程 和 PHP 教程。</p>
+<hr>
+<h2 id="SQL-SELECT-DISTINCT-语句"><a href="#SQL-SELECT-DISTINCT-语句" class="headerlink" title="SQL SELECT DISTINCT 语句"></a>SQL SELECT DISTINCT 语句</h2><p>讲解 SELECT DISTINCT 语句。</p>
+<h3 id="SQL-SELECT-DISTINCT-语句-1"><a href="#SQL-SELECT-DISTINCT-语句-1" class="headerlink" title="SQL SELECT DISTINCT 语句"></a>SQL SELECT DISTINCT 语句</h3><p>在表中，可能会包含重复值。这并不成问题，不过，有时您也许希望仅仅列出不同（distinct）的值。</p>
+<p>关键词 DISTINCT 用于返回唯一不同的值。</p>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT 列名称 FROM 表名称</span><br></pre></td></tr></table></figure>
+<h3 id="使用-DISTINCT-关键词"><a href="#使用-DISTINCT-关键词" class="headerlink" title="使用 DISTINCT 关键词"></a>使用 DISTINCT 关键词</h3><p>如果要从 “Company” 列中选取所有的值，我们需要使用 SELECT 语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company FROM Orders</span><br></pre></td></tr></table></figure></p>
+<p>“Orders”表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company	OrderNumber</span><br><span class="line">IBM	3532</span><br><span class="line">W3School	2356</span><br><span class="line">Apple	4698</span><br><span class="line">W3School	6953</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company</span><br><span class="line">IBM</span><br><span class="line">W3School</span><br><span class="line">Apple</span><br><span class="line">W3School</span><br></pre></td></tr></table></figure></p>
+<p>请注意，在结果集中，W3School 被列出了两次。</p>
+<p>如需从 Company” 列中仅选取唯一不同的值，我们需要使用 SELECT DISTINCT 语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT Company FROM Orders</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Company</span><br><span class="line">IBM</span><br><span class="line">W3School</span><br><span class="line">Apple</span><br></pre></td></tr></table></figure></p>
+<p>现在，在结果集中，”W3School” 仅被列出了一次。</p>
+<hr>
+<h2 id="SQL-WHERE-子句"><a href="#SQL-WHERE-子句" class="headerlink" title="SQL WHERE 子句"></a>SQL WHERE 子句</h2><p>WHERE 子句用于规定选择的标准。</p>
+<h3 id="WHERE-子句"><a href="#WHERE-子句" class="headerlink" title="WHERE 子句"></a>WHERE 子句</h3><p>如需有条件地从表中选取数据，可将 WHERE 子句添加到 SELECT 语句。</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名称 FROM 表名称 WHERE 列 运算符 值</span><br></pre></td></tr></table></figure>
+<p>下面的运算符可在 WHERE 子句中使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">操作符	描述</span><br><span class="line">=	等于</span><br><span class="line">&lt;&gt;	不等于</span><br><span class="line">&gt;	大于</span><br><span class="line">&lt;	小于</span><br><span class="line">&gt;=	大于等于</span><br><span class="line">&lt;=	小于等于</span><br><span class="line">BETWEEN	在某个范围内</span><br><span class="line">LIKE	搜索某种模式</span><br></pre></td></tr></table></figure></p>
+<p>注释：在某些版本的 SQL 中，操作符 &lt;&gt; 可以写为 !=。</p>
+<h3 id="使用-WHERE-子句"><a href="#使用-WHERE-子句" class="headerlink" title="使用 WHERE 子句"></a>使用 WHERE 子句</h3><p>如果只希望选取居住在城市 “Beijing” 中的人，我们需要向 SELECT 语句添加 WHERE 子句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE City=&apos;Beijing&apos;</span><br></pre></td></tr></table></figure></p>
+<p>“Persons” 表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City	Year</span><br><span class="line">Adams	John	Oxford Street	London	1970</span><br><span class="line">Bush	George	Fifth Avenue	New York	1975</span><br><span class="line">Carter	Thomas	Changan Street	Beijing	1980</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing	1985</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City	Year</span><br><span class="line">Carter	Thomas	Changan Street	Beijing	1980</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing	1985</span><br></pre></td></tr></table></figure></p>
+<h3 id="引号的使用"><a href="#引号的使用" class="headerlink" title="引号的使用"></a>引号的使用</h3><p>请注意，我们在例子中的条件值周围使用的是单引号。</p>
+<p>SQL 使用单引号来环绕文本值（大部分数据库系统也接受双引号）。如果是数值，请不要使用引号。</p>
+<h4 id="文本值："><a href="#文本值：" class="headerlink" title="文本值："></a>文本值：</h4><p>这是正确的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE FirstName=&apos;Bush&apos;</span><br></pre></td></tr></table></figure></p>
+<p>这是错误的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE FirstName=Bush</span><br></pre></td></tr></table></figure></p>
+<h4 id="数值："><a href="#数值：" class="headerlink" title="数值："></a>数值：</h4><p>这是正确的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE Year&gt;1965</span><br></pre></td></tr></table></figure></p>
+<p>这是错误的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE Year&gt;&apos;1965&apos;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="SQL-AND-amp-OR-运算符"><a href="#SQL-AND-amp-OR-运算符" class="headerlink" title="SQL AND &amp; OR 运算符"></a>SQL AND &amp; OR 运算符</h2><p>AND 和 OR 运算符用于基于一个以上的条件对记录进行过滤。</p>
+<h3 id="AND-和-OR-运算符"><a href="#AND-和-OR-运算符" class="headerlink" title="AND 和 OR 运算符"></a>AND 和 OR 运算符</h3><p>AND 和 OR 可在 WHERE 子语句中把两个或多个条件结合起来。</p>
+<p>如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录。</p>
+<p>如果第一个条件和第二个条件中只要有一个成立，则 OR 运算符显示一条记录。</p>
+<p>原始的表 (用在例子中的)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Adams	John	Oxford Street	London</span><br><span class="line">Bush	George	Fifth Avenue	New York</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br><span class="line">Carter	William	Xuanwumen 10	Beijing</span><br></pre></td></tr></table></figure></p>
+<h3 id="AND-运算符实例"><a href="#AND-运算符实例" class="headerlink" title="AND 运算符实例"></a>AND 运算符实例</h3><p>使用 AND 来显示所有姓为 “Carter” 并且名为 “Thomas” 的人：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE FirstName=&apos;Thomas&apos; AND LastName=&apos;Carter&apos;</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br></pre></td></tr></table></figure></p>
+<h3 id="OR-运算符实例"><a href="#OR-运算符实例" class="headerlink" title="OR 运算符实例"></a>OR 运算符实例</h3><p>使用 OR 来显示所有姓为 “Carter” 或者名为 “Thomas” 的人：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE firstname=&apos;Thomas&apos; OR lastname=&apos;Carter&apos;</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br><span class="line">Carter	William	Xuanwumen 10	Beijing</span><br></pre></td></tr></table></figure></p>
+<h3 id="结合-AND-和-OR-运算符"><a href="#结合-AND-和-OR-运算符" class="headerlink" title="结合 AND 和 OR 运算符"></a>结合 AND 和 OR 运算符</h3><p>我们也可以把 AND 和 OR 结合起来（使用圆括号来组成复杂的表达式）:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE (FirstName=&apos;Thomas&apos; OR FirstName=&apos;William&apos;)</span><br><span class="line">AND LastName=&apos;Carter&apos;</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br><span class="line">Carter	William	Xuanwumen 10	Beijing</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="SQL-ORDER-BY-子句"><a href="#SQL-ORDER-BY-子句" class="headerlink" title="SQL ORDER BY 子句"></a>SQL ORDER BY 子句</h2><p>ORDER BY 语句用于对结果集进行排序。</p>
+<h3 id="ORDER-BY-语句"><a href="#ORDER-BY-语句" class="headerlink" title="ORDER BY 语句"></a>ORDER BY 语句</h3><p>ORDER BY 语句用于根据指定的列对结果集进行排序。</p>
+<p>ORDER BY 语句默认按照升序对记录进行排序。</p>
+<p>如果您希望按照降序对记录进行排序，可以使用 DESC 关键字。</p>
+<p>原始的表 (用在例子中的)：<br>Orders 表:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company	OrderNumber</span><br><span class="line">IBM	3532</span><br><span class="line">W3School	2356</span><br><span class="line">Apple	4698</span><br><span class="line">W3School	6953</span><br></pre></td></tr></table></figure></p>
+<h4 id="实例-1"><a href="#实例-1" class="headerlink" title="实例 1"></a>实例 1</h4><p>以字母顺序显示公司名称：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company	OrderNumber</span><br><span class="line">Apple	4698</span><br><span class="line">IBM	3532</span><br><span class="line">W3School	6953</span><br><span class="line">W3School	2356</span><br></pre></td></tr></table></figure></p>
+<h4 id="实例-2"><a href="#实例-2" class="headerlink" title="实例 2"></a>实例 2</h4><p>以字母顺序显示公司名称（Company），并以数字顺序显示顺序号（OrderNumber）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company, OrderNumber</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company	OrderNumber</span><br><span class="line">Apple	4698</span><br><span class="line">IBM	3532</span><br><span class="line">W3School	2356</span><br><span class="line">W3School	6953</span><br></pre></td></tr></table></figure></p>
+<h4 id="实例-3"><a href="#实例-3" class="headerlink" title="实例 3"></a>实例 3</h4><p>以逆字母顺序显示公司名称：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company	OrderNumber</span><br><span class="line">W3School	6953</span><br><span class="line">W3School	2356</span><br><span class="line">IBM	3532</span><br><span class="line">Apple	4698</span><br></pre></td></tr></table></figure></p>
+<h4 id="实例-4"><a href="#实例-4" class="headerlink" title="实例 4"></a>实例 4</h4><p>以逆字母顺序显示公司名称，并以数字顺序显示顺序号：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC, OrderNumber ASC</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Company	OrderNumber</span><br><span class="line">W3School	2356</span><br><span class="line">W3School	6953</span><br><span class="line">IBM	3532</span><br><span class="line">Apple	4698</span><br></pre></td></tr></table></figure></p>
+<p>注意：在以上的结果中有两个相等的公司名称 (W3School)。只有这一次，在第一列中有相同的值时，第二列是以升序排列的。如果第一列中有些值为 nulls 时，情况也是这样的。</p>
+<hr>
+<h2 id="SQL-INSERT-INTO-语句"><a href="#SQL-INSERT-INTO-语句" class="headerlink" title="SQL INSERT INTO 语句"></a>SQL INSERT INTO 语句</h2><h3 id="INSERT-INTO-语句"><a href="#INSERT-INTO-语句" class="headerlink" title="INSERT INTO 语句"></a>INSERT INTO 语句</h3><p>INSERT INTO 语句用于向表格中插入新的行。</p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO 表名称 VALUES (值1, 值2,....)</span><br></pre></td></tr></table></figure>
+<p>我们也可以指定所要插入数据的列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)</span><br></pre></td></tr></table></figure></p>
+<h3 id="插入新的行"><a href="#插入新的行" class="headerlink" title="插入新的行"></a>插入新的行</h3><p>“Persons” 表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br></pre></td></tr></table></figure></p>
+<h4 id="SQL-语句："><a href="#SQL-语句：" class="headerlink" title="SQL 语句："></a>SQL 语句：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons VALUES (&apos;Gates&apos;, &apos;Bill&apos;, &apos;Xuanwumen 10&apos;, &apos;Beijing&apos;)</span><br></pre></td></tr></table></figure>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br></pre></td></tr></table></figure></p>
+<h3 id="在指定的列中插入数据"><a href="#在指定的列中插入数据" class="headerlink" title="在指定的列中插入数据"></a>在指定的列中插入数据</h3><p>“Persons” 表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br></pre></td></tr></table></figure></p>
+<h4 id="SQL-语句：-1"><a href="#SQL-语句：-1" class="headerlink" title="SQL 语句："></a>SQL 语句：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO Persons (LastName, Address) VALUES (&apos;Wilson&apos;, &apos;Champs-Elysees&apos;)</span><br></pre></td></tr></table></figure>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Carter	Thomas	Changan Street	Beijing</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br><span class="line">Wilson	 	Champs-Elysees</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="SQL-UPDATE-语句"><a href="#SQL-UPDATE-语句" class="headerlink" title="SQL UPDATE 语句"></a>SQL UPDATE 语句</h2><h3 id="Update-语句"><a href="#Update-语句" class="headerlink" title="Update 语句"></a>Update 语句</h3><p>Update 语句用于修改表中的数据。</p>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值</span><br></pre></td></tr></table></figure>
+<p>Person:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br><span class="line">Wilson	 	Champs-Elysees</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新某一行中的一个列"><a href="#更新某一行中的一个列" class="headerlink" title="更新某一行中的一个列"></a>更新某一行中的一个列</h3><p>我们为 lastname 是 “Wilson” 的人添加 firstname：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE Person SET FirstName = &apos;Fred&apos; WHERE LastName = &apos;Wilson&apos;</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br><span class="line">Wilson	Fred	Champs-Elysees</span><br></pre></td></tr></table></figure></p>
+<h3 id="更新某一行中的若干列"><a href="#更新某一行中的若干列" class="headerlink" title="更新某一行中的若干列"></a>更新某一行中的若干列</h3><p>我们会修改地址（address），并添加城市名称（city）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPDATE Person SET Address = &apos;Zhongshan 23&apos;, City = &apos;Nanjing&apos;</span><br><span class="line">WHERE LastName = &apos;Wilson&apos;</span><br></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br><span class="line">Wilson	Fred	Zhongshan 23	Nanjing</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="SQL-DELETE-语句"><a href="#SQL-DELETE-语句" class="headerlink" title="SQL DELETE 语句"></a>SQL DELETE 语句</h2><h3 id="DELETE-语句"><a href="#DELETE-语句" class="headerlink" title="DELETE 语句"></a>DELETE 语句</h3><p>DELETE 语句用于删除表中的行。</p>
+<h4 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 表名称 WHERE 列名称 = 值</span><br></pre></td></tr></table></figure>
+<p>Person:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br><span class="line">Wilson	Fred	Zhongshan 23	Nanjing</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除某行"><a href="#删除某行" class="headerlink" title="删除某行"></a>删除某行</h3><p>“Fred Wilson” 会被删除：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM Person WHERE LastName = &apos;Wilson&apos;</span><br></pre></td></tr></table></figure></p>
+<p>结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LastName	FirstName	Address	City</span><br><span class="line">Gates	Bill	Xuanwumen 10	Beijing</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除所有行"><a href="#删除所有行" class="headerlink" title="删除所有行"></a>删除所有行</h3><p>可以在不删除表的情况下删除所有的行。这意味着表的结构、属性和索引都是完整的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM table_name</span><br></pre></td></tr></table></figure></p>
+<p>或者：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE * FROM table_name</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/数据分析/">数据分析</a>
+  </div>
+
+        
+  <div class="tags">
+    <a href="/tags/SQL/">SQL</a>
+  </div>
+
+        
+  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+<!-- 返回顶部 -->
+<div id="toTop">
+	<a href="#">▲</a>
+	<a href="#footer">▼</a>
+</div></div></div>
+      <aside id="sidebar" class="alignright">
+        
+           <div class="search">
+  <form action="/search/index.html" method="get" accept-charset="utf-8">
+<!--     <input type="search" name="wd"results="0" placeholder="搜索">
+    <input type="hidden" name="wd" value="site:paradoxallen.github.io"> -->
+     <input type="text" id="search" class="st-default-search-input" placeholder="搜索" style="height: 100%" />
+  </form>
+</div> 
+        
+          
+<div class="widget tag">
+  <h3 class="title" id="categories">分类</h3>
+     <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/个人随笔/">个人随笔</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博客开发/">博客开发</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应用统计/">应用统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学基础/">数学基础</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程相关/">编程相关</a><span class="category-list-count">25</span></li></ul> 
+</div>
+ 
+
+        
+          
+<div class="widget tagcloud">
+  <h3 class="title">标签</h3>
+  <div class="entry">
+    <a href="/tags/Excel/" style="font-size: 13.33px;">Excel</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/Machine-Learning/" style="font-size: 15px;">Machine Learning</a> <a href="/tags/Machine-Learning-课程笔记/" style="font-size: 18.33px;">Machine Learning 课程笔记</a> <a href="/tags/SQL/" style="font-size: 11.67px;">SQL</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/博客/" style="font-size: 11.67px;">博客</a> <a href="/tags/可视化/" style="font-size: 10px;">可视化</a> <a href="/tags/大气科学/" style="font-size: 10px;">大气科学</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/机器学习/" style="font-size: 16.67px;">机器学习</a> <a href="/tags/概率论与数理统计/" style="font-size: 10px;">概率论与数理统计</a> <a href="/tags/模型/" style="font-size: 13.33px;">模型</a> <a href="/tags/爬虫/" style="font-size: 11.67px;">爬虫</a> <a href="/tags/目录/" style="font-size: 10px;">目录</a> <a href="/tags/算法/" style="font-size: 11.67px;">算法</a> <a href="/tags/线性代数/" style="font-size: 10px;">线性代数</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编码/" style="font-size: 10px;">编码</a> <a href="/tags/高等数学/" style="font-size: 10px;">高等数学</a>
+  </div>
+</div>
+
+        
+          
+  <div class="widget tag">
+    <h3 class="title">归档</h3>
+	<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+        
+      </aside>
+      <div class="clearfix"></div>
+    </div>
+  <footer id="footer"><div class="footer-content inner">
+  <div class="alignleft">
+  
+    &copy; 2018 LRP
+    
+  </div>
+
+  <!--
+  <div class="alignright">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme
+    <a href="https://github.com/pengloo53/Hexo-theme-light_cn">light_cn</a>
+  </div>
+  -->
+
+  <!--
+  <div>
+    Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+  </div>
+  -->
+  
+  <div class="clearfix"></div>
+</div></footer>
+  <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<!-- calendar widget -->
+
+
+<!-- 百度统计 -->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9acf0cedd48dc53be256ede5a98c2aaa";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<!-- fancybox -->
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
