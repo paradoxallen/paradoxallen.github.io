@@ -3,15 +3,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Andrew Ng Machine Learning (7) K-Means | RP&#39;s Blog</title>
+  <title>第 8 页 | RP&#39;s Blog</title>
   <meta name="author" content="LRP">
-  
-  <meta name="description" content="此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。课程网址：https://www.coursera.org/learn/machine-learning/home/welcome">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Andrew Ng Machine Learning (7) K-Means"/>
+  
   <meta property="og:site_name" content="RP&#39;s Blog"/>
 
   
@@ -72,70 +70,35 @@
 </div>
 </header>
     <div id="content" class="inner">
-      <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+      <div id="main-col" class="alignleft"><div id="wrapper">
+    <article class="post">
   
   <div class="post-content">
     <header>
         <div class="icon"></div>
         
-        <time datetime="2017-09-10T16:00:00.000Z"><a href="/48762/">2017-09-11</a></time>
+        <time datetime="2017-01-20T16:00:00.000Z"><a href="/13431/">2017-01-21</a></time>
         
   
-    <h1 class="title">Andrew Ng Machine Learning (7) K-Means</h1>
+    <h1 class="title"><a href="/13431/">博客搭建——利用GitHub+Hexo</a></h1>
   
 
     </header>
 
     <div class="entry">
       
-        
-    <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Unsupervised-Learning"><span class="toc-text">1. Unsupervised Learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-K-Means-Algorithm"><span class="toc-text">2. K-Means Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Optimization-Objective"><span class="toc-text">Optimization Objective</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Random-Initialization"><span class="toc-text">Random Initialization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Choosing-the-numbers-of-clusters"><span class="toc-text">Choosing the numbers of clusters</span></a></li></ol></li></ol>
-    </div>
-
-        <script src="/assets/js/APlayer.min.js"> </script><p>此文是斯坦福大学 Andrew Ng 所开设的 Coursera 课程：Machine Learning 的课程笔记。<br>课程网址：<br><a href="https://www.coursera.org/learn/machine-learning/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/machine-learning/home/welcome</a></p>
-<a id="more"></a>
-<hr>
-<h3 id="1-Unsupervised-Learning"><a href="#1-Unsupervised-Learning" class="headerlink" title="1. Unsupervised Learning"></a>1. Unsupervised Learning</h3><p>之前课程中说到的学习，都是监督学习，即有一个label，明确告诉你这个样本，属于哪个类型，或者导致的值是多少。但是，如果我碰到没有label，或者我也不知道label是怎样的情况，但是我还是想要分成若干类。这样的问题，就是一种<strong>无监督</strong>问题。</p>
-<p><strong>聚类（clustering） </strong></p>
-<p>聚类是一种典型的无监督学习例子，但是<strong>聚类不等同于无监督学习</strong>，密度估计同样是一个典型的无监督学习例子。回到聚类，例如有下图：<br><img src="https://i.imgur.com/RWM0hdQ.png" alt=""></p>
-<p>每种样本（蓝色圆圈）都没有label指定类别，但是人眼一看就知道分成两类比较合适。如何让机器也知道如何分类呢？这就是聚类问题。</p>
-<h3 id="2-K-Means-Algorithm"><a href="#2-K-Means-Algorithm" class="headerlink" title="2. K-Means Algorithm"></a>2. K-Means Algorithm</h3><p><strong>K-Means 算法是解决无监督学习的有效算法之一</strong>。K（大写）表示将样本分为K个类型。算法具体的过程通俗易懂，如下图所示：<br><img src="https://i.imgur.com/XXqO0uo.png" alt=""><br><img src="https://i.imgur.com/mTXlNHO.png" alt=""></p>
-<p>配合上图，再作一些简单的解释：<br><img src="https://i.imgur.com/CJB9nyT.png" alt=""></p>
-<p>K-Means 算法进行一段时间后。<strong>可能会出现某个中心点没有分配到任何一个样本点的情况，这个时候可以直接去掉这个分类变为 (K-1) 簇</strong>。</p>
-<p>但是在某些情况我们很执着的要分为 K 簇，这种情况下需要随机确定一个新的聚类中心替代当前中心点，之后再次迭代。</p>
-<h4 id="Optimization-Objective"><a href="#Optimization-Objective" class="headerlink" title="Optimization Objective"></a>Optimization Objective</h4><p>K-Means 算法同样有着 cost function，目标同样是为了最小化 cost。cost 记为：<img src="https://i.imgur.com/Uvbvz66.png" alt=""></p>
-<p>分析K-Means的两个主要步骤，簇分配是以μ为常量，c为变量；移动聚类中心是以c为常量，μ为变量。通过不断修改，减小 cost。</p>
-<p>不同于回归问题，因为学习率过大导致随着迭代次数增加竟然还会增大 cost。聚类问题中不会出现这种问题（就没有学习率），聚类中随着迭代次数增加 <strong>cost 一定是逐渐下降的</strong>。</p>
-<h4 id="Random-Initialization"><a href="#Random-Initialization" class="headerlink" title="Random Initialization"></a>Random Initialization</h4><p>之前只是说，随机化取得K个聚类中心。具体究竟如何执行呢？ </p>
-<p><strong>（1）在m个样本中，随机取得K个样本 (K&lt;m) </strong></p>
-<p><strong>（2）令μ1,…,μK等同于所取到的K个样本</strong> </p>
-<p>但是，有的时候因为初始化的随机性，会陷入局部最大值的情况。例如下图所示：<br><img src="https://i.imgur.com/xKhfaFg.png" alt=""></p>
-<p>这样即使 K-Means 算法停止了，所取得的依然不是较好的分类方法，cost 依然十分大。怎么解决？<strong>多随机初始化几次！一般是运行50~1000次 K-Means 算法，取其中 cost 最小一次的结果</strong>。</p>
-<h4 id="Choosing-the-numbers-of-clusters"><a href="#Choosing-the-numbers-of-clusters" class="headerlink" title="Choosing the numbers of clusters"></a>Choosing the numbers of clusters</h4><p>好吧，最后一个问题来了，究竟应该分成几类？K=？ </p>
-<p>这个问题没有标准解，依照可视化图来观察是个不错的主意。有一种特殊情况，如果K−J(cost)图如下图左边所示，圆圈所指位置为<strong>“肘区”</strong>，一般我们取“肘区”所对应的 K 值。这种方法也称为 Elbow method.</p>
-<p>但是绝大多数时候，我们看到的是如下图右边的情况，这种时候……好吧看你的心情以及实际需求（最多只能承受多少类的负担）取值吧。<br><img src="https://i.imgur.com/mUOx6Rc.png" alt=""></p>
-<p>如果出现K−J(cost)图随着 K 值的增加上下起伏，那说明出现了“局部最大值”的问题。这个时候就应该使用上一小节提到的，多进行几次 K-Means 算法，求出一个J(cost)最小时的 cost 作为当前 K 值的 cost.</p>
-
+        <p>一直想有一个可以记录的属于自己的博客，最近在知乎上看到了利用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>+<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>搭建博客的教程，于是乎搭建了自己的博客<a href="https://paradoxallen.github.io/">paradoxallen</a>。</p>
+<p>然而在此过程也遇到了一些bug，希望以下图文并茂的教程（虽然已经有挺多类似的教程…但主要是想自己写一篇文章!!!而且保证超级详细!!!）可以帮助大家少走弯路，搭建属于自己的博客。</p>
       
     </div>
     <footer>
       
         
-  
-  <div class="categories">
-    <a href="/categories/机器学习/">机器学习</a>
-  </div>
-
+          <div class="alignleft">
+            <a href="/13431/#more" class="more-link">阅读全文</a>
+          </div>
         
-  <div class="tags">
-    <a href="/tags/Machine-Learning-课程笔记/">Machine Learning 课程笔记</a>
-  </div>
-
         
-  <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
       
       <div class="clearfix"></div>
     </footer>
@@ -145,7 +108,16 @@
 <div id="toTop">
 	<a href="#">▲</a>
 	<a href="#footer">▼</a>
-</div></div></div>
+</div>
+ 
+<nav id="pagination">
+  
+    <a href="/page/7/" class="alignleft prev">上一页</a>
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
       <aside id="sidebar" class="alignright">
         
            <div class="search">
